@@ -40,6 +40,7 @@ GEM
     arel (6.0.3)
     autoprefixer-rails (6.3.5)
       execjs
+    awesome_print (1.6.1)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -68,6 +69,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    colorize (0.7.7)
     concurrent-ruby (1.0.1)
     database_cleaner (1.5.1)
     debug_inspector (0.0.2)
@@ -85,6 +87,9 @@ GEM
       multipart-post (>= 1.2, < 3)
     ffi (1.9.10)
     formatador (0.2.5)
+    fuubar (2.0.0)
+      rspec (~> 3.0)
+      ruby-progressbar (~> 1.4)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     guard (2.13.0)
@@ -166,6 +171,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-rails (0.3.4)
+      pry (>= 0.9.10)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
@@ -229,6 +236,7 @@ GEM
       rspec-mocks (~> 3.4.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
+    ruby-progressbar (1.7.5)
     rubyzip (1.2.0)
     sass (3.4.22)
     sass-rails (5.0.4)
@@ -293,14 +301,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
   better_errors
   bootstrap-sass
   byebug
   capybara
   coffee-rails (~> 4.1.0)
+  colorize
   database_cleaner
   factory_girl_rails
   faker
+  fuubar
   guard-bundler
   guard-rails
   guard-rspec
@@ -312,6 +323,7 @@ DEPENDENCIES
   omniauth
   omniauth-facebook
   pg
+  pry-rails
   quiet_assets
   rails (= 4.2.6)
   rails_12factor
