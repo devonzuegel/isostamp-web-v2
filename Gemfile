@@ -16,6 +16,7 @@ gem 'slim-rails'
 gem 'unicorn'
 gem 'unicorn-rails'
 gem 'pry-rails'
+gem 'figaro'
 
 group :development, :test do
   gem 'byebug'
