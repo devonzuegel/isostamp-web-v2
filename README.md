@@ -67,6 +67,14 @@ This repository was forked from [github.com/cmwoo/mass-spectrometry](https://git
 
 This repo contains the code for [REPLACEME.herokuapp.com](http://REPLACEME.herokuapp.com/), version 2 of the website. The [original site](http://mass-spec-169.herokuapp.com/) will eventually be deprecated in favor of this new site.
 
+## Deployment Pipeline ##
+
+isostamp relies upon Heroku's deployment pipeline. The structure is as follows:
+
+1. Local development.
+2. Deploy to `isostamp-staging` (staging heroku app) by running [`$ rb deploy_staging.rb`](deploy_staging.rb).
+3. Promote `isostamp-staging` to `isostamp` (production heroku app) by running [`$ rb deploy_production.rb`](deploy_production.rb).
+
 ## Setup ##
 
 > Note: the `$` at the beginning code snippets indicates the command should be run in your terminal. The `$` should not be included in the actual command.
