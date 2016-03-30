@@ -17,6 +17,7 @@ gem 'unicorn-rails'
 gem 'pry-rails'
 gem 'figaro'
 gem 'redcarpet'
+gem 'carrierwave'
 
 group :development, :test do
   gem 'byebug'
