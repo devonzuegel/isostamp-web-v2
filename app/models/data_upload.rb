@@ -6,8 +6,12 @@ class DataUpload < ActiveRecord::Base
   mount_uploader :attachment, AttachmentUploader
 
   # Validations
-  validates_presence_of :name
+  validates_presence_of :name, :attachment
 
   # Constants
   FORMATS = %w(mzXML)
+
+  def attachment_url
+    "#{self.class.to_s.pluralize.underscore}/#{id}/#{name}"
+  end
 end

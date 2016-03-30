@@ -1,2 +1,12 @@
-h1 Data#new
-p Find me in app/views/data/new.html.slim
+h1 Upload data
+
+- if !@data_upload.errors.empty?
+  .alert.alert-error
+    ul
+      - @data_upload.errors.full_messages.each do |msg|
+        li= msg
+
+= form_for @data_upload, url: url_for(controller: :data, action: :create), html: { multipart: true } do |f|
+  table
+    tr: td= f.file_field :attachment
+    tr: td= f.submit     'Save'
