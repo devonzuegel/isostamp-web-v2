@@ -1,6 +1,17 @@
-.container
-  .row
-    .col-lg-8.col-lg-offset-2.col-md-10.col-md-offset-1
-      .post-preview
-        h2 Lorem ipsum
-        p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+markdown:
+  [Isotopic signature transfer and mass pattern prediction (IsoStamp)](http://pubs.acs.org/doi/abs/10.1021/cb100338x) is an enabling technique for chemically-directed proteomics. It is an algorithm for the targeted detection and identification of modified species by mass spectrometry (MS).
+
+  This web app enables other people to analyze their own data with IsoStamp.
+
+- if user_signed_in?
+  button= link_to 'Upload data now', '#'
+- else
+  button= link_to 'Sign in', signin_path
+  |  to upload data
+
+h3 Interview with postdocs David Spiciarich and Christina Woo
+
+iframe width="100%" height="350" src="https://www.youtube.com/embed/ejNOC68xzZM" frameborder="0" allowfullscreen
+
+markdown:
+  *The IsoStamp project was previously hosted at [mass-spec-169.herokuapp.com](http://mass-spec-169.herokuapp.com/).*
