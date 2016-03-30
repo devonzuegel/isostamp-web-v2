@@ -6,7 +6,7 @@ markdown:
 - if user_signed_in?
   button= link_to 'Upload data now', '#'
 - else
-  button= link_to 'Sign in', signin_path
+  button(href=signin_path) Sign in
   |  to upload data
 
 h3 Interview with postdocs David Spiciarich and Christina Woo
