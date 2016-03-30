@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
-  get 'data'          => 'data#index'
-  get 'data/new'      => 'data#new'
-  get 'data/create'   => 'data#create'
-  get 'data/destroy'  => 'data#destroy'
-
+  resources :data, only: %i(index new create destroy)
   resources :users
+
   root to: 'visitors#index'
 
   get '/auth/:provider/callback' => 'sessions#create'

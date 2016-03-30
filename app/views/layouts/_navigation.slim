@@ -10,6 +10,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top
     .collapse.navbar-collapse
       ul.nav.navbar-nav.pull-right
         - if user_signed_in?
+          li= link_to 'My data',  data_path
           li= link_to 'Sign out', signout_path
         - else
-          li= link_to 'Sign in', signin_path
+          li= link_to 'Sign in',  signin_path
