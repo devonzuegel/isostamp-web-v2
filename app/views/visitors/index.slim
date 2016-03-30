@@ -5,13 +5,18 @@ markdown:
 
 - if user_signed_in?
   button= link_to 'Upload data now', '#'
+  p.meta
+    = 'Please use the '
+    a(href='http://tools.proteomecenter.org/wiki/index.php?title=Formats:mzXML') mzXML
+    = ' data format.'
+
 - else
   button(href=signin_path) Sign in
   |  to upload data
 
 h3 Interview with postdocs David Spiciarich and Christina Woo
 
-iframe width="100%" height="350" src="https://www.youtube.com/embed/ejNOC68xzZM" frameborder="0" allowfullscreen
+iframe width='100%' height='350' src='https://www.youtube.com/embed/ejNOC68xzZM' frameborder='0' allowfullscreen
 
 markdown:
   *The IsoStamp project was previously hosted at [mass-spec-169.herokuapp.com](http://mass-spec-169.herokuapp.com/).*
