@@ -14,6 +14,138 @@
  *= require_self
  */
 
+$green: #27d096;
+$dark-green: darken($green, 6%);
+
+.alert {
+  position: relative;
+  margin: 20px 10px 10px 10px;
+  width: 97%;
+  // opacity: .9;
+}
+
+.fa-stack-text {
+  font-family: 'Lora' !important;
+}
+
+li a {
+  text-decoration: none !important;
+}
+
+.larger-font {
+  font-size: 1.2em;
+}
+
+.container {
+  padding: 0 40px;
+  &.small {
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-inverse {
+    border: none;
+    background-color: rgba(0,0,0,0.3);
+  }
+
+  .navbar-collapse {
+    border: none;
+    box-shadow: none;
+  }
+}
+
+.navbar-inverse {
+  .navbar-toggle {
+    border: none;
+  }
+
+  a {
+    color: #f1f1f1 !important;
+    &:hover {
+      color: white !important;
+    }
+  }
+  .navbar-toggle {
+    background-color: transparent !important;
+    &:hover {
+      background-color: transparent !important;
+    }
+  }
+}
+
+i.fa-green {
+  color: $green !important;
+}
+
+i.fa-grey {
+  color: #ccc !important;
+}
+
+i.fa-done {
+  @extend i.fa-grey;
+}
+
+.highlighted {
+  background-color: #FFFFb0;
+  padding: 1px;
+}
+
+p, li {
+  line-height: 1.85em;
+}
+.spacer {
+  height: 5px;
+  width: 100%;
+}
+.text-pic-shadow {
+  text-shadow: 1px 1px 6px rgba(0,0,0,0.75) !important;
+}
+.text-pic-shadow-small {
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.75) !important;
+}
+.intro-header .site-heading h1 {
+  @extend .text-pic-shadow;
+}
+nav li a, .navbar-header {
+  @extend .text-pic-shadow-small;
+}
+.tint {
+  position: relative;
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.3);
+  }
+}
 .intro-header {
-  background-color: #333;
+  min-height: 50vh;
+  .site-heading, .post-heading, .page-heading {
+    padding: 22vh 0;
+    color: white;
+  }
+
+  &.short {
+    min-height: 5vh;
+    .site-heading, .post-heading, .page-heading {
+      padding: 5vh 0;
+    }
+  }
+}
+
+.required {
+  border: 3px solid black;
+}
+
+.error {
+  border-color: red !important;
+}
+
+pre {
+  white-space: pre-wrap;
 }
