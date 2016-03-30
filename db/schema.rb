@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20160330055751) do
 
-  create_table "data_uploads", force: :cascade do |t|
+  create_table "documents", force: :cascade do |t|
     t.string   "name"
     t.string   "attachment"
     t.string   "format"

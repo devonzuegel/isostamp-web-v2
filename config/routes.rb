@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :data, only: %i(index new create destroy)
+  resources :documents, only: %i(index new create destroy)
   resources :users
 
   root to: 'visitors#index'

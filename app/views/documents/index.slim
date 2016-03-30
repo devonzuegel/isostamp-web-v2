@@ -1,0 +1,15 @@
+h1 All Uploads
+
+table.table.table-bordered.table-striped
+  thead
+    tr
+      th Name
+      th Date Uploaded
+
+  tbody
+    - @documents.each do |doc|
+      tr
+        td: a href="#{doc.attachment_url}"
+          = doc.name
+        td: a href="#{doc.attachment_url}"
+          = "#{time_ago_in_words(doc.created_at)} ago"

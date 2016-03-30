@@ -1,6 +1,6 @@
-class CreateDataUploads < ActiveRecord::Migration
+class CreateDocuments < ActiveRecord::Migration
   def change
-    create_table :data_uploads do |t|
+    create_table :documents do |t|
       t.string     :name
       t.string     :attachment
       t.string     :format

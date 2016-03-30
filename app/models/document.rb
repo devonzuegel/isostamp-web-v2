@@ -1,4 +1,4 @@
-class DataUpload < ActiveRecord::Base
+class Document < ActiveRecord::Base
   # Relationships
   belongs_to :user
 

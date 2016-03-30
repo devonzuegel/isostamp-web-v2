@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :data_upload do
+  factory :document do
     name       'MyString'
     attachment 'MyString'
     format     'MyString'
