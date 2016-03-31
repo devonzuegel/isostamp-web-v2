@@ -3,12 +3,15 @@ h1 All Uploads
 table.table.table-bordered.table-striped
   thead
     tr
+      th ID
       th Name
       th Date Uploaded
 
   tbody
     - @documents.each do |doc|
       tr
+        td: a href="#{doc.attachment.url}"
+          = doc.id
         td: a href="#{doc.attachment.url}"
           = doc.name
         td: a href="#{doc.attachment.url}"
