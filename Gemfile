@@ -18,6 +18,7 @@ gem 'pry-rails'
 gem 'figaro'
 gem 'redcarpet'
 gem 'carrierwave'
+gem 'fog'
 
 group :development, :test do
   gem 'byebug'

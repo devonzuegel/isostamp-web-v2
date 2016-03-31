@@ -1,11 +1,8 @@
 CarrierWave.configure do |config|
-  # These permissions will make dir and files available only to the user running
-  # the servers.
-  config.permissions           = 0600
-  config.directory_permissions = 0700
-  config.storage               = :file
+  config.root      = Rails.root.join('tmp')
+  config.cache_dir = 'carrierwave'
 
-  # This avoids uploaded files from saving to public/ and so
-  # they will not be available for public (non-authenticated) downloading
-  config.root = Rails.root
+  config.s3_access_key_id     = ENV['AWS_ACCESS_KEY_ID'],
+  config.s3_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
+  config.s3_bucket            = ENV['AWS_S3_BUCKET']
 end
