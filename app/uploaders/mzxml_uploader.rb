@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class AttachmentUploader < CarrierWave::Uploader::Base
+class MzxmlUploader < CarrierWave::Uploader::Base
   storage :file
 
   def store_dir

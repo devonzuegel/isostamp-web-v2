@@ -3,7 +3,7 @@ class Document < ActiveRecord::Base
   belongs_to :user
 
   # Uploaders
-  mount_uploader :attachment, AttachmentUploader
+  mount_uploader :attachment, MzxmlUploader
 
   # Validations
   validates_presence_of :name, :attachment
@@ -12,6 +12,6 @@ class Document < ActiveRecord::Base
   FORMATS = %w(mzXML)
 
   def attachment_url
-    "#{self.class.to_s.pluralize.underscore}/#{id}/#{name}"
+    "/uploads/#{self.class.to_s.pluralize.underscore}/#{id}/#{name}"
   end
 end
