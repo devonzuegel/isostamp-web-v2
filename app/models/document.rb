@@ -6,5 +6,5 @@ class Document < ActiveRecord::Base
   mount_uploader :attachment, MzxmlUploader
 
   # Validations
-  validates_presence_of :name, :attachment
+  validates_presence_of :name
 end
