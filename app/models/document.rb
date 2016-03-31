@@ -7,11 +7,4 @@ class Document < ActiveRecord::Base
 
   # Validations
   validates_presence_of :name, :attachment
-
-  # Constants
-  FORMATS = %w(mzXML)
-
-  def attachment_url
-    "/uploads/#{self.class.to_s.pluralize.underscore}/#{id}/#{name}"
-  end
 end

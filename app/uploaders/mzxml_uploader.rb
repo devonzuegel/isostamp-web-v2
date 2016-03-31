@@ -4,10 +4,10 @@ class MzxmlUploader < CarrierWave::Uploader::Base
   storage :file
 
   def store_dir
-    "uploads/#{model.class.to_s.pluralize.underscore}/#{model.id}"
+    "#{model.class.to_s.pluralize.underscore}/#{model.id}"
   end
 
   def extension_white_list
-    Document::FORMATS
+    %w(mzXML)
   end
 end
