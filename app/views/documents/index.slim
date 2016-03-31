@@ -10,9 +10,9 @@ table.table.table-bordered.table-striped
   tbody
     - @documents.each do |doc|
       tr
-        td: a href="#{doc.attachment.url}"
+        td: a href="#{Rails.root}/#{doc.attachment.url}"
           = doc.id
         td: a href="#{doc.attachment.url}"
           = doc.name
-        td: a href="#{doc.attachment.url}"
+        td: a href="#{Rails.root}/#{doc.attachment.url}"
           = "#{time_ago_in_words(doc.created_at)} ago"
