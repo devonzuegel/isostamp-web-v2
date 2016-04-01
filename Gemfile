@@ -19,6 +19,7 @@ gem 'figaro'
 gem 'redcarpet'
 gem 'carrierwave'
 gem 'fog'
+# gem 'fog-aws'
 
 group :development, :test do
   gem 'byebug'
