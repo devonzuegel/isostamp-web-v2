@@ -1,4 +1,10 @@
 CarrierWave.configure do |config|
+  # If you encounter a 403 Forbidden error, follow the directions here:
+  #   stackoverflow.com/questions/28564653/exconerrorsforbidden-expected200-actual403-forbidden
+  #
+  # For information on AWS bucket regions:
+  #   bucketexplorer.com/documentation/amazon-s3--amazon-s3-buckets-and-regions.html
+
   config.fog_credentials = {
     provider:               'AWS',                        # required
     aws_access_key_id:      ENV['AWS_ACCESS_KEY_ID'],     # required

@@ -4,7 +4,6 @@ class MzxmlUploader < CarrierWave::Uploader::Base
   storage :fog
 
   def store_dir
-    # #{Rails.root}/private
     "uploads/#{model.class.to_s.pluralize.underscore}/#{model.id}"
   end
 
