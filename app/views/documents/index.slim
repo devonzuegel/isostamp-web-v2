@@ -1,18 +1,24 @@
-h1 All Uploads
 
-table.table.table-bordered.table-striped
-  thead
+h1 Upload data
+
+- if !@document.errors.empty?
+  .alert.alert-error
+    ul
+      - @document.errors.full_messages.each do |msg|
+        li= msg
+
+= form_for @document, url: url_for(controller: :documents, action: :create), html: { multipart: true } do |f|
+  table
+    tr: td= f.file_field :attachment
+    tr: td= f.submit     'Save'
+
+h1 Your Uploads
+
+table.table.table-bordered.table-striped: tbody
+  - @documents.each do |doc|
     tr
-      th ID
-      th Name
-      th Date Uploaded
-
-  tbody
-    - @documents.each do |doc|
-      tr
-        td: a href="#{doc.attachment.url}"
-          = doc.id
-        td: a href="#{doc.attachment.url}"
-          = doc.name
-        td: a href="#{doc.attachment.url}"
-          = "#{time_ago_in_words(doc.created_at)} ago"
+      td: a href="#{doc.attachment.url}"
+        = doc.name
+      td: a href="#{doc.attachment.url}"
+        = "#{time_ago_in_words(doc.created_at)} ago"
+      td= link_to '×', document_path(doc.id), method: :delete

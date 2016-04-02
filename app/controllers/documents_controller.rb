@@ -1,19 +1,10 @@
 class DocumentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_ownership!, only: %i(download)
+  before_action :check_ownership!, only: %i(destroy)
 
   def index
-    @documents = Document.where(user: current_user)
-  end
-
-  def new
     @document = Document.new
-  end
-
-  def download
-    @document = Document.find(params[:id])
-    path      = "#{Rails.root}#{@document.attachment.url}"
-    send_file path, x_sendfile: true
+    @documents = Document.where(user: current_user)
   end
 
   def create
@@ -36,7 +27,7 @@ class DocumentsController < ApplicationController
   private
 
   def document_params
-    params.require(:document).permit(:attachment)
+    params.require(:document).permit(:attachment, :name)
   end
 
   def check_ownership!

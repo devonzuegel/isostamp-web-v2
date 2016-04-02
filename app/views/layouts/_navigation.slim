@@ -10,7 +10,6 @@ nav.navbar.navbar-inverse.navbar-fixed-top
     .collapse.navbar-collapse
       ul.nav.navbar-nav.pull-right
         - if user_signed_in?
-          li= link_to 'Upload',   new_document_path
           li= link_to 'My data',  documents_path
           li= link_to 'Sign out', signout_path
         - else

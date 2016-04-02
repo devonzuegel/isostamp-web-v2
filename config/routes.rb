@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
-  resources :documents, only: %i(index new create destroy)
+  resources :documents, only: %i(index create destroy)
   resources :users
-
-  match "/uploads/documents/:id/:basename.:extension" => 'documents#download', via: :get
-
 
   root to: 'visitors#index'
 
