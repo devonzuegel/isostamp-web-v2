@@ -19,7 +19,7 @@ gem 'figaro'
 gem 'redcarpet'
 gem 'carrierwave'
 gem 'fog'
-# gem 'fog-aws'
+gem 'pg'
 
 group :development, :test do
   gem 'byebug'
@@ -37,7 +37,6 @@ end
 
 group :development do
   gem 'web-console',              '~> 2.0'
-  gem 'spring'
   gem 'better_errors'
   gem 'guard-bundler'
   gem 'guard-rails'
@@ -52,7 +51,6 @@ group :development do
 end
 
 group :production do
-  gem 'pg'
   gem 'rails_12factor'
 end
 
