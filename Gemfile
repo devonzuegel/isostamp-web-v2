@@ -20,6 +20,8 @@ gem 'redcarpet'
 gem 'carrierwave'
 gem 'fog'
 gem 'pg'
+gem 'chartkick'
+gem 'groupdate'
 
 group :development, :test do
   gem 'byebug'

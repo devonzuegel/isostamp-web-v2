@@ -1,1 +1,11 @@
-= line_chart User.group_by_day(:created_at).count
+h2 User Signups Per Week
+= line_chart User.group_by_week(:created_at).count
+
+h2 Cumulative User Signups
+= line_chart @cumulative_users
+
+h2 mzXML Files Uploaded Per Week
+= line_chart Document.group_by_week(:created_at).count
+
+h2 Cumulative mzXML Files Uploaded
+= line_chart @cumulative_documents
