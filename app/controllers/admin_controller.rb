@@ -2,22 +2,20 @@ class AdminController < ApplicationController
   before_action :authenticate_admin!
 
   def metrics
-    cumulative_users_sum = 0
-    @cumulative_users = User.group_by_week(:created_at)
-                            .order("week asc")
-                            .count.map { |x,y| { x => (cumulative_users_sum += y)} }
-                            .reduce({}, :merge)
-
-    cumulative_documents_sum = 0
-    @cumulative_documents = Document.group_by_week(:created_at)
-                            .order("week asc")
-                            .count.map { |x,y| { x => (cumulative_documents_sum += y)} }
-                            .reduce({}, :merge)
+    @cumulative_users     = cumulative_data(User.group_by_week(:created_at))
+    @cumulative_documents = cumulative_data(Document.group_by_week(:created_at))
   end
 
   private
 
   def authenticate_admin!
     render_404 if current_user.nil? || !current_user.admin
+  end
+
+  def cumulative_data(data, order = 'week asc')
+    sum = 0
+    data.order(order)
+        .count.map { |x,y| { x => (sum += y)} }
+        .reduce({}, :merge)
   end
 end
