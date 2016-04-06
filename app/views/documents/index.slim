@@ -18,7 +18,7 @@ table.table.table-bordered.table-striped: tbody
   - @documents.each do |doc|
     tr
       td: a href="#{doc.attachment.url}"
-        = doc.name
+        = doc.filename
       td: a href="#{doc.attachment.url}"
         = "#{time_ago_in_words(doc.created_at)} ago"
       td= link_to '×', document_path(doc.id), method: :delete

@@ -9,25 +9,25 @@ class DocumentsController < ApplicationController
 
   def create
     @document = Document.new(document_params)
-    @document.update_attributes(name: @document.attachment.filename, user: current_user)
 
     if @document.save
-      redirect_to documents_path, notice: "The file #{@document.name} has been uploaded."
+      redirect_to documents_path, notice: "The file #{@document.filename} has been uploaded."
     else
-      render 'new'
+      render 'index'
     end
   end
 
   def destroy
     @document = Document.find(params[:id])
     @document.destroy
-    redirect_to documents_path, notice: "The file #{@document.name} has been deleted."
+    redirect_to documents_path, notice: "The file #{@document.filename} has been deleted."
   end
 
   private
 
   def document_params
-    params.require(:document).permit(:attachment, :name)
+    filtered = params.require(:document).permit(:attachment)
+    filtered.merge(user: current_user)
   end
 
   def check_ownership!
