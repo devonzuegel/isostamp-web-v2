@@ -463,6 +463,7 @@ DEPENDENCIES
   faker
   figaro
   fog
+  fog-aws
   fuubar
   groupdate
   guard-bundler

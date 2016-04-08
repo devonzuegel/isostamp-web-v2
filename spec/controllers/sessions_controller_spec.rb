@@ -11,9 +11,11 @@ describe SessionsController, :omniauth do
     end
 
     it "creates a session" do
+      original_session_count = Session.count
       expect(session[:user_id]).to be_nil
       post :create, provider: :facebook
       expect(session[:user_id]).not_to be_nil
+      expect(Session.count).to eq(original_session_count + 1)
     end
 
     it "redirects to the home page" do

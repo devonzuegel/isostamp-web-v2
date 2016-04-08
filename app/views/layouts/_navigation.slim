@@ -6,11 +6,13 @@ nav.navbar.navbar-inverse.navbar-fixed-top
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      = link_to 'Home', root_path, class: 'navbar-brand'
+      .brand= link_to 'IsoStamp', root_path, class: 'navbar-brand'
     .collapse.navbar-collapse
       ul.nav.navbar-nav.pull-right
         - if user_signed_in?
-          li= link_to 'My data',  documents_path
-          li= link_to 'Sign out', signout_path
+          li= link_to 'My data',   documents_path
+          - if current_user.admin
+            li= link_to 'Metrics', metrics_path
+          li= link_to 'Sign out',  signout_path
         - else
-          li= link_to 'Sign in',  signin_path
+          li= link_to 'Sign in',   signin_path

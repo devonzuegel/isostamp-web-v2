@@ -1,11 +1,33 @@
-h2 User Signups Per Week
-= line_chart User.group_by_week(:created_at).count
+#metrics-groups
+  ul.nav.nav-tabs#metrics-tabs
+    li.active: a.tab data-target='#sigups'       data-toggle='tab' href='#sigups'        User sign ups
+    li:        a.tab data-target='#file-uploads' data-toggle='tab' href='#file-uploads'  File uploads
+    li:        a.tab data-target='#logins'       data-toggle='tab' href='#logins'        Logins
 
-h2 Cumulative User Signups
-= line_chart @cumulative_users
+  #tab-content
+    #sigups
 
-h2 mzXML Files Uploaded Per Week
-= line_chart Document.group_by_week(:created_at).count
+      h2 User Signups Per Week
+      = line_chart User.group_by_week(:created_at).count
 
-h2 Cumulative mzXML Files Uploaded
-= line_chart @cumulative_documents
+      h2 Cumulative User Signups
+      = line_chart @cumulative_users
+
+    #file-uploads
+
+      h2 mzXML Files Uploaded Per Week
+      = line_chart Document.group_by_week(:created_at).count
+
+      h2 Cumulative mzXML Files Uploaded
+      = line_chart @cumulative_documents
+
+    #logins
+
+      h2 Logins Per Week
+      = line_chart Session.group_by_week(:created_at).count
+
+javascript:
+  $(function() {
+    $("#metrics-groups").tabs();
+    $('#metrics-tabs a:first').tab('show')
+  });
