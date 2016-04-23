@@ -1,7 +1,11 @@
 class SessionsController < ApplicationController
 
   def new
-    redirect_to '/auth/facebook'
+    user = User.second
+    session[:user_id] = user.id
+    Session.create!(user: user)
+    redirect_to root_url, notice: 'Signed in!'
+    # redirect_to '/auth/facebook'
   end
 
   def create
