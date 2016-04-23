@@ -3,9 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_user
-  helper_method :user_signed_in?
-  helper_method :correct_user?
+  helper_method :current_user, :user_signed_in?, :correct_user?
+  before_filter :redirect_subdomain
 
   private
 
@@ -37,4 +36,14 @@ class ApplicationController < ActionController::Base
   def render_404
     render file: "#{Rails.root}/public/404.html", status: 404
   end
+
+  def redirect_subdomain
+    stripped = strip_url(request.host)
+    redirect_to "#{stripped}#{request.fullpath}" if stripped != request.host
+  end
+
+  def strip_url(url)
+    url.sub('https://www.', '').sub('http://www.', '').sub('www.', '')
+  end
 end
+
