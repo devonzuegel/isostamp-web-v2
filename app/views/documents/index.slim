@@ -1,24 +1,30 @@
-
 h1 Upload data
 
-- if !@document.errors.empty?
-  .alert.alert-error
-    ul
-      - @document.errors.full_messages.each do |msg|
-        li= msg
+#file-upload-form
+  = form_for @document, url: url_for(controller: :documents, action: :create), html: { multipart: true } do |f|
+    table
+      tr: .file-input-field
+        = f.file_field :attachment, id: 'file-input'
+      tr: td.spacer
+      tr: td
+        = f.submit 'Upload', id: 'file-input-submit', :class => 'button btn btn-primary', disabled: true
 
-= form_for @document, url: url_for(controller: :documents, action: :create), html: { multipart: true } do |f|
-  table
-    tr: td= f.file_field :attachment
-    tr: td= f.submit     'Save'
+javascript:
+  $("#file-input").change(function(e){
+    if($("#file-upload-form form input[type=file]").val()) {
+      $("#file-upload-form form input[type=submit]").prop('disabled', false);
+    };
+  });
 
 h1 Your Uploads
 
 table.table.table-bordered.table-striped: tbody
+  - if @documents.empty?
+    p You haven't uploaded any documents yet.
   - @documents.each do |doc|
     tr
       td: a href="#{doc.attachment.url}"
         = doc.filename
-      td: a href="#{doc.attachment.url}"
+      td
         = "#{time_ago_in_words(doc.created_at)} ago"
       td= link_to '×', document_path(doc.id), method: :delete

@@ -8,8 +8,8 @@ end
 
 400.times do
   user = User.order('RANDOM()').first
-  Document.create(
-    user:         user,
-    created_at:   Faker::Time.between(user.created_at, 1.minute.ago)
-  )
+  # Document.create(
+  #   user:         user,
+  #   created_at:   Faker::Time.between(user.created_at, 1.minute.ago)
+  # )
 end

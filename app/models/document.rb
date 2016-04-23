@@ -6,6 +6,6 @@ class Document < ActiveRecord::Base
   mount_uploader :attachment, MzxmlUploader
 
   def filename
-    File.basename(attachment.path)
+    File.basename(attachment.path || '')
   end
 end

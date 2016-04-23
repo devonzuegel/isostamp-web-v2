@@ -3,8 +3,8 @@ class DocumentsController < ApplicationController
   before_action :check_ownership!, only: %i(destroy)
 
   def index
-    @document = Document.new
-    @documents = Document.where(user: current_user)
+    @document  = Document.new
+    @documents = Document.where(user: current_user) || []
   end
 
   def create
@@ -13,7 +13,8 @@ class DocumentsController < ApplicationController
     if @document.save
       redirect_to documents_path, notice: "The file #{@document.filename} has been uploaded."
     else
-      render 'index'
+      flash[:error] = @document.errors.full_messages.join("\n")
+      redirect_to documents_path
     end
   end
 

@@ -17,6 +17,10 @@
 // @import "bootstrap-sprockets";
 @import "bootstrap";
 
+* {
+  font-family: 'Karla', sans-serif;
+}
+
 $green: #27d096;
 $dark-green: darken($green, 6%);
 
