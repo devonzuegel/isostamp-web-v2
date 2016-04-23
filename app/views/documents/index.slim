@@ -1,6 +1,11 @@
 h1 Upload data
 
 #file-upload-form
+  p
+    = 'Please use the '
+    a(href='http://tools.proteomecenter.org/wiki/index.php?title=Formats:mzXML') mzXML
+    = ' data format.'
+
   = form_for @document, url: url_for(controller: :documents, action: :create), html: { multipart: true } do |f|
     table
       tr: .file-input-field

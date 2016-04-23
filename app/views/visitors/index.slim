@@ -4,14 +4,13 @@ markdown:
   This web app enables other people to analyze their own data with IsoStamp.
 
 - if user_signed_in?
-  button= link_to 'Upload data now', documents_path
+  a(href=documents_path)
+    button.button.btn.btn-primary Upload data now
   p.meta
-    = 'Please use the '
-    a(href='http://tools.proteomecenter.org/wiki/index.php?title=Formats:mzXML') mzXML
-    = ' data format.'
 
 - else
-  button.button.btn.btn-primary(href=signin_path) Sign in
+  a(href=signin_path)
+    button.button.btn.btn-primary Sign in
   |  to upload data
 
 h3 Interview with postdocs David Spiciarich and Christina Woo

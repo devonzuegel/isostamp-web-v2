@@ -26,9 +26,8 @@ $dark-green: darken($green, 6%);
 
 .alert {
   position: relative;
-  margin: 20px 10px 10px 10px;
+  margin: 0px 10px 10px 10px;
   width: 97%;
-  // opacity: .9;
 }
 
 .fa-stack-text {
@@ -53,8 +52,8 @@ li a {
 @media (max-width: 768px) {
   .navbar-inverse {
     border: none;
-    background-color: rgba(0,0,0,0.3);
   }
+
 
   .navbar-collapse {
     border: none;
@@ -104,6 +103,10 @@ p, li {
 .spacer {
   height: 5px;
   width: 100%;
+
+  &.large {
+    height: 25px;
+  }
 }
 .text-pic-shadow {
   text-shadow: 1px 1px 6px rgba(0,0,0,0.75) !important;
