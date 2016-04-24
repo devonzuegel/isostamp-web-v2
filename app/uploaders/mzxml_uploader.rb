@@ -8,6 +8,6 @@ class MzxmlUploader < CarrierWave::Uploader::Base
   end
 
   def extension_white_list
-    %w(mzXML)
+    %w(mzXML txt)
   end
 end

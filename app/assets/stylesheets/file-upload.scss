@@ -1,14 +1,21 @@
-/*.file-input-field {
-  color: black;
-  width: 157px;
-  height: 57px;
-  overflow: hidden;
+table.form-table {
+  width:     100%;
+  max-width: 550px;
 
-  input {
-    display: block   !important;
-    width: 157px     !important;
-    height: 57px     !important;
-    opacity: 0       !important;
-    overflow: hidden !important;
+  .fileinput {
+    width: 100%;
   }
-}*/
+}
+
+table.padded-form {
+  td {
+    padding: 5px 0px;
+  }
+}
+
+input,
+label.btn.btn-default,
+.fileinput-exists,
+.fileinput-new {
+  font-family: 'Karla' !important;
+}

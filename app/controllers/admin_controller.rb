@@ -6,6 +6,10 @@ class AdminController < ApplicationController
     @cumulative_documents = cumulative_data(Document.group_by_week(:created_at))
   end
 
+  def documents
+    @documents = Document.all
+  end
+
   private
 
   def cumulative_data(data, order = 'week asc')

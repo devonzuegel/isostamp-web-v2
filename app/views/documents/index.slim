@@ -9,12 +9,28 @@ h1 Upload data
     = ' file for your parameters.'
 
   = form_for @document, url: url_for(controller: :documents, action: :create), html: { multipart: true } do |f|
-    table
-      tr: .file-input-field
-        = f.file_field :attachment, id: 'file-input'
-      tr: td.spacer
+    table.padded-form.form-table
+      tr: td: .btn-group data-toggle='buttons'
+        label.btn.btn-default.default.active
+          = f.radio_button :kind, :'Mass Spec Data', checked: true
+          | Mass Spec Data
+        label.btn.btn-default
+          = f.radio_button :kind, :'Params'
+          | Parameters
+      tr: td: .file-input-field
+        .fileinput.fileinput-new.input-group data-provides='fileinput'
+          .form-control data-trigger='fileinput'
+            i.glyphicon.glyphicon-file.fileinput-exists
+            span class="fileinput-filename"
+          span.input-group-addon.btn.btn-default.btn-file
+            span.fileinput-new Select file
+            span.fileinput-exists Change
+            = f.file_field :attachment, id: 'file-input'
+          a.input-group-addon.btn.btn-default.fileinput-exists href="#" data-dismiss="fileinput" Remove
       tr: td
-        = f.submit 'Upload', id: 'file-input-submit', :class => 'button btn btn-primary', disabled: true
+        = f.submit 'Upload', :class => 'button btn btn-primary',
+                             id:       'file-input-submit',
+                             disabled: true
 
 javascript:
   $("#file-input").change(function(e){
@@ -32,6 +48,8 @@ table.table.table-bordered.table-striped: tbody
     tr
       td: a href="#{doc.attachment.url}"
         = doc.filename
+      td
+        = doc.kind
       td
         = "#{time_ago_in_words(doc.created_at)} ago"
       td= link_to '×', document_path(doc.id), method: :delete

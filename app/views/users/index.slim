@@ -12,7 +12,7 @@ table.table.table-bordered.table-striped
     th
   - @users.each do |user|
     tr
-      td= render user
+      td= link_to user.name, user
       td= user.documents.count
       td= user.sessions.count
       - if user.admin?
