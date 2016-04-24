@@ -1,0 +1,22 @@
+p
+  b= 'Total number of users: '
+  = User.count
+
+table.table.table-bordered.table-striped
+  tr
+    th
+    th Name
+    th Documents
+    th Sessions
+    th: .pull-right Delete
+    th
+  - @users.each do |user|
+    tr
+      td= render user
+      td= user.documents.count
+      td= user.sessions.count
+      - if user.admin?
+        td: .pull-right= 'Admin'
+      - else
+        td: .pull-right= link_to '×', user_path(user.id), method: :delete, data: { confirm: "Are you sure you want to delete #{user.name} and all of his/her associated data?" }
+      td

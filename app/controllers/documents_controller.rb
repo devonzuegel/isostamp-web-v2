@@ -27,7 +27,7 @@ class DocumentsController < ApplicationController
   private
 
   def document_params
-    filtered = params.require(:document).permit(:attachment)
+    filtered = params.require(:document).permit(:attachment, :kind)
     filtered.merge(user: current_user)
   end
 

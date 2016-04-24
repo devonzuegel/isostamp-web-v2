@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   def correct_user?
     @user = User.find(params[:id])
-    unless current_user == @user
+    unless current_user == @user || current_user.admin?
       redirect_to root_url, :alert => "Access denied."
     end
   end
@@ -44,6 +44,10 @@ class ApplicationController < ActionController::Base
 
   def strip_url(url)
     url.sub('https://www.', '').sub('http://www.', '').sub('www.', '')
+  end
+
+  def authenticate_admin!
+    render_404 if current_user.nil? || !current_user.admin
   end
 end
 

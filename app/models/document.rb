@@ -4,6 +4,7 @@ class Document < ActiveRecord::Base
 
   # Uploaders
   mount_uploader :attachment, MzxmlUploader
+  enum kind: { mass_spec_data: 0, params: 1 }
 
   def filename
     File.basename(attachment.path || '')

@@ -8,10 +8,6 @@ class AdminController < ApplicationController
 
   private
 
-  def authenticate_admin!
-    render_404 if current_user.nil? || !current_user.admin
-  end
-
   def cumulative_data(data, order = 'week asc')
     sum = 0
     data.order(order)
