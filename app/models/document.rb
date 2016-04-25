@@ -5,7 +5,7 @@ class Document < ActiveRecord::Base
   # Uploaders
   mount_uploader :attachment, MzxmlUploader
 
-  validates_presence_of :kind
+  validates_presence_of %i(kind attachment user)
   enum kind: { 'Mass Spec Data': 0, 'Parameters': 1 }
 
   EXTENSION_WHITE_LIST = %w(mzXML txt)

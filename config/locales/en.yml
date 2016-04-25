@@ -2,7 +2,6 @@ en:
   activerecord:
     attributes:
       document:
-        attachment: ''
     errors:
       models:
         document:

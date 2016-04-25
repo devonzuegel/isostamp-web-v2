@@ -1,8 +1,17 @@
+include ActionDispatch::TestProcess
+
 FactoryGirl.define do
   factory :document do
-    id          1
-    name       'MyString'
-    attachment 'uploads/documents/1/testfile.mzXML'
-    format     'MyString'
+    attachment { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'fixtures', 'test.mzXML')) }
+    kind       'Mass Spec Data'
+    user       { create(:user)}
+
+    trait :mass_spec do
+      kind       'Mass Spec Data'
+    end
+
+    trait :params do
+      kind       'Parameters'
+    end
   end
 end

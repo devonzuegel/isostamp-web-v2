@@ -1,9 +1,6 @@
 FactoryGirl.define do
   factory :tagfinder_execution do
-    user nil
-    data_file nil
-    params_file nil
-    email_sent false
-    success false
+    user      { create(:user) }
+    data_file { create(:document, user: self.user || create(:user)) }
   end
 end

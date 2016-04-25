@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<mzXML xmlns="http://sashimi.sourceforge.net/schema_revision/mzXML_3.1"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://sashimi.sourceforge.net/schema_revision/mzXML_3.1 http://sashimi.sourceforge.net/schema_revision/mzXML_3.1/mzXML_idx_3.1.xsd" >
+ <msRun scanCount="6794" startTime="PT0.4435S" endTime="PT7199.65S" >
+ </msRun>
+ <index name="scan" >
+ </index>
+ <indexOffset>82514786</indexOffset>
+ <sha1>e2513cb269df0f0968472637bbd83ad9c8320427</sha1>
+</mzXML>
