@@ -33,6 +33,6 @@ class Document < ActiveRecord::Base
   end
 
   def filetype_to_kind_map
-    Hash[EXTENSION_WHITE_LIST.zip(self.kinds.keys)]
+    Hash[EXTENSION_WHITE_LIST.zip(self.class.kinds.keys)]
   end
 end
