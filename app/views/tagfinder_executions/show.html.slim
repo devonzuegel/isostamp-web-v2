@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong User:
+  = @tagfinder_execution.user
+p
+  strong Data file:
+  = @tagfinder_execution.data_file
+p
+  strong Params file:
+  = @tagfinder_execution.params_file
+p
+  strong Email sent:
+  = @tagfinder_execution.email_sent
+p
+  strong Success:
+  = @tagfinder_execution.success
+
+= link_to 'Edit', edit_tagfinder_execution_path(@tagfinder_execution)
+'|
+= link_to 'Back', tagfinder_executions_path

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tagfinder_executions
   resources :documents, only: %i(index create destroy)
   resources :users
 

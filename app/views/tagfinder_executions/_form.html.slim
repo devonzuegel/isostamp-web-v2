@@ -1,0 +1,24 @@
+= form_for @tagfinder_execution do |f|
+  - if @tagfinder_execution.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@tagfinder_execution.errors.count, "error")} prohibited this tagfinder_execution from being saved:"
+      ul
+        - @tagfinder_execution.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :user
+    = f.text_field :user
+  .field
+    = f.label :data_file
+    = f.text_field :data_file
+  .field
+    = f.label :params_file
+    = f.text_field :params_file
+  .field
+    = f.label :email_sent
+    = f.check_box :email_sent
+  .field
+    = f.label :success
+    = f.check_box :success
+  .actions = f.submit

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160424022653) do
+ActiveRecord::Schema.define(version: 20160425225831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,20 @@ ActiveRecord::Schema.define(version: 20160424022653) do
 
   add_index "sessions", ["user_id"], name: "index_sessions_on_user_id", using: :btree
 
+  create_table "tagfinder_executions", force: :cascade do |t|
+    t.integer  "user_id",        null: false
+    t.integer  "data_file_id",   null: false
+    t.integer  "params_file_id"
+    t.boolean  "email_sent"
+    t.boolean  "success"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "tagfinder_executions", ["data_file_id"], name: "index_tagfinder_executions_on_data_file_id", using: :btree
+  add_index "tagfinder_executions", ["params_file_id"], name: "index_tagfinder_executions_on_params_file_id", using: :btree
+  add_index "tagfinder_executions", ["user_id"], name: "index_tagfinder_executions_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "provider"
@@ -42,4 +56,5 @@ ActiveRecord::Schema.define(version: 20160424022653) do
   end
 
   add_foreign_key "sessions", "users"
+  add_foreign_key "tagfinder_executions", "users"
 end

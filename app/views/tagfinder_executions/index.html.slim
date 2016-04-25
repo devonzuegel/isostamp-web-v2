@@ -1,0 +1,29 @@
+h1 Listing tagfinder_executions
+
+table
+  thead
+    tr
+      th User
+      th Data file
+      th Params file
+      th Email sent
+      th Success
+      th
+      th
+      th
+
+  tbody
+    - @tagfinder_executions.each do |tagfinder_execution|
+      tr
+        td = tagfinder_execution.user
+        td = tagfinder_execution.data_file
+        td = tagfinder_execution.params_file
+        td = tagfinder_execution.email_sent
+        td = tagfinder_execution.success
+        td = link_to 'Show', tagfinder_execution
+        td = link_to 'Edit', edit_tagfinder_execution_path(tagfinder_execution)
+        td = link_to 'Destroy', tagfinder_execution, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Tagfinder execution', new_tagfinder_execution_path
