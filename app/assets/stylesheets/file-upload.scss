@@ -10,6 +10,10 @@ table.form-table {
 table.padded-form {
   td {
     padding: 5px 0px;
+
+    label {
+      margin-bottom: 0px;
+    }
   }
 }
 

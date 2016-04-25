@@ -6,12 +6,13 @@ table.table.table-bordered.table-striped
   tr
     th
     th Name
-    th Documents
-    th Sessions
+    th Document Count
+    th Sessions Count
     th: .pull-right Delete
     th
   - @users.each do |user|
     tr
+      td
       td= link_to user.name, user
       td= user.documents.count
       td= user.sessions.count

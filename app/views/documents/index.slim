@@ -11,12 +11,16 @@ h1 Upload data
   = form_for @document, url: url_for(controller: :documents, action: :create), html: { multipart: true } do |f|
     table.padded-form.form-table
       tr: td: .btn-group data-toggle='buttons'
-        label.btn.btn-default.default.active
-          = f.radio_button :kind, :'Mass Spec Data', checked: true
-          | Mass Spec Data
-        label.btn.btn-default
-          = f.radio_button :kind, :'Params'
-          | Parameters
+        - Document.kinds.keys.each do |k|
+          label.btn.btn-default
+            = f.radio_button :kind, k
+            = f.label k.to_sym
+        / label.btn.btn-default.default.active
+        /   = f.radio_button :kind, 0, checked: true
+        /   | Mass Spec Data
+        / label.btn.btn-default
+        /   = f.radio_button :kind, 1
+        /   | Parameters
       tr: td: .file-input-field
         .fileinput.fileinput-new.input-group data-provides='fileinput'
           .form-control data-trigger='fileinput'
@@ -26,7 +30,7 @@ h1 Upload data
             span.fileinput-new Select file
             span.fileinput-exists Change
             = f.file_field :attachment, id: 'file-input'
-          a.input-group-addon.btn.btn-default.fileinput-exists href="#" data-dismiss="fileinput" Remove
+          / a.input-group-addon.btn.btn-default.fileinput-exists href="#" data-dismiss="fileinput" Remove
       tr: td
         = f.submit 'Upload', :class => 'button btn btn-primary',
                              id:       'file-input-submit',
