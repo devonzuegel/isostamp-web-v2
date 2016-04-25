@@ -10,6 +10,7 @@ feature 'Sign in', :omniauth do
   #   When I sign in
   #   Then I see a success message
   scenario 'user can sign in with valid account' do
+    visit root_path
     signin
     expect(page).to have_content('Sign out')
   end
@@ -23,7 +24,7 @@ feature 'Sign in', :omniauth do
     OmniAuth.config.mock_auth[:facebook] = :invalid_credentials
     visit root_path
     expect(page).to have_content('Sign in')
-    click_link 'Sign in'
+    within('.nav') { click_link 'Sign in' }
     expect(page).to have_content('Authentication error')
   end
 

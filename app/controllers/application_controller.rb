@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   def correct_user?
     @user = User.find(params[:id])
     unless current_user == @user || current_user.admin?
-      redirect_to root_url, :alert => "Access denied."
+      redirect_to root_url, alert: "Access denied."
     end
   end
 
@@ -38,6 +38,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_subdomain
+    return if Rails.env.test?
     stripped = strip_url(request.host)
     redirect_to "#{stripped}#{request.fullpath}" if stripped != request.host
   end
