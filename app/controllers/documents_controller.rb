@@ -4,7 +4,7 @@ class DocumentsController < ApplicationController
 
   def index
     @document  = Document.new
-    @documents = Document.where(user: current_user).order(:created_at).reverse || []
+    @documents = Document.where(user: current_user) || []
   end
 
   def create

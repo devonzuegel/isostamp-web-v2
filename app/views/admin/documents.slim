@@ -6,11 +6,13 @@ table.table.table-bordered.table-striped: tbody
   - @documents.each do |doc|
     tr
       td: a href="#{doc.attachment.url}"
+        - if doc.kind == 'Parameters'
+          i.fa.fa-file-text.right-spacer
+        - else
+          i.fa.fa-file-code-o.right-spacer
         = doc.filename
       td
         = "#{time_ago_in_words(doc.created_at)} ago"
-      td
-        = doc.kind
       td
         = link_to doc.user.name, doc.user
       td= link_to '×', document_path(doc.id), method: :delete

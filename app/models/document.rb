@@ -11,7 +11,7 @@ class Document < ActiveRecord::Base
   EXTENSION_WHITE_LIST = %w(mzXML txt)
   FILETYPE_TO_KIND_MAP = Hash[EXTENSION_WHITE_LIST.zip(self.kinds.keys)]
 
-  self.kinds.keys.zip(%w(.mzXML .txt)).to_h
+  default_scope { order('created_at DESC') }
 
   validate :kind_matches_filetype
 
@@ -22,6 +22,8 @@ class Document < ActiveRecord::Base
   private
 
   def kind_matches_filetype
+    return if attachment.path.nil?
+
     ext = File.extname(attachment.path).sub('.', '')
     return if kind == FILETYPE_TO_KIND_MAP[ext]
 
