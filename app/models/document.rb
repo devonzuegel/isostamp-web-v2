@@ -9,7 +9,6 @@ class Document < ActiveRecord::Base
   enum kind: { 'Mass Spec Data': 0, 'Parameters': 1 }
 
   EXTENSION_WHITE_LIST = %w(mzXML txt)
-  FILETYPE_TO_KIND_MAP = Hash[EXTENSION_WHITE_LIST.zip(self.kinds.keys)]
 
   default_scope { order('created_at DESC') }
 
@@ -25,11 +24,15 @@ class Document < ActiveRecord::Base
     return if attachment.path.nil?
 
     ext = File.extname(attachment.path).sub('.', '')
-    return if kind == FILETYPE_TO_KIND_MAP[ext]
+    return if kind == filetype_to_kind_map[ext]
 
-    expected_ext = FILETYPE_TO_KIND_MAP.invert[kind]
+    expected_ext = filetype_to_kind_map.invert[kind]
     msg = "must have the .#{expected_ext} filetype. If you meant to upload " +
-          "#{FILETYPE_TO_KIND_MAP[ext].downcase}, please say so in the form."
+          "#{filetype_to_kind_map[ext].downcase}, please say so in the form."
     errors.add(:"#{kind}", msg)
+  end
+
+  def filetype_to_kind_map
+    Hash[EXTENSION_WHITE_LIST.zip(self.kinds.keys)]
   end
 end

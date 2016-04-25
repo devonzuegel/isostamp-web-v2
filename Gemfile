@@ -23,6 +23,7 @@ gem 'fog-aws'
 gem 'pg'
 gem 'chartkick'
 gem 'groupdate'
+gem 'colorize'
 
 group :development, :test do
   gem 'byebug'
@@ -34,7 +35,6 @@ group :development, :test do
   gem 'sqlite3'
 
   gem 'awesome_print'
-  gem 'colorize'
   gem 'fuubar'
 end
 
