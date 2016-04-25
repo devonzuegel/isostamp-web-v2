@@ -12,19 +12,13 @@ h1 Upload data
     table.padded-form.form-table
       tr: td: .btn-group data-toggle='buttons'
         - Document.kinds.keys.each do |k|
-          label.btn.btn-default
-            = f.radio_button :kind, k
+          label.btn.btn-default class="#{(k==Document.kinds.keys.first) ? 'default active': ''}"
+            = f.radio_button :kind, k, checked: k==Document.kinds.keys.first
             = f.label k.to_sym
-        / label.btn.btn-default.default.active
-        /   = f.radio_button :kind, 0, checked: true
-        /   | Mass Spec Data
-        / label.btn.btn-default
-        /   = f.radio_button :kind, 1
-        /   | Parameters
       tr: td: .file-input-field
         .fileinput.fileinput-new.input-group data-provides='fileinput'
           .form-control data-trigger='fileinput'
-            i.glyphicon.glyphicon-file.fileinput-exists
+            span.fileinput-exists.right-spacer: i.fa.fa-file-text-o
             span class="fileinput-filename"
           span.input-group-addon.btn.btn-default.btn-file
             span.fileinput-new Select file
@@ -51,9 +45,11 @@ table.table.table-bordered.table-striped: tbody
   - @documents.each do |doc|
     tr
       td: a href="#{doc.attachment.url}"
+        - if doc.kind == 'Parameters'
+          i.fa.fa-file-text.right-spacer
+        - else
+          i.fa.fa-file-code-o.right-spacer
         = doc.filename
-      td
-        = doc.kind
       td
         = "#{time_ago_in_words(doc.created_at)} ago"
       td= link_to '×', document_path(doc.id), method: :delete
