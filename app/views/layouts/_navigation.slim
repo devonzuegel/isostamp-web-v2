@@ -11,6 +11,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top
       ul.nav.navbar-nav.pull-right
         - if user_signed_in?
           li= link_to 'My uploads',   documents_path
+          li= link_to 'Run',          tagfinder_executions_path
           - if current_user.admin
             li= link_to 'Metrics', metrics_path
             li= link_to 'Users',   users_path

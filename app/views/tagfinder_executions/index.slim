@@ -1,0 +1,60 @@
+h1 Run Isostamp
+
+#execution-form= form_tag(controller: :tagfinder_executions, action: :create) do
+
+  .row
+    .col-sm-6
+      h3 1. Select mass spec data
+      - if @data_files.empty?
+        p
+          = 'Please '
+          = link_to 'upload', documents_path
+          = ' mass spec data.'
+      - else
+        #data_file.btn-group-vertical.fill-width role='group' data-toggle='buttons'
+          = collection_radio_buttons(:tagfinder_execution, :data_file_id, @data_files, :id, :filename) do |b|
+            = b.label(:class => 'btn btn-default') { b.radio_button + b.text }
+    .col-sm-6
+      h3 2. Select parameters
+      .btn-group-vertical.fill-width role='group' data-toggle='buttons'
+        = collection_radio_buttons(:tagfinder_execution, :params_file_id, @param_files, :id, :filename) do |b|
+          = b.label(:class => 'btn btn-default') { b.radio_button + b.text }
+
+        = collection_radio_buttons(:tagfinder_execution, :params_file_id, @default_params, :first, :last) do |b|
+          = b.label(:class => 'btn btn-default active') { b.radio_button + b.text }
+  .row: .spacer.large
+  = submit_tag "Run Isostamp", :class => 'button btn btn-primary', disabled: true, data: { confirm: 'The execution of isostamp hasnt actually been implemented yet!' }
+
+javascript:
+  $("#data_file").change(function(e){
+    $("#execution-form input[type=submit]").prop('disabled', false);
+  });
+
+hr
+
+h1 History
+
+- if @tagfinder_executions.empty?
+  p You haven't run Isostamp on any mass spec data yet.
+
+- else
+  table.table.table-striped
+    thead: tr
+      th Mass Spec Data
+      th Parameters
+      th
+      th
+      th
+
+    tbody
+      - @tagfinder_executions.each do |te|
+        tr
+          td= te.data_file.filename
+          td
+            - if te.params_file.nil?
+              i.grey Used default configuration
+            - else
+              = te.params_file.filename
+          td= "#{time_ago_in_words(te.created_at)} ago"
+          td= link_to 'Details', te
+          td= link_to '×', te, data: { confirm: 'Are you sure?' }, method: :delete

@@ -16,6 +16,7 @@
 
 // @import "bootstrap-sprockets";
 @import "bootstrap";
+@import 'variables';
 
 * {
   font-family: 'Karla', sans-serif;
@@ -180,4 +181,16 @@ pre {
 
 h1, h2, h3, h4, h5 {
   font-weight: bold;
+}
+
+.fill-width {
+  width: 100%;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+.grey {
+  color: $grey;
 }

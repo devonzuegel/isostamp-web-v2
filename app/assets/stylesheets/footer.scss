@@ -1,3 +1,5 @@
+@import 'variables';
+
 $footer-height: 75px;
 
 * {
@@ -18,13 +20,13 @@ footer, .footer, .push {
   height: $footer-height; /* .push must be the same height as .footer */
 
   p {
-    color: #aaa !important;
+    color: $grey !important;
   }
 
   a {
-    color: #ccc;
+    color: $light-grey;
     &:hover {
-      color: #aaa;
+      color: $grey;
     }
   }
 }
