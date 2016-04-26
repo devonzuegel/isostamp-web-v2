@@ -1,41 +1,6 @@
 h1 Upload data
 
-#file-upload-form
-  p
-    = 'Please use the '
-    a(href='http://tools.proteomecenter.org/wiki/index.php?title=Formats:mzXML') mzXML
-    = ' data format for your mass spec data and upload a '
-    a(href='https://en.wikipedia.org/wiki/Text_file') txt
-    = ' file for your parameters.'
-
-  = form_for @document, url: url_for(controller: :documents, action: :create), html: { multipart: true } do |f|
-    table.padded-form.form-table
-      tr: td: .btn-group data-toggle='buttons'
-        - Document.kinds.keys.each do |k|
-          label.btn.btn-default class="#{(k==Document.kinds.keys.first) ? 'default active': ''}"
-            = f.radio_button :kind, k, checked: k==Document.kinds.keys.first
-            = f.label k.to_sym
-      tr: td: .file-input-field
-        .fileinput.fileinput-new.input-group data-provides='fileinput'
-          .form-control data-trigger='fileinput'
-            span.fileinput-exists.right-spacer: i.fa.fa-file-text-o
-            span class="fileinput-filename"
-          span.input-group-addon.btn.btn-default.btn-file
-            span.fileinput-new Select file
-            span.fileinput-exists Change
-            = f.file_field :attachment, id: 'file-input'
-          / a.input-group-addon.btn.btn-default.fileinput-exists href="#" data-dismiss="fileinput" Remove
-      tr: td
-        = f.submit 'Upload', :class => 'button btn btn-primary',
-                             id:       'file-input-submit',
-                             disabled: true
-
-javascript:
-  $("#file-input").change(function(e){
-    if($("#file-upload-form form input[type=file]").val()) {
-      $("#file-upload-form form input[type=submit]").prop('disabled', false);
-    };
-  });
+== render 'document_upload_form'
 
 h1 Your Uploads
 

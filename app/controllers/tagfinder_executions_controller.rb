@@ -4,6 +4,8 @@ class TagfinderExecutionsController < ApplicationController
   # GET /tagfinder_executions
   # GET /tagfinder_executions.json
   def index
+    @document  = Document.new
+
     @data_files     = Document.where(user: current_user, kind: Document.kinds['Mass Spec Data'])
     @param_files    = Document.where(user: current_user, kind: Document.kinds['Parameters'])
     @default_params = [[ nil, 'Use Default Configuration' ]]
@@ -11,27 +13,17 @@ class TagfinderExecutionsController < ApplicationController
     @tagfinder_executions = TagfinderExecution.where(user: current_user).reverse
   end
 
-  # GET /tagfinder_executions/1
-  # GET /tagfinder_executions/1.json
-  def show
-  end
-
   # POST /tagfinder_executions
   # POST /tagfinder_executions.json
   def create
     # ap tagfinder_execution_params
     @tagfinder_execution = TagfinderExecution.new(tagfinder_execution_params.merge(user:current_user))
-
-    respond_to do |format|
-      if @tagfinder_execution.save
-        format.html { redirect_to tagfinder_executions_path, notice: 'Tagfinder execution was successfully created.' }
-        format.json { render :index, status: :created }
-      else
-        format.html { render :new }
-        format.json { render json: @tagfinder_execution.errors, status: :unprocessable_entity }
-      end
+    RunExecution.enqueue(tagfinder_execution_params.fetch('data_file_id'), tagfinder_execution_params['params_file_id'])
+    if @tagfinder_execution.save
+      redirect_to tagfinder_executions_path, notice: 'Tagfinder execution was successfully created.'
+    else
+      render :new
     end
-
   end
 
   # DELETE /tagfinder_executions/1
