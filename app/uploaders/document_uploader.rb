@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class MzxmlUploader < CarrierWave::Uploader::Base
+class DocumentUploader < CarrierWave::Uploader::Base
   storage :fog
 
   def store_dir

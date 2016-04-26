@@ -8,14 +8,16 @@ class DocumentsController < ApplicationController
   end
 
   def create
-    @document = Document.new(document_params)
+    ap document_params
+    redirect_to documents_path, notice: 'sdflkjasldfkjasdlkfjadslfkj'
+    # @document = Document.new(document_params)
 
-    if @document.save
-      redirect_to documents_path, notice: "The file #{@document.filename} has been uploaded."
-    else
-      flash[:error] = @document.errors.full_messages.join("\n")
-      redirect_to documents_path
-    end
+    # if @document.save
+    #   redirect_to documents_path, notice: "The file #{@document.filename} has been uploaded."
+    # else
+    #   flash[:error] = @document.errors.full_messages.join("\n")
+    #   redirect_to documents_path
+    # end
   end
 
   def destroy

@@ -3,7 +3,7 @@ class Document < ActiveRecord::Base
   belongs_to :user
 
   # Uploaders
-  mount_uploader :attachment, MzxmlUploader
+  mount_uploader :attachment, DocumentUploader
 
   validates_presence_of %i(kind attachment user)
   enum kind: { 'Mass Spec Data': 0, 'Parameters': 1 }
