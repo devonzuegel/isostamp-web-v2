@@ -8,7 +8,7 @@ class TagfinderExecutionsController < ApplicationController
     @param_files    = Document.where(user: current_user, kind: Document.kinds['Parameters'])
     @default_params = [[ nil, 'Use Default Configuration' ]]
 
-    @tagfinder_executions = TagfinderExecution.where(user: current_user)
+    @tagfinder_executions = TagfinderExecution.where(user: current_user).reverse
   end
 
   # GET /tagfinder_executions/1

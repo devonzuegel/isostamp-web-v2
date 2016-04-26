@@ -44,7 +44,6 @@ h1 History
       th Parameters
       th
       th
-      th
 
     tbody
       - @tagfinder_executions.each do |te|
@@ -57,4 +56,3 @@ h1 History
               = te.params_file.filename
           td= "#{time_ago_in_words(te.created_at)} ago"
           td= link_to 'Details', te
-          td= link_to '×', te, data: { confirm: 'Are you sure?' }, method: :delete

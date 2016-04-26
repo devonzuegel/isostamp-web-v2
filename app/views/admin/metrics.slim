@@ -7,12 +7,12 @@ h2 Cumulative User Signups
 hr
 
 h2 mzXML Files Uploaded Per Week
-= line_chart Document.group_by_week(:created_at).count
+= line_chart Document.unscoped.group_by_week(:created_at).count
 
-h2 Cumulative mzXML Files Uploaded
-= line_chart @cumulative_documents
+/ h2 Cumulative mzXML Files Uploaded
+/ = line_chart @cumulative_documents
 
-hr
+/ hr
 
-h2 Logins Per Week
-= line_chart Session.group_by_week(:created_at).count
+/ h2 Logins Per Week
+/ = line_chart Session.group_by_week(:created_at).count
