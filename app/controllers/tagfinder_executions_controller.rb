@@ -19,7 +19,7 @@ class TagfinderExecutionsController < ApplicationController
   # POST /tagfinder_executions
   # POST /tagfinder_executions.json
   def create
-    ap tagfinder_execution_params
+    # ap tagfinder_execution_params
     @tagfinder_execution = TagfinderExecution.new(tagfinder_execution_params.merge(user:current_user))
 
     respond_to do |format|

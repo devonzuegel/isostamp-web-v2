@@ -9,22 +9,22 @@ class AdminController < ApplicationController
   end
 
   def documents
-    puts '------------------------------------------'
-    doc_url = Document.first.attachment.url
-    filepath = "./tmp/#{Time.now.utc.to_i}-#{File.basename(doc_url)}"
+    # puts '------------------------------------------'
+    # doc_url = Document.first.attachment.url
+    # filepath = "./tmp/#{Time.now.utc.to_i}-#{File.basename(doc_url)}"
 
-    stdin, stdout, stderr = Open3.popen3("wget #{doc_url} -O #{filepath};")
-    stdout.each_line { |line| puts line.green }
-    stderr.each_line { |line| puts line.red }
+    # stdin, stdout, stderr = Open3.popen3("wget #{doc_url} -O #{filepath};")
+    # stdout.each_line { |line| puts line.green }
+    # stderr.each_line { |line| puts line.red }
 
 
-    executable = Rails.env.development? ? 'bin/tagfinder-mac' : 'bin/tagfinder'
-    stdin, stdout, stderr = Open3.popen3("#{executable} #{filepath};")
-    stdout.each_line { |line| puts line.green }
-    stderr.each_line { |line| puts line.red }
+    # executable = Rails.env.development? ? 'bin/tagfinder-mac' : 'bin/tagfinder'
+    # stdin, stdout, stderr = Open3.popen3("#{executable} #{filepath};")
+    # stdout.each_line { |line| puts line.green }
+    # stderr.each_line { |line| puts line.red }
 
-    stdin, stdout, stderr = Open3.popen3("rm #{filepath};")
-    puts '------------------------------------------'
+    # stdin, stdout, stderr = Open3.popen3("rm #{filepath};")
+    # puts '------------------------------------------'
     @documents = Document.all
   end
 
