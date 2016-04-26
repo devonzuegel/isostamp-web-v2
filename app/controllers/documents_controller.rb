@@ -8,9 +8,10 @@ class DocumentsController < ApplicationController
   end
 
   def create
+    # @document = Document.new(document_params)
+    puts "BEFORE -----------------".black
     ap document_params
     redirect_to documents_path, notice: 'sdflkjasldfkjasdlkfjadslfkj'
-    # @document = Document.new(document_params)
 
     # if @document.save
     #   redirect_to documents_path, notice: "The file #{@document.filename} has been uploaded."

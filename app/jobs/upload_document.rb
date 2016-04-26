@@ -2,6 +2,7 @@ class UploadDocument < Que::Job
   def run(document_params)
     @document = Document.new(document_params)
     puts "AFTER -----------------".black
+    document_params[:attachment] = YAML::load(document_params.fetch(:attachment))
     ap document_params
     # ap @document
 
