@@ -5,6 +5,9 @@ class Document < ActiveRecord::Base
   # Uploaders
   mount_uploader :attachment, DocumentUploader
 
+  # Background the storage of files to AWS & processing to speed up uploads
+  store_in_background :item
+
   validates_presence_of %i(kind attachment user)
   enum kind: { 'Mass Spec Data': 0, 'Parameters': 1 }
 

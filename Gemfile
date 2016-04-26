@@ -25,6 +25,8 @@ gem 'chartkick',                  '1.4.2'
 gem 'groupdate',                  '2.5.2'
 gem 'colorize',                   '0.7.7'
 gem 'que',                        '0.11.4'
+gem 'delayed_job_active_record'
+gem 'carrierwave_backgrounder'
 
 group :development, :test do
   gem 'byebug'
