@@ -15,8 +15,8 @@ class Document < ActiveRecord::Base
 
   default_scope { order('created_at DESC') }
 
-  scope :uploading,   -> (user) { where(user: user).select { |d| !d.upload_complete?} }
-  scope :done_uploading, -> (user) { where(user: user).select { |d| d.upload_complete?} }
+  scope :in_progress,    -> user { where(user: user).select { |d| !d.upload_complete? } }
+  scope :done_uploading, -> user { where(user: user).select { |d|  d.upload_complete? } }
 
   validate :kind_matches_filetype
 
