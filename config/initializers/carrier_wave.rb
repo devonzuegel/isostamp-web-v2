@@ -5,6 +5,9 @@ CarrierWave.configure do |config|
   # For information on AWS bucket regions:
   #   bucketexplorer.com/documentation/amazon-s3--amazon-s3-buckets-and-regions.html
 
+  config.root      = Rails.root
+  config.cache_dir = "#{Rails.root}/tmp/uploadsxxxxxxxxx"
+
   config.fog_credentials = {
     provider:               'AWS',                        # required
     aws_access_key_id:      ENV['AWS_ACCESS_KEY_ID'],     # required
@@ -14,4 +17,5 @@ CarrierWave.configure do |config|
   }
 
   config.fog_directory  = ENV['AWS_S3_BUCKET']
+  # config.fog_public     = false
 end
