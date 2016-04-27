@@ -14,7 +14,7 @@ class DocumentsController < ApplicationController
     @document = Document.new(document_params)
 
     if @document.save
-      redirect_to documents_path, notice: "The file #{@document.filename} has been uploaded."
+      redirect_to documents_path, notice: "The file #{@document.filename} is being uploaded. We will send you an email when your upload is complete."
     else
       flash[:error] = @document.errors.full_messages.join("\n")
       redirect_to documents_path
