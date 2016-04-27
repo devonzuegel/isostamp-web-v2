@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class DocumentUploader < CarrierWave::Uploader::Base
+  include ::CarrierWave::Backgrounder::Delay
+
   storage :fog
 
   def store_dir

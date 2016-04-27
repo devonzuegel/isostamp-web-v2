@@ -4,21 +4,21 @@ class DocumentsController < ApplicationController
 
   def index
     @document  = Document.new
-    @documents = Document.where(user: current_user) || []
+
+    documents = Document.where(user: current_user) || []
+    @completed_docs = documents.select { |d| d.upload_complete? }
+    @uploading_docs = documents.select { |d| !d.upload_complete? }
   end
 
   def create
-    # @document = Document.new(document_params)
-    puts "BEFORE -----------------".black
-    ap document_params
-    redirect_to documents_path, notice: 'sdflkjasldfkjasdlkfjadslfkj'
+    @document = Document.new(document_params)
 
-    # if @document.save
-    #   redirect_to documents_path, notice: "The file #{@document.filename} has been uploaded."
-    # else
-    #   flash[:error] = @document.errors.full_messages.join("\n")
-    #   redirect_to documents_path
-    # end
+    if @document.save
+      redirect_to documents_path, notice: "The file #{@document.filename} has been uploaded."
+    else
+      flash[:error] = @document.errors.full_messages.join("\n")
+      redirect_to documents_path
+    end
   end
 
   def destroy

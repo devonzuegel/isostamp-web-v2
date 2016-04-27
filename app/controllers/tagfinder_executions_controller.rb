@@ -4,10 +4,8 @@ class TagfinderExecutionsController < ApplicationController
   # GET /tagfinder_executions
   # GET /tagfinder_executions.json
   def index
-    @document  = Document.new
-
-    @data_files     = Document.where(user: current_user, kind: Document.kinds['Mass Spec Data'])
-    @param_files    = Document.where(user: current_user, kind: Document.kinds['Parameters'])
+    @data_files     = Document.done_uploading(current_user).select {|d| d.kind == 'Mass Spec Data'}
+    @param_files    = Document.done_uploading(current_user).select {|d| d.kind == 'Parameters'}
     @default_params = [[ nil, 'Use Default Configuration' ]]
 
     @tagfinder_executions = TagfinderExecution.where(user: current_user).reverse
@@ -16,7 +14,6 @@ class TagfinderExecutionsController < ApplicationController
   # POST /tagfinder_executions
   # POST /tagfinder_executions.json
   def create
-    # ap tagfinder_execution_params
     @tagfinder_execution = TagfinderExecution.new(tagfinder_execution_params.merge(user:current_user))
     RunExecution.enqueue(tagfinder_execution_params.fetch('data_file_id'), tagfinder_execution_params['params_file_id'])
     if @tagfinder_execution.save

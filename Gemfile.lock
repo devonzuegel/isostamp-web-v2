@@ -80,6 +80,7 @@ GEM
     coffee-script-source (1.10.0)
     colorize (0.7.7)
     concurrent-ruby (1.0.1)
+    daemons (1.2.3)
     database_cleaner (1.5.1)
     debug_inspector (0.0.2)
     delayed_job (4.1.1)
@@ -469,6 +470,7 @@ DEPENDENCIES
   chartkick (= 1.4.2)
   coffee-rails (~> 4.1.0)
   colorize (= 0.7.7)
+  daemons
   database_cleaner
   delayed_job_active_record
   factory_girl_rails

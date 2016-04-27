@@ -6,7 +6,7 @@ class Document < ActiveRecord::Base
   mount_uploader :attachment, DocumentUploader
 
   # Background the storage of files to AWS & processing to speed up uploads
-  store_in_background :item
+  store_in_background :attachment
 
   validates_presence_of %i(kind attachment user)
   enum kind: { 'Mass Spec Data': 0, 'Parameters': 1 }
@@ -15,10 +15,17 @@ class Document < ActiveRecord::Base
 
   default_scope { order('created_at DESC') }
 
+  scope :uploading,   -> (user) { where(user: user).select { |d| !d.upload_complete?} }
+  scope :done_uploading, -> (user) { where(user: user).select { |d| d.upload_complete?} }
+
   validate :kind_matches_filetype
 
+  def upload_complete?
+    attachment_tmp.nil?
+  end
+
   def filename
-    File.basename(attachment.path || '')
+    File.basename(attachment.path || attachment_tmp || '')
   end
 
   private
