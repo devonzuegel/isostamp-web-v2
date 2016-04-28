@@ -1,17 +1,13 @@
 .file-input-field
-  .fileinput.fileinput-new.input-group data-provides='fileinput'
-    .form-control data-trigger='fileinput'
-      span.fileinput-exists.right-spacer: i.fa.fa-file-text-o
-      span class="fileinput-filename"
-    span.input-group-addon.btn.btn-default.btn-file
-      span.fileinput-new Select file
-      span.fileinput-exists Change
-      = s3_uploader_form callback_url: documents_url, id: "s3_uploader",
-                                                      callback_param: "document[direct_upload_url]",
-                                                      expiration: 24.hours.from_now.utc.iso8601,
-                                                      max_file_size: 100.megabytes do
-
-        = file_field_tag :file, multiple: true
+    = s3_uploader_form callback_url: documents_url, id: "s3_uploader", callback_param: "document[direct_upload_url]" do
+      .fileinput.fileinput-new.input-group data-provides='fileinput'
+        .form-control data-trigger='fileinput'
+          span.fileinput-exists.right-spacer: i.fa.fa-file-text-o
+          span class="fileinput-filename"
+        span.input-group-addon.btn.btn-default.btn-file
+          span.fileinput-new Select file
+          span.fileinput-exists Change
+          = file_field_tag :file, multiple: true
 <div id="uploads_container"></div>
 <script id="template-upload" type="text/x-tmpl">
 <div id="upload_{%=o.unique_id%}" class="upload">
