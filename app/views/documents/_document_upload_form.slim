@@ -1,53 +1,67 @@
-= s3_uploader_form callback_method: 'POST', callback_url: documents_path, id: "s3-uploader", acl: "public-read" do
+= s3_uploader_form callback_url: documents_url, id: "s3_uploader",
+                                                callback_param: "document[direct_upload_url]",
+                                                expiration: 24.hours.from_now.utc.iso8601,
+                                                max_file_size: 100.megabytes do
+  = file_field_tag :file, multiple: true
+<div id="uploads_container"></div>
+<script id="template-upload" type="text/x-tmpl">
+<div id="upload_{%=o.unique_id%}" class="upload">
+  <h5>{%=o.name%}</h5>
+  <div class="progress progress-striped active"><div class="bar" style="width: 0%"></div></div>
+</div>
+</script>
 
-  = file_field_tag :file, multiple: true, id: 'file-input', multipe: false
 
-/   = form_for @document, url: url_for(controller: :documents, action: :create), html: { multipart: true } do |f|
-/     = s3_uploader_form id: "s3-uploader", callback_param: 'document[attachment]' do
-/       = file_field_tag :file, multiple: true, id: 'file-input'
-/     = f.submit 'Upload', :class => 'button btn btn-primary',
-/                          id:       'file-input-submit'
+/ = s3_uploader_form callback_method: 'POST', callback_url: documents_path, id: "s3-uploader", acl: "public-read" do
 
-coffee:
-  $("#s3-uploader").S3Uploader()
-  $('#s3-uploader').bind "s3_upload_failed", (e, content) ->
-    alert("#{content.filename} failed to upload : #{content.error_thrown}")
+/   = file_field_tag :file, multiple: true, id: 'file-input', multipe: false
 
-/ #file-upload-form
-/   p
-/     = 'Please use the '
-/     a(href='http://tools.proteomecenter.org/wiki/index.php?title=Formats:mzXML') mzXML
-/     = ' data format for your mass spec data and upload a '
-/     a(href='https://en.wikipedia.org/wiki/Text_file') txt
-/     = ' file for your parameters.'
+/ /   = form_for @document, url: url_for(controller: :documents, action: :create), html: { multipart: true } do |f|
+/ /     = s3_uploader_form id: "s3-uploader", callback_param: 'document[attachment]' do
+/ /       = file_field_tag :file, multiple: true, id: 'file-input'
+/ /     = f.submit 'Upload', :class => 'button btn btn-primary',
+/ /                          id:       'file-input-submit'
 
-/   = form_for @document, url: url_for(controller: :documents, action: :create), html: { multipart: true } do |f|
-/     table.padded-form.form-table
-/       tr: td: .btn-group data-toggle='buttons'
-/         - Document.kinds.keys.each do |k|
-/           label.btn.btn-default class="#{(k==Document.kinds.keys.first) ? 'default active': ''}"
-/             = f.radio_button :kind, k, checked: k==Document.kinds.keys.first
-/             = f.label k.to_sym
-/       tr: td: .file-input-field
-/         .fileinput.fileinput-new.input-group data-provides='fileinput'
-/           .form-control data-trigger='fileinput'
-/             span.fileinput-exists.right-spacer: i.fa.fa-file-text-o
-/             span class="fileinput-filename"
-/           span.input-group-addon.btn.btn-default.btn-file
-/             span.fileinput-new Select file
-/             span.fileinput-exists Change
-/             = s3_uploader_form id: "s3-uploader", callback_method: 'PUT', callback_param: 'document[attachment]' do
-/               = file_field_tag :file, multiple: true, id: 'file-input'
+/ coffee:
+/   $("#s3-uploader").S3Uploader()
+/   $('#s3-uploader').bind "s3_upload_failed", (e, content) ->
+/     alert("#{content.filename} failed to upload : #{content.error_thrown}")
 
-/             /= f.file_field :attachment, id: 'file-input'
-/       tr: td
-/         = f.submit 'Upload', :class => 'button btn btn-primary',
-/                              id:       'file-input-submit',
-/                              disabled: true
-/ javascript:
+/ / #file-upload-form
+/ /   p
+/ /     = 'Please use the '
+/ /     a(href='http://tools.proteomecenter.org/wiki/index.php?title=Formats:mzXML') mzXML
+/ /     = ' data format for your mass spec data and upload a '
+/ /     a(href='https://en.wikipedia.org/wiki/Text_file') txt
+/ /     = ' file for your parameters.'
 
-/   $("#file-input").change(function(e){
-/     if($("#file-upload-form form input[type=file]").val()) {
-/       $("#file-upload-form form input[type=submit]").prop('disabled', false);
-/     };
-/   });
+/ /   = form_for @document, url: url_for(controller: :documents, action: :create), html: { multipart: true } do |f|
+/ /     table.padded-form.form-table
+/ /       tr: td: .btn-group data-toggle='buttons'
+/ /         - Document.kinds.keys.each do |k|
+/ /           label.btn.btn-default class="#{(k==Document.kinds.keys.first) ? 'default active': ''}"
+/ /             = f.radio_button :kind, k, checked: k==Document.kinds.keys.first
+/ /             = f.label k.to_sym
+/ /       tr: td: .file-input-field
+/ /         .fileinput.fileinput-new.input-group data-provides='fileinput'
+/ /           .form-control data-trigger='fileinput'
+/ /             span.fileinput-exists.right-spacer: i.fa.fa-file-text-o
+/ /             span class="fileinput-filename"
+/ /           span.input-group-addon.btn.btn-default.btn-file
+/ /             span.fileinput-new Select file
+/ /             span.fileinput-exists Change
+/ /             = s3_uploader_form id: "s3-uploader", callback_method: 'PUT', callback_param: 'document[attachment]' do
+/ /               = file_field_tag :file, multiple: true, id: 'file-input'
+
+/ /             /= f.file_field :attachment, id: 'file-input'
+/ /       tr: td
+/ /         = f.submit 'Upload', :class => 'button btn btn-primary',
+/ /                              id:       'file-input-submit',
+/ /                              disabled: true
+/ / javascript:
+
+/ /   $("#file-input").change(function(e){
+/ /     if($("#file-upload-form form input[type=file]").val()) {
+/ /       $("#file-upload-form form input[type=submit]").prop('disabled', false);
+/ /     };
+/ /   });

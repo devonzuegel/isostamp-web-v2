@@ -25,10 +25,12 @@ gem 'chartkick',                  '1.4.2'
 gem 'groupdate',                  '2.5.2'
 gem 'colorize',                   '0.7.7'
 gem 'que',                        '0.11.4'
-gem 'delayed_job_active_record'
-gem 'carrierwave_backgrounder'
-gem 'daemons'
-gem 's3_direct_upload'
+gem 'delayed_job_active_record'   # REMOVE ME
+gem 'carrierwave_backgrounder'    # REMOVE ME
+gem 'daemons'                     # REMOVE ME
+gem 'aws-sdk-v1',                 '1.66.0'  # S3 API
+gem 'paperclip',                  '4.3.6'   # File attachment syntax and callbacks
+gem 's3_direct_upload',           '0.1.7'   # Direct upload form helper and assets
 
 group :development, :test do
   gem 'byebug'

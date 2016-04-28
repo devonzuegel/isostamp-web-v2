@@ -10,6 +10,8 @@ class DocumentsController < ApplicationController
     @uploading_docs = documents.select { |d| !d.upload_complete? }
   end
 
+  # @http_method XHR POST
+  # @url /documents
   def create
     ap params
     @document = Document.new(document_params)
