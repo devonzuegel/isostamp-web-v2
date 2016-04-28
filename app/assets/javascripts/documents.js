@@ -20,9 +20,7 @@ $(function() {
 
   $('#uploads-progress-bar').bind('DOMSubtreeModified', function (e) {
     var num_progress_bars = $('#uploads-progress-bar').children().length;
-    console.log("num_progress_bars = " + num_progress_bars);
     if (num_progress_bars > 1) {
-      console.log($('#uploads-progress-bar').find('.upload:first'));
       $('#uploads-progress-bar').find('.upload:first').remove();
     };
   });

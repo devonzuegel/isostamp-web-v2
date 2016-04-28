@@ -11,10 +11,7 @@ class DocumentsController < ApplicationController
   # @http_method XHR POST
   # @url /documents
   def create
-    ap params
     @document = current_user.documents.new(document_params)
-    # ap params
-    # @document = Document.new(document_params)
 
     if @document.save
       redirect_to documents_path
