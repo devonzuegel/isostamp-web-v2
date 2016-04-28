@@ -11,6 +11,7 @@ class DocumentsController < ApplicationController
   end
 
   def create
+    ap params
     @document = Document.new(document_params)
 
     if @document.save

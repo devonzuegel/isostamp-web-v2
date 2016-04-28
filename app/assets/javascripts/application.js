@@ -15,3 +15,5 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
+
+//= require s3_direct_upload

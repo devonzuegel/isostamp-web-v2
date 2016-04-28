@@ -7,5 +7,5 @@ S3DirectUpload.config do |c|
   c.region            = ENV['AWS_BUCKET_REGION']
 
   # S3 API endpoint (optional), eg. "https://#{c.bucket}.s3.amazonaws.com/"
-  c.url               = "s3-#{ENV['AWS_BUCKET_REGION']}.amazonaws.com"
+  c.url               = "https://#{c.bucket}.s3-#{c.region}.amazonaws.com/"
 end

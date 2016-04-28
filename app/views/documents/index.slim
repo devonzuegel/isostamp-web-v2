@@ -11,15 +11,16 @@ table.table.table-bordered.table-striped: tbody
     p You aren't currently uploading any documents.
   - @uploading_docs.each do |doc|
     tr
-      td: .grey
-        - if doc.kind == 'Parameters'
-          i.fa.fa-file-text.right-spacer
-        - else
-          i.fa.fa-file-code-o.right-spacer
-        = doc.filename
-      td
-        = "#{time_ago_in_words(doc.created_at)} ago"
-      td= link_to '×', document_path(doc.id), method: :delete
+      td: .grey= doc.filename
+      / td: .grey
+      /   - if doc.kind == 'Parameters'
+      /     i.fa.fa-file-text.right-spacer
+      /   - else
+      /     i.fa.fa-file-code-o.right-spacer
+      /   = doc.filename
+      / td
+      /   = "#{time_ago_in_words(doc.created_at)} ago"
+      / td= link_to '×', document_path(doc.id), method: :delete
 
 .spacer.large
 
@@ -30,13 +31,14 @@ table.table.table-bordered.table-striped: tbody
     p You haven't uploaded any documents yet.
   - @completed_docs.each do |doc|
     tr
-      td
-        a href="#{doc.attachment.url}"
-          - if doc.kind == 'Parameters'
-            i.fa.fa-file-text.right-spacer
-          - else
-            i.fa.fa-file-code-o.right-spacer
-          = doc.filename
-      td
-        = "#{time_ago_in_words(doc.created_at)} ago"
-      td= link_to '×', document_path(doc.id), method: :delete
+      td= doc.filename
+      / td
+      /   a href="#""#{doc.attachment.url}"
+      /     - if doc.kind == 'Parameters'
+      /       i.fa.fa-file-text.right-spacer
+      /     - else
+      /       i.fa.fa-file-code-o.right-spacer
+      /     = doc.filename
+      / td
+      /   = "#{time_ago_in_words(doc.created_at)} ago"
+      / td= link_to '×', document_path(doc.id), method: :delete
