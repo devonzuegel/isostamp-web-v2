@@ -5,36 +5,37 @@ class DocumentsController < ApplicationController
   def index
     @document  = Document.new
 
-    documents = Document.where(user: current_user) || []
-    @completed_docs = documents.select { |d| d.upload_complete? }
-    @uploading_docs = documents.select { |d| !d.upload_complete? }
+    @documents = current_user.documents
   end
 
   # @http_method XHR POST
   # @url /documents
   def create
     ap params
-    @document = Document.new(document_params)
+    @document = current_user.documents.new(document_params)
+    # ap params
+    # @document = Document.new(document_params)
 
     if @document.save
-      redirect_to documents_path, notice: "The file #{@document.filename} is being uploaded. We will send you an email when your upload is complete."
+      # redirect_to documents_path, notice:
+      puts "The file #{@document} is being uploaded. We will send you an email when your upload is complete.".red
     else
-      flash[:error] = @document.errors.full_messages.join("\n")
-      redirect_to documents_path
+      # flash[:error] =
+      puts @document.errors.full_messages.join("\n").red
+      # redirect_to documents_path
     end
   end
 
   def destroy
     @document = Document.find(params[:id])
     @document.destroy
-    redirect_to documents_path, notice: "The file #{@document.filename} has been deleted."
+    redirect_to documents_path, notice: "The file #{@document} has been deleted."
   end
 
   private
 
   def document_params
-    filtered = params.require(:document).permit(:attachment, :kind)
-    filtered.merge(user: current_user)
+    filtered = params.require(:document).permit(:direct_upload_url)
   end
 
   def check_ownership!

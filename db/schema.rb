@@ -33,13 +33,20 @@ ActiveRecord::Schema.define(version: 20160426233448) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "documents", force: :cascade do |t|
-    t.string   "attachment"
-    t.integer  "user_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.integer  "kind",           null: false
+    t.string   "upload_file_name"
+    t.string   "upload_content_type"
+    t.integer  "upload_file_size"
+    t.datetime "upload_updated_at"
+    t.string   "direct_upload_url",                   null: false
+    t.boolean  "processed",           default: false, null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "user_id",                             null: false
     t.string   "attachment_tmp"
   end
+
+  add_index "documents", ["processed"], name: "index_documents_on_processed", using: :btree
+  add_index "documents", ["user_id"], name: "index_documents_on_user_id", using: :btree
 
   create_table "que_jobs", id: false, force: :cascade do |t|
     t.integer  "priority",    limit: 2, default: 100,                                        null: false
