@@ -28,6 +28,7 @@ gem 'que',                        '0.11.4'
 gem 'delayed_job_active_record'
 gem 'carrierwave_backgrounder'
 gem 'daemons'
+gem 's3_direct_upload'
 
 group :development, :test do
   gem 'byebug'
