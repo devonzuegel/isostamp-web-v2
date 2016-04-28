@@ -17,19 +17,16 @@ class DocumentsController < ApplicationController
     # @document = Document.new(document_params)
 
     if @document.save
-      # redirect_to documents_path, notice:
-      puts "The file #{@document} is being uploaded. We will send you an email when your upload is complete.".red
+      redirect_to documents_path
     else
-      # flash[:error] =
       puts @document.errors.full_messages.join("\n").red
-      # redirect_to documents_path
     end
   end
 
   def destroy
     @document = Document.find(params[:id])
     @document.destroy
-    redirect_to documents_path, notice: "The file #{@document} has been deleted."
+    redirect_to documents_path, notice: "The file #{@document.upload_file_name} has been deleted."
   end
 
   private
