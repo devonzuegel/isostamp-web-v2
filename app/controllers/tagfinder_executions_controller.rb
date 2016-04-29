@@ -4,8 +4,8 @@ class TagfinderExecutionsController < ApplicationController
   # GET /tagfinder_executions
   # GET /tagfinder_executions.json
   def index
-    @data_files     = Document.done_uploading(current_user).select {|d| d.kind == 'Mass Spec Data'}
-    @param_files    = Document.done_uploading(current_user).select {|d| d.kind == 'Parameters'}
+    @data_files     = current_user.documents
+    @param_files    = current_user.documents
     @default_params = [[ nil, 'Use Default Configuration' ]]
 
     @tagfinder_executions = TagfinderExecution.where(user: current_user).reverse

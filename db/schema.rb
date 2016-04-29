@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160426233448) do
+ActiveRecord::Schema.define(version: 20160429034723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,20 +43,21 @@ ActiveRecord::Schema.define(version: 20160426233448) do
     t.datetime "updated_at",                          null: false
     t.integer  "user_id",                             null: false
     t.string   "attachment_tmp"
+    t.integer  "kind"
   end
 
   add_index "documents", ["processed"], name: "index_documents_on_processed", using: :btree
   add_index "documents", ["user_id"], name: "index_documents_on_user_id", using: :btree
 
   create_table "que_jobs", id: false, force: :cascade do |t|
-    t.integer  "priority",    limit: 2, default: 100,                                        null: false
-    t.datetime "run_at",                default: "now()",                                    null: false
-    t.integer  "job_id",      limit: 8, default: "nextval('que_jobs_job_id_seq'::regclass)", null: false
-    t.text     "job_class",                                                                  null: false
-    t.json     "args",                  default: [],                                         null: false
-    t.integer  "error_count",           default: 0,                                          null: false
+    t.integer  "priority",    limit: 2, default: 100,                   null: false
+    t.datetime "run_at",                default: '2016-04-28 08:28:38', null: false
+    t.integer  "job_id",      limit: 8, default: 0,                     null: false
+    t.text     "job_class",                                             null: false
+    t.json     "args",                  default: [],                    null: false
+    t.integer  "error_count",           default: 0,                     null: false
     t.text     "last_error"
-    t.text     "queue",                 default: "",                                         null: false
+    t.text     "queue",                 default: "",                    null: false
   end
 
   create_table "sessions", force: :cascade do |t|

@@ -18,12 +18,12 @@ h1 Run Isostamp
           = ' mass spec data.'
       - else
         #data_file.btn-group-vertical.fill-width role='group' data-toggle='buttons'
-          = collection_radio_buttons(:tagfinder_execution, :data_file_id, @data_files, :id, :filename) do |b|
+          = collection_radio_buttons(:tagfinder_execution, :data_file_id, @data_files, :id, :upload_file_name) do |b|
             = b.label(:class => 'btn btn-default') { b.radio_button + b.text }
     .col-sm-6
       h3 3. Select parameters
       .btn-group-vertical.fill-width role='group' data-toggle='buttons'
-        = collection_radio_buttons(:tagfinder_execution, :params_file_id, @param_files, :id, :filename) do |b|
+        = collection_radio_buttons(:tagfinder_execution, :params_file_id, @param_files, :id, :upload_file_name) do |b|
           = b.label(:class => 'btn btn-default') { b.radio_button + b.text }
 
         = collection_radio_buttons(:tagfinder_execution, :params_file_id, @default_params, :first, :last) do |b|
@@ -49,17 +49,19 @@ h1 History
     thead: tr
       th Mass Spec Data
       th Parameters
-      th
+      th Status
+      th Created At
       th
 
     tbody
       - @tagfinder_executions.each do |te|
         tr
-          td= te.data_file.filename
+          td= te.data_file.upload_file_name
           td
             - if te.params_file.nil?
               i.grey Used default configuration
             - else
-              = te.params_file.filename
+              = te.params_file.upload_file_name
+          td= te.status
           td= "#{time_ago_in_words(te.created_at)} ago"
           td= link_to 'Details', te

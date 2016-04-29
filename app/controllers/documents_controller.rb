@@ -4,19 +4,16 @@ class DocumentsController < ApplicationController
 
   def index
     @document  = Document.new
-
     @documents = current_user.documents
   end
 
-  # @http_method XHR POST
-  # @url /documents
   def create
     @document = current_user.documents.new(document_params)
 
     if @document.save
       redirect_to documents_path
     else
-      puts @document.errors.full_messages.join("\n").red
+      puts "> #{@document.errors.full_messages.join("\n")}"
     end
   end
 
@@ -29,7 +26,7 @@ class DocumentsController < ApplicationController
   private
 
   def document_params
-    filtered = params.require(:document).permit(:direct_upload_url)
+    filtered = params.require(:document).permit(:direct_upload_url, :kind)
   end
 
   def check_ownership!
