@@ -3,10 +3,10 @@ FactoryGirl.define do
     association :user, factory: :user
     direct_upload_url  'https://isostamp-development.s3-us-west-2.amazonaws.com/uploads/123-123-123/test.mzXML'
 
-    after(:build) { |user| user.class.skip_callback(:create, :after, :set_upload_attributes) }
+    after(:build) { |doc| doc.class.skip_callback(:create, :before, :set_upload_attributes) }
 
     trait :set_upload_attributes do
-      after(:create) { |doc| doc.send(:set_upload_attributes) }
+      before(:create) { |doc| doc.send(:set_upload_attributes) }
     end
 
     trait :mass_spec do

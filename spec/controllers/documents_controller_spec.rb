@@ -12,20 +12,12 @@ describe DocumentsController, :omniauth do
 
     it 'should retrieve the user\'s documents' do
       2.times { create(:document, user: user) }
-
       session[:user_id] = user
 
       get :index
 
       expect(assigns(:document)).to_not be_nil
-
-      expect(Document.in_progress(user).count).to    be 2
-      expect(assigns(:uploading_docs).length).to eq 2
-      expect(Document.in_progress(user).map(&:id)).to match assigns(:uploading_docs).map(&:id)
-
-      expect(Document.done_uploading(user).count).to be 0
-      expect(assigns(:completed_docs).length).to eq 0
-      expect(Document.done_uploading(user).map(&:id)).to match assigns(:completed_docs).map(&:id)
+      expect(assigns(:documents).length).to eq 2
     end
   end
 end
