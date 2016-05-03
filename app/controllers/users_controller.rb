@@ -19,7 +19,6 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    ap @user
     if @user.update(user_params)
       redirect_to tagfinder_executions_path, notice: "Your email has been updated!"
     else

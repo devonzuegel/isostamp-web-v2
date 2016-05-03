@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
 
   def self.create_with_omniauth(auth)
-    ap auth
     create! do |user|
       user.provider = auth.fetch('provider')
       user.uid      = auth.fetch('uid')
