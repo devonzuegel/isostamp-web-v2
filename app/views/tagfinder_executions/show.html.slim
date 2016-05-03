@@ -22,4 +22,4 @@ table.padded
     td= link_to @tagfinder_execution.user.name, user_path(@tagfinder_execution.user)
   tr
     td: b Result
-    td: pre= @tagfinder_execution.result.html_safe
+    td: pre= (@tagfinder_execution.result || '').html_safe
