@@ -20,11 +20,6 @@ class Document < ActiveRecord::Base
     write_attribute(:direct_upload_url, CGI.unescape(escaped_url))
   end
 
-  # Determines if file requires post-processing (image resizing, etc)
-  def post_process_required?
-    %r{^(image|(x-)?application)/(bmp|gif|jpeg|jpg|pjpeg|png|x-png)$}.match(upload_content_type).present?
-  end
-
   protected
 
   # Set attachment attributes from the direct upload

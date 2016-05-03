@@ -23,9 +23,11 @@ RSpec.describe TagfinderExecution, type: :model do
     it 'should require the params_file to be of kind "Params"'
   end
 
-  describe 'status' do
+  describe 'status', :focus do
+    before { Document.any_instance.stub(:set_upload_attributes).and_return(true) }
+
     it 'should be "Still running..." when success is not yet defined' do
-      @te = create(:tagfinder_execution)
+      @te = build(:tagfinder_execution)
       expect(@te.status).to eq("Still running...")
     end
 
