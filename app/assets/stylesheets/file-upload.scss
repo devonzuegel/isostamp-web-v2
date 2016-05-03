@@ -23,3 +23,12 @@ label.btn.btn-default,
 .fileinput-new {
   font-family: 'Karla' !important;
 }
+
+.form-actions.input-group-addon {
+  .btn {
+    margin:     0px;
+    padding:    0px;
+    background: none;
+    border:     none;
+  }
+}

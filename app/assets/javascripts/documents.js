@@ -26,7 +26,7 @@ $(function() {
   });
 
   $('#filename').bind('DOMSubtreeModified', function (e) {
-    if ($('#filename').text())
+    if ($('#filename').text() != '')
       $('#submit-upload').prop('disabled', false);
   });
 });

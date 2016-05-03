@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   has_many :documents
   has_many :sessions, class_name: 'Session'
 
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+
   def self.create_with_omniauth(auth)
     ap auth
     create! do |user|

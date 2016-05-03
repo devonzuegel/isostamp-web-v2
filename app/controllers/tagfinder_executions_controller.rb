@@ -4,6 +4,9 @@ class TagfinderExecutionsController < ApplicationController
   # GET /tagfinder_executions
   # GET /tagfinder_executions.json
   def index
+    @user           = current_user
+    @document       = Document.new
+
     @data_files     = current_user.documents
     @param_files    = current_user.documents
     @default_params = [[ nil, 'Use Default Configuration' ]]

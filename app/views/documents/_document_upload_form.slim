@@ -1,33 +1,32 @@
-table.padded-form.form-table#file-upload-form
-  p
-    = 'Please use the '
-    a(href='http://tools.proteomecenter.org/wiki/index.php?title=Formats:mzXML') mzXML
-    = ' data format for your mass spec data and upload a '
-    a(href='https://en.wikipedia.org/wiki/Text_file') txt
-    = ' file for your parameters.'
+p
+  = 'Please use the '
+  a(href='http://tools.proteomecenter.org/wiki/index.php?title=Formats:mzXML') mzXML
+  = ' data format for your mass spec data and upload a '
+  a(href='https://en.wikipedia.org/wiki/Text_file') txt
+  = ' file for your parameters.'
 
-  tr: td: .file-input-field
-    = s3_uploader_form callback_url: documents_url, id: "s3_uploader", callback_param: "document[direct_upload_url]" do
+.row: .col-sm-10: .file-input-field
+  = s3_uploader_form callback_url: documents_url, id: "s3_uploader", callback_param: "document[direct_upload_url]" do
 
-      .fileinput.fileinput-new.input-group data-provides='fileinput'
-        .form-control data-trigger='fileinput'
-          span.fileinput-exists.right-spacer: i.fa.fa-file-text-o
-          span.fileinput-filename#filename
-        span.input-group-addon.btn.btn-default.btn-file
-          span.fileinput-new Select file
-          span.fileinput-exists Change
-          = file_field_tag :file, multiple: false, id: 'file-input'
-        span.input-group-addon.fileinput-exists.btn.btn-file
-          span.fileinput-exists Begin upload
-          = submit_tag 'Begin upload', id: 'submit-upload', disabled: true
+    .fileinput.fileinput-new.input-group data-provides='fileinput'
+      .form-control data-trigger='fileinput'
+        span.fileinput-exists.right-spacer: i.fa.fa-file-text-o
+        span.fileinput-filename#filename
+      span.input-group-addon.btn.btn-default.btn-file
+        span.fileinput-new Select file
+        span.fileinput-exists Change
+        = file_field_tag :file, multiple: false, id: 'file-input'
+      span.input-group-addon.fileinput-exists.btn.btn-file
+        span.fileinput-exists Begin upload
+        = submit_tag 'Begin upload', id: 'submit-upload', disabled: true
 
 .overlay#uploads-progress: #uploads-progress-bar
 
 <script id='template-upload' type='text/x-tmpl'>
-  <div id="upload_{%=o.unique_id%}" class='upload'>
-    <h3>Uploading {%=o.name%}...</h3>
-    <div class='progress active'>
-      <div class='bar' role='progressbar' style='width: 0%'></div>
-    </div>
+<div id="upload_{%=o.unique_id%}" class='upload'>
+  <h3>Uploading {%=o.name%}...</h3>
+  <div class='progress active'>
+    <div class='bar' role='progressbar' style='width: 0%'></div>
   </div>
+</div>
 </script>

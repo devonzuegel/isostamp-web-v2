@@ -1,16 +1,26 @@
 h1 Run Isostamp
 
-#execution-form= form_tag(controller: :tagfinder_executions, action: :create) do
+.row
+  .col-xs-12
+    h3 1. Make sure your email address is correct
+    p We will email you the results when they are ready, so please make sure we have the right address on file.
+  .col-sm-8
+    = form_for @user do |f|
+      .fileinput.fileinput-new.input-group
+        = f.text_field :email, :class => 'form-control'
+        span.form-actions.input-group-addon
+          = f.submit 'Update email', :class => 'btn btn-default'
 
-  .row
+  #execution-form= form_tag(controller: :tagfinder_executions, action: :create) do
+
     .col-sm-12
       h3
-        = '1. '
+        = '2. '
         = link_to 'Upload', documents_path
         = ' mass spec data and custom parameters.'
-      p If you've already uploaded data and optional parameters, simply select them below.
+      p If you've already uploaded data and (optionally) parameters, simply select them below.
     .col-sm-6
-      h3 2. Select mass spec data
+      h3 3. Select mass spec data
       - if @data_files.empty?
         p
           = 'Please '
@@ -21,7 +31,7 @@ h1 Run Isostamp
           = collection_radio_buttons(:tagfinder_execution, :data_file_id, @data_files, :id, :upload_file_name) do |b|
             = b.label(:class => 'btn btn-default') { b.radio_button + b.text }
     .col-sm-6
-      h3 3. Select parameters
+      h3 4. Select parameters
       .btn-group-vertical.fill-width role='group' data-toggle='buttons'
         = collection_radio_buttons(:tagfinder_execution, :params_file_id, @param_files, :id, :upload_file_name) do |b|
           = b.label(:class => 'btn btn-default') { b.radio_button + b.text }
@@ -29,8 +39,9 @@ h1 Run Isostamp
         = collection_radio_buttons(:tagfinder_execution, :params_file_id, @default_params, :first, :last) do |b|
           = b.label(:class => 'btn btn-default active') { b.radio_button + b.text }
 
-  .row: .spacer.large
-  = submit_tag "Run Isostamp", :class => 'button btn btn-primary', disabled: true, data: { confirm: 'The execution of isostamp hasnt actually been implemented yet!' }
+    .col-sm-12
+      .spacer.large
+      = submit_tag "Run Isostamp", :class => 'button btn btn-primary', disabled: true, data: { confirm: 'The execution of isostamp hasnt actually been implemented yet!' }
 
 javascript:
   $("#data_file").change(function(e){

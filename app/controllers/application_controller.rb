@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   def correct_user?
     @user = User.find(params[:id])
     unless current_user == @user || current_user.admin?
-      redirect_to root_url, alert: "Access denied."
+      redirect_to root_url, alert: 'You need to sign in for access to this page.'
     end
   end
 
@@ -49,6 +49,17 @@ class ApplicationController < ActionController::Base
 
   def authenticate_admin!
     render_404 if current_user.nil? || !current_user.admin
+  end
+
+  def authenticate_user_or_admin!
+    authenticate_user!
+    if !belongs_to_current_user && !current_user.admin
+      redirect_to root_url, alert: 'You need to sign in for access to this page.'
+    end
+  end
+
+  def belongs_to_current_user
+    current_user == User.find(params[:id])
   end
 end
 
