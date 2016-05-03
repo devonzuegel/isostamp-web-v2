@@ -1,17 +1,25 @@
-p#notice = notice
-
-p
-  strong User:
-  = @tagfinder_execution.user
-p
-  strong Data file:
-  = @tagfinder_execution.data_file
-p
-  strong Params file:
-  = @tagfinder_execution.params_file
-p
-  strong Email sent:
-  = @tagfinder_execution.email_sent
-p
-  strong Success:
-  = @tagfinder_execution.success
+table.padded
+  tr
+    td: b Data file
+    td: a href="#{@tagfinder_execution.data_file.direct_upload_url}"
+      = @tagfinder_execution.data_file.upload_file_name
+  tr
+    td: b Parameters
+    td
+      - if @tagfinder_execution.params_file.nil?
+        i.grey Used default configuration
+      - else
+        a href="#{@tagfinder_execution.params_file.direct_upload_url}"
+          = @tagfinder_execution.params_file.upload_file_name
+  tr
+    td: b Status
+    td= @tagfinder_execution.status
+  tr
+    td: b Created
+    td= "#{time_ago_in_words(@tagfinder_execution.created_at)} ago"
+  tr
+    td: b Owner
+    td= link_to @tagfinder_execution.user.name, user_path(@tagfinder_execution.user)
+  tr
+    td: b Result
+    td: pre= @tagfinder_execution.result.html_safe

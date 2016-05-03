@@ -17,9 +17,9 @@ class TagfinderExecutionsController < ApplicationController
   # POST /tagfinder_executions
   # POST /tagfinder_executions.json
   def create
-    @tagfinder_execution = TagfinderExecution.new(tagfinder_execution_params.merge(user:current_user))
-    RunExecution.enqueue(tagfinder_execution_params.fetch('data_file_id'), tagfinder_execution_params['params_file_id'])
-    if @tagfinder_execution.save
+    @execution = TagfinderExecution.new(tagfinder_execution_params.merge(user: current_user))
+    if @execution.save
+      RunExecution.enqueue(@execution.id)
       redirect_to tagfinder_executions_path, notice: 'Tagfinder execution was successfully created.'
     else
       render :new

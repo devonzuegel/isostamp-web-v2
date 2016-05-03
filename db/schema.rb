@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160503053323) do
+ActiveRecord::Schema.define(version: 20160503070739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20160503053323) do
     t.boolean  "success"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.string   "result"
   end
 
   add_index "tagfinder_executions", ["data_file_id"], name: "index_tagfinder_executions_on_data_file_id", using: :btree
