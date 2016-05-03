@@ -28,7 +28,6 @@ class TagfinderExecution < ActiveRecord::Base
     # stderr.each_line { |line| print line.red;   build_result << line }
     # build_result <<  "\n------------------------------------------\n"
 
-    executable = Rails.env.development? ? 'bin/tagfinder-mac' : 'bin/tagfinder'
     stdin, stdout, stderr = Open3.popen3("#{executable}")# #{filepath};")
     build_result <<  "\n------------------------------------------\nSTDOUT:\n"
     stdout.each_line { |line| print line.green; build_result << line }
@@ -44,5 +43,14 @@ class TagfinderExecution < ActiveRecord::Base
     update_attributes(result: build_result, success: successful)
     # stdin, stdout, stderr = Open3.popen3("rm #{filepath};")
     puts '------------------------------------------'.black
+  end
+
+  private
+
+  def executable
+    case Rails.env
+      when *%w(development test)   then 'bin/tagfinder-mac'
+      when *%w(staging production) then 'bin/tagfinder'
+    end
   end
 end
