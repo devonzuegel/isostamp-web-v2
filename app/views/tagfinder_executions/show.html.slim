@@ -1,22 +1,27 @@
 table.padded
   tr
+    td: b Created
+    td= "#{time_ago_in_words(@tagfinder_execution.created_at)} ago"
+  tr
     td: b Data file
-    td: a href="#{@tagfinder_execution.data_file.direct_upload_url}"
-      = @tagfinder_execution.data_file.upload_file_name
+    td
+      - if @tagfinder_execution.data_file.nil? && !@tagfinder_execution.data_file_id.nil?
+        i.grey File has been removed
+      - else
+         a href="#{@tagfinder_execution.data_file.direct_upload_url}"= te.data_file.upload_file_name
   tr
     td: b Parameters
     td
-      - if @tagfinder_execution.params_file.nil?
+      - if @tagfinder_execution.params_file_id.nil?
         i.grey Used default configuration
+      - elsif @tagfinder_execution.params_file.nil?
+        i.grey File has been removed
       - else
         a href="#{@tagfinder_execution.params_file.direct_upload_url}"
           = @tagfinder_execution.params_file.upload_file_name
   tr
     td: b Status
     td= @tagfinder_execution.status
-  tr
-    td: b Created
-    td= "#{time_ago_in_words(@tagfinder_execution.created_at)} ago"
   tr
     td: b Owner
     td= link_to @tagfinder_execution.user.name, user_path(@tagfinder_execution.user)
