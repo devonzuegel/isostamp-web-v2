@@ -5,16 +5,16 @@ table.padded
   tr
     td: b Data file
     td
-      - if @tagfinder_execution.data_file.nil? && !@tagfinder_execution.data_file_id.nil?
+      - if @tagfinder_execution.data_file_removed?
         i.grey File has been removed
       - else
-         a href="#{@tagfinder_execution.data_file.direct_upload_url}"= te.data_file.upload_file_name
+         a href="#{@tagfinder_execution.data_file_url}"= @tagfinder_execution.data_file_name
   tr
     td: b Parameters
     td
-      - if @tagfinder_execution.params_file_id.nil?
+      - if @tagfinder_execution.used_default_params?
         i.grey Used default configuration
-      - elsif @tagfinder_execution.params_file.nil?
+      - elsif @tagfinder_execution.params_file_removed?
         i.grey File has been removed
       - else
         a href="#{@tagfinder_execution.params_file.direct_upload_url}"
