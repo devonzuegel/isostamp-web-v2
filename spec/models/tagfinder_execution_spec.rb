@@ -22,4 +22,21 @@ RSpec.describe TagfinderExecution, type: :model do
     it 'should require the data_file to be of kind "Mass Spec Data"'
     it 'should require the params_file to be of kind "Params"'
   end
+
+  describe 'status' do
+    it 'should be "Still running..." when success is not yet defined' do
+      @te = create(:tagfinder_execution)
+      expect(@te.status).to eq("Still running...")
+    end
+
+    it 'should be "Success!" when success is true' do
+      @te = create(:tagfinder_execution, success: true)
+      expect(@te.status).to eq("Success!")
+    end
+
+    it 'should be "Failure" when success is false' do
+      @te = create(:tagfinder_execution, success: false)
+      expect(@te.status).to eq("Failure")
+    end
+  end
 end

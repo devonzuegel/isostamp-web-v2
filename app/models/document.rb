@@ -9,6 +9,7 @@ class Document < ActiveRecord::Base
   belongs_to :user
   has_attached_file :upload
 
+  validates_presence_of :user
   validates :direct_upload_url, presence: true, format: { with: DIRECT_UPLOAD_URL_FORMAT }
 
   before_create :set_upload_attributes

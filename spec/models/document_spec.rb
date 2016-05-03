@@ -5,15 +5,13 @@ RSpec.describe Document, type: :model do
     expect(build(:document)).to be_valid
   end
 
-  it 'should require an attachment' do
-    expect(build(:document, attachment: nil)).to_not be_valid
-  end
-
-  it 'should require a defined kind' do
-    expect(build(:document, kind: nil)).to_not be_valid
-  end
-
   it 'it should require user ownership' do
     expect(build(:document, user: nil)).to_not be_valid
+  end
+
+  it 'should be destroyed when its owner is destroyed' do
+    user = create(:user)
+    expect { create(:document, user: user) }.to change { Document.count }.by 1
+    expect { user.destroy }.to change { Document.count }.by -1
   end
 end

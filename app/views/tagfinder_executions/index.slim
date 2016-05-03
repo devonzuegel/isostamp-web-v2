@@ -67,12 +67,16 @@ h1 History
     tbody
       - @tagfinder_executions.each do |te|
         tr
-          td= te.data_file.upload_file_name
+          td
+            - if te.data_file.nil?
+              i.grey File has been removed
+            - else
+               a href="#{te.data_file.direct_upload_url}"= te.data_file.upload_file_name
           td
             - if te.params_file.nil?
               i.grey Used default configuration
             - else
-              = te.params_file.upload_file_name
+              a href="#{te.params_file.direct_upload_url}"= te.params_file.upload_file_name
           td= te.status
           td= "#{time_ago_in_words(te.created_at)} ago"
           td= link_to 'Details', te
