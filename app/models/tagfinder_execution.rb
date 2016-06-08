@@ -1,3 +1,5 @@
+require 'open3'
+
 class TagfinderExecution < ActiveRecord::Base
   belongs_to :user
   belongs_to :data_file,   class_name: 'Document'
@@ -17,6 +19,7 @@ class TagfinderExecution < ActiveRecord::Base
     puts '------------------------------------------'.black
     puts 'Ignoring params file for now!!'.red
     # doc_url = Document.find(data_file_id).attachment.url
+    # # filepath = doc_url
     # filepath = "./tmp/#{Time.now.utc.to_i}-#{File.basename(doc_url)}"
 
     # stdin, stdout, stderr = Open3.popen3("wget #{doc_url} -O #{filepath};")
