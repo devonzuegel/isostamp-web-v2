@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    = favicon_link_tag 'stanford-favicon.ico'
+    == render 'layouts/favicon'
     meta[name="viewport" content="width=device-width, initial-scale=1.0"]
     title
       = content_for?(:title) ? yield(:title) : 'Isostamp Web V2'

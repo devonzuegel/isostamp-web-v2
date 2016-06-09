@@ -1,0 +1,4 @@
+- if ENV['ENV'].nil?
+  = favicon_link_tag "stanford-favicon-production}.ico"
+- else
+  = favicon_link_tag "stanford-favicon-#{ENV['ENV']}.ico"

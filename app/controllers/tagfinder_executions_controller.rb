@@ -5,6 +5,7 @@ class TagfinderExecutionsController < ApplicationController
   # GET /tagfinder_executions
   # GET /tagfinder_executions.json
   def index
+    puts request.host.red
     @user           = current_user
     @document       = Document.new
 
