@@ -32,6 +32,8 @@ gem 'aws-sdk-v1',                 '1.66.0'  # S3 API
 gem 'paperclip',                  '4.3.6'   # File attachment syntax and callbacks
 gem 's3_direct_upload',           '0.1.7'   # Direct upload form helper and assets
 gem 'draper',                     '~> 1.3'  # github.com/drapergem/draper
+gem 'mailgun-ruby',               '~>1.0.2', require: 'mailgun'
+gem 'delayed_job_active_record'
 
 group :development, :test do
   gem 'byebug'

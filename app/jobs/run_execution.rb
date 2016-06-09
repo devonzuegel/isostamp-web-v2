@@ -3,13 +3,13 @@ class RunExecution < Que::Job
     setup_error_handler
 
     ActiveRecord::Base.transaction do
-        execution = TagfinderExecution.find(te_id)
-        execution.run
+      execution = TagfinderExecution.find(te_id)
+      execution.run
 
-        # TODO alert user of completion
-
-        destroy
+      TagfinderResultMailer.sample_email(execution).deliver_now
+      Que.log "Email to #{execution.user.email} regarding execution ##{execution.id} sent"
     end
+    destroy
   end
 
   def setup_error_handler

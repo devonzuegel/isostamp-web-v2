@@ -22,6 +22,10 @@
   font-family: 'Karla', sans-serif;
 }
 
+pre, code {
+  font-family: 'Roboto Mono', monospace;
+}
+
 $green: #27d096;
 $dark-green: darken($green, 6%);
 
