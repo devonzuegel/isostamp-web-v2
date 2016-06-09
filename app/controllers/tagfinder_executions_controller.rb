@@ -1,5 +1,6 @@
 class TagfinderExecutionsController < ApplicationController
   before_action :set_tagfinder_execution, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /tagfinder_executions
   # GET /tagfinder_executions.json

@@ -17,35 +17,22 @@ class TagfinderExecution < ActiveRecord::Base
 
   def run
     puts '------------------------------------------'.black
-    puts 'Ignoring params file for now!!'.red
-    # doc_url = Document.find(data_file_id).attachment.url
-    # # filepath = doc_url
-    # filepath = "./tmp/#{Time.now.utc.to_i}-#{File.basename(doc_url)}"
+    @build_result = ''
 
-    # stdin, stdout, stderr = Open3.popen3("wget #{doc_url} -O #{filepath};")
-
-    build_result = ''
-
-    # stdout.each_line { |line| print line.green; build_result << line }
-    # build_result <<  "\n------------------------------------------\n"
-    # stderr.each_line { |line| print line.red;   build_result << line }
-    # build_result <<  "\n------------------------------------------\n"
-
-    stdin, stdout, stderr = Open3.popen3("#{executable}")# #{filepath};")
-    build_result <<  "\n------------------------------------------\nSTDOUT:\n"
-    stdout.each_line { |line| print line.green; build_result << line }
-    build_result <<  "\n------------------------------------------\nSTDERR:\n"
+    stdin, stdout, stderr = Open3.popen3("#{executable} #{tmp_filepath};")
+    @build_result <<  "\n------------------------------------------\nSTDOUT:\n"
+    stdout.each_line { |line| print line.green; @build_result << line }
+    @build_result <<  "\n------------------------------------------\nSTDERR:\n"
     successful = true
     stderr.each_line do |line|
       print line.red
-      build_result << line
+      @build_result << line
       successful = false if !line.blank?
     end
-    build_result <<  "\n------------------------------------------\n"
+    @build_result <<  "\n------------------------------------------\n"
 
-    update_attributes(result: build_result, success: successful)
-    # stdin, stdout, stderr = Open3.popen3("rm #{filepath};")
-    puts '------------------------------------------'.black
+    persist_results(@build_result, successful)
+    remove_tmp_file
   end
 
   def data_file_removed?
@@ -69,6 +56,34 @@ class TagfinderExecution < ActiveRecord::Base
   end
 
   private
+
+  def tmp_filepath
+    if @tmp_filepath.nil?
+      @tmp_filepath = "./tmp/#{Time.now.utc.to_i}-#{File.basename(data_file_url)}"
+      download_tmp_file
+    end
+
+    @tmp_filepath
+  end
+
+  def download_tmp_file
+    stdin, stdout, stderr = Open3.popen3("wget #{data_file_url} -O #{@tmp_filepath};")
+
+    stdout.each_line { |line| print line.green; @build_result << line }
+    @build_result <<  "\n------------------------------------------\n"
+    stderr.each_line { |line| print line.red;   @build_result << line }
+    @build_result <<  "\n------------------------------------------\n"
+  end
+
+  def remove_tmp_file
+    puts "Removing tmp file '#{@tmp_filepath}'...".red
+    stdin, stdout, stderr = Open3.popen3("rm #{@tmp_filepath};")
+  end
+
+  def persist_results(built_result, successful)
+    update_attributes(result: built_result, success: successful)
+    puts '=========================================='.black
+  end
 
   def executable
     case Rails.env

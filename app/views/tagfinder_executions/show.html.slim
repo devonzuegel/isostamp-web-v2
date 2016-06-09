@@ -25,6 +25,7 @@ table.padded
   tr
     td: b Owner
     td= link_to @tagfinder_execution.user.name, user_path(@tagfinder_execution.user)
-  tr
-    td: b Result
-    td: pre= (@tagfinder_execution.result || '').html_safe
+  - unless @tagfinder_execution.result.nil?
+    tr
+      td: b Result
+      td: pre= @tagfinder_execution.result.html_safe

@@ -29,6 +29,10 @@ $dark-green: darken($green, 6%);
   position: relative;
   margin: 0px 10px 10px 10px;
   width: 97%;
+
+  &.inline {
+    margin: 10px 0 20px 0;
+  }
 }
 
 .fa-stack-text {
