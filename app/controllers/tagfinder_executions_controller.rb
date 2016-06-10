@@ -12,7 +12,7 @@ class TagfinderExecutionsController < ApplicationController
     @param_files    = current_user.documents
     @default_params = [[ nil, 'Use Default Configuration' ]]
 
-    @tagfinder_executions = TagfinderExecution.where(user: current_user).reverse
+    @tagfinder_executions = TagfinderExecution.where(user: current_user).decorate.reverse
   end
 
   # POST /tagfinder_executions
@@ -40,7 +40,7 @@ class TagfinderExecutionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tagfinder_execution
-      @tagfinder_execution = TagfinderExecution.find(params[:id])
+      @tagfinder_execution = TagfinderExecution.find(params[:id]).decorate
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
