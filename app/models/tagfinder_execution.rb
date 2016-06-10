@@ -6,14 +6,10 @@ class TagfinderExecution < ActiveRecord::Base
   validates_presence_of %i(user data_file)
 
   def run
-    puts '=========================================='.black
-    puts '=========================================='.black
     # successful = shell.run("#{executable} #{tmp_filepath};")
     successful = shell.run("echo hello;")
     persist_results(successful)
     remove_tmp_file
-    puts '=========================================='.black
-    puts '=========================================='.black
   end
     # puts "tmp_filepath = '#{tmp_filepath}'".green
     # puts "tmp directory:".green
@@ -50,12 +46,9 @@ class TagfinderExecution < ActiveRecord::Base
   end
 
   def persist_results(successful)
-    result  = "OUTPUTS = #{JSON.pretty_generate(shell.output.as_json)}"
-    result += "\n\n-------------------------------------------------\n\n"
+    result  = "OUTPUTS = #{JSON.pretty_generate(shell.outputs.as_json)}\n"
     result += "ERRORS  = #{JSON.pretty_generate(shell.errors.as_json)}"
     update_attributes(result: result, success: successful)
-    puts 'ATTRIBUTES PERSISTED'.black
-    puts '=========================================='.black
   end
 
   def executable
