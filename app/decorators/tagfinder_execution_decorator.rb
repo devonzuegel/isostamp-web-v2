@@ -29,13 +29,23 @@ class TagfinderExecutionDecorator < Draper::Decorator
     !used_default_params? && params_file.nil?
   end
 
-  # Define presentation-specific methods here. Helpers are accessed through
-  # `helpers` (aka `h`). You can override attributes, for example:
-  #
-  #   def created_at
-  #     helpers.content_tag :span, class: 'time' do
-  #       object.created_at.strftime("%a %m/%d/%y")
-  #     end
-  #   end
+  def params_file
+    if used_default_params?
+      h.content_tag :i, :class => 'grey' do
+        'Used default configuration'
+      end
+    elsif params_file_removed?
+      h.content_tag :i, :class => 'grey' do
+        'File has been removed'
+      end
+    else
+      h.content_tag :a, href: params_file.direct_upload_url do
+        params_file.upload_file_name
+      end
+    end
+  end
 
+  def created_at
+    "#{h.time_ago_in_words(object.created_at)} ago".capitalize
+  end
 end

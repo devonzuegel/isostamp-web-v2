@@ -1,7 +1,7 @@
 table.padded
   tr
     td: b Created
-    td= "#{time_ago_in_words(@tagfinder_execution.created_at)} ago"
+    td= @tagfinder_execution.created_at
   tr
     td: b Data file
     td
@@ -11,14 +11,7 @@ table.padded
          a href="#{@tagfinder_execution.data_file_url}"= @tagfinder_execution.data_file_name
   tr
     td: b Parameters
-    td
-      - if @tagfinder_execution.used_default_params?
-        i.grey Used default configuration
-      - elsif @tagfinder_execution.params_file_removed?
-        i.grey File has been removed
-      - else
-        a href="#{@tagfinder_execution.params_file.direct_upload_url}"
-          = @tagfinder_execution.params_file.upload_file_name
+    td= @tagfinder_execution.params_file
   tr
     td: b Status
     td= @tagfinder_execution.status
