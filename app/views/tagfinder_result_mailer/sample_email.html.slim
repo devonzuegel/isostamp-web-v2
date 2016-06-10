@@ -8,28 +8,29 @@ html xmlns="http://www.w3.org/1999/xhtml"
     title Isostamp Results
   body itemscope="" itemtype="http://schema.org/EmailMessage": table.body-wrap: tr
     td
-    td.container width="600": .content
-      table.main cellpadding="0" cellspacing="0" width="100%": tr: td.content-wrap.aligncenter: table cellpadding='0' cellspacing='0' width='100%'
+    td.container: .content
+      table.main cellpadding="0" cellspacing="0": tr: td.content-wrap.aligncenter: table cellpadding='0' cellspacing='0'
         tr: td.content-block: h1.aligncenter= @tagfinder_execution.user.name
-        tr: td.content-block.aligncenter: pre= @tagfinder_execution.result
         tr: td.content-block.alignleft
           b= 'Created at: '
           = @tagfinder_execution.created_at.strftime("%h %d %H:%M:%S")
           br
           b= 'Data file: '
-          = @tagfinder_execution.data_file.nil? ? 'filename' : @tagfinder_execution.data_file.upload_file_name
+          a href=@tagfinder_execution.data_file.direct_upload_url
+            = @tagfinder_execution.data_file.upload_file_name
           br
           b= 'Params file: '
           = @tagfinder_execution.params_file.nil? ? 'filename' : @tagfinder_execution.params_file.upload_file_name
           br
           b= 'Owner: '
           = @tagfinder_execution.user.name
-        tr: td.content-block.aligncenter: pre= JSON.pretty_generate @tagfinder_execution.as_json
+        tr: td.content-block.aligncenter
+          pre== truncate(@tagfinder_execution.result, length: 500, separator: /^\S*\s/, omission: "\n\n... (continued)")
 
         tr: td.aligncenter.content-block
           = 'Questions? Email '
           a href="mailto:#{ENV['EMAIL_SENDER']}" = ENV['EMAIL_SENDER']
-      .footer: table width="100%": tr: td.content-block.aligncenter
+      .footer: table: tr: td.content-block.aligncenter
         | Bertozzi Lab , Stanford Department of Chemistry 
         br
         | 380 Roth Way MC: 5080 , Stanford CA 94305-4401 
@@ -41,7 +42,7 @@ html xmlns="http://www.w3.org/1999/xhtml"
       border:      1px solid #eee;
       text-align:  left;
       padding:     10px 15px;
-      white-space: wrap;
+      white-space: pre-wrap;
     }
     * {
       margin: 0;

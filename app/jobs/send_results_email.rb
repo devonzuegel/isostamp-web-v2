@@ -1,6 +1,6 @@
 class SendResultsEmail < Que::Job
   def run(te_id)
-    execution = TagfinderExecution.find(te_id)
-    TagfinderResultMailer.sample_email(execution).deliver_now
+    te = TagfinderExecution.find(te_id)
+    TagfinderResultMailer.sample_email(te).deliver_now
   end
 end

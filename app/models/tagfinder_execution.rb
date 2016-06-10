@@ -1,5 +1,3 @@
-require 'open3'
-
 class TagfinderExecution < ActiveRecord::Base
   belongs_to :user
   belongs_to :data_file,   class_name: 'Document'
@@ -9,23 +7,18 @@ class TagfinderExecution < ActiveRecord::Base
 
   def run
     puts '=========================================='.black
-    successful = false  # TODO remove me
+    puts '=========================================='.black
     @build_result = ''
-    @build_result << tmp_filepath
-
-    # stdin, stdout, stderr = Open3.popen3("#{executable} #{tmp_filepath};")
-    # @build_result <<  "\n------------------------------------------\nSTDOUT:\n"
-    # stdout.each_line { |line| print line.green; @build_result << line }
-    # @build_result <<  "\n------------------------------------------\nSTDERR:\n"
-    # successful = true
-    # stderr.each_line do |line|
-    #   print line.red
-    #   @build_result << line
-    #   successful = false if !line.blank?
-    # end
-    # @build_result <<  "\n------------------------------------------\n"
-    persist_results(@build_result, successful)
+    successful = shell.run("#{executable} #{tmp_filepath};")
+    puts "tmp_filepath = '#{tmp_filepath}'".green
+    puts "tmp directory:".green
+    stdin, stdout, stderr = Open3.popen3("ls ./tmp;")
+    stdout.each_line { |line| print line.white.on_black }
+    stderr.each_line { |line| print line.red.on_black }
+    persist_results(successful)
     remove_tmp_file
+    puts '=========================================='.black
+    puts '=========================================='.black
   end
 
   def data_file_removed?
@@ -58,11 +51,14 @@ class TagfinderExecution < ActiveRecord::Base
 
   private
 
+  def shell
+    @shell ||= Shell.new
+  end
+
   def tmp_filepath
     if @tmp_filepath.nil?
       @tmp_filepath = "./tmp/#{Time.now.utc.to_i}-#{File.basename(data_file_url)}"
       download_tmp_file
-      print_contents_of_file
     end
 
     @tmp_filepath
@@ -72,9 +68,9 @@ class TagfinderExecution < ActiveRecord::Base
     stdin, stdout, stderr = Open3.popen3("wget #{data_file_url} -O #{@tmp_filepath};")
 
     @build_result << "\nDownloading to '#{@tmp_filepath}':\n"
-    stdout.each_line { |line| print line.green; @build_result << line }
+    stdout.each_line { |line| @build_result << line }
     @build_result <<  "\n\n"
-    stderr.each_line { |line| print line.red;   @build_result << line }
+    stderr.each_line { |line| @build_result << line }
     @build_result <<  "\n\n"
   end
 
@@ -93,8 +89,8 @@ class TagfinderExecution < ActiveRecord::Base
     stdin, stdout, stderr = Open3.popen3("rm #{@tmp_filepath};")
   end
 
-  def persist_results(built_result, successful)
-    update_attributes(result: built_result, success: successful)
+  def persist_results(successful)
+    update_attributes(result: @built_result, success: successful)
     puts 'ATTRIBUTES PERSISTED'.black
     puts '=========================================='.black
   end
