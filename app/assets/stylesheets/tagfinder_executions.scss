@@ -2,8 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-table.padded {
-  tr td {
+table {
+  &.padded tr td {
     padding: 5px;
+  }
+  &.valign-top tr td {
+    vertical-align: top;
   }
 }

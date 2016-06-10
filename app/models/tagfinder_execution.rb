@@ -6,8 +6,7 @@ class TagfinderExecution < ActiveRecord::Base
   validates_presence_of %i(user data_file)
 
   def run
-    # successful = shell.run("#{executable} #{tmp_filepath};")
-    successful = shell.run("echo hello;")
+    successful = shell.run("#{executable} #{tmp_filepath};")
     persist_results(successful)
     remove_tmp_file
   end
@@ -34,6 +33,10 @@ class TagfinderExecution < ActiveRecord::Base
 
   def download_tmp_file
     shell.run("wget #{data_file_url} -O #{@tmp_filepath};")
+  end
+
+  def data_file_url
+    data_file.direct_upload_url
   end
 
   def print_contents_of_file

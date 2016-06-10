@@ -25,10 +25,6 @@ class TagfinderExecutionDecorator < Draper::Decorator
     object.data_file.nil? && !data_file_id.nil?
   end
 
-  def data_file_url
-    object.data_file.direct_upload_url
-  end
-
   def data_file_name(with_extension: true)
     filename = object.data_file.upload_file_name
     if with_extension

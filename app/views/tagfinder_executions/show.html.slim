@@ -1,4 +1,4 @@
-table.padded
+table.padded.valign-top
   tr
     td: b Created
     td= @tagfinder_execution.created_at
@@ -17,11 +17,11 @@ table.padded
 
   - unless @tagfinder_execution.result.nil?
     tr
-      td: b Result
-      td: pre= @tagfinder_execution.result.html_safe
-    tr
       td: b Results files
       td
         - @tagfinder_execution.results_files.each do |f|
          = f
          br
+    tr
+      td: b Result
+      td: pre= @tagfinder_execution.result.html_safe
