@@ -10,16 +10,16 @@ class TagfinderExecution < ActiveRecord::Base
     puts '=========================================='.black
     @build_result = ''
     successful = shell.run("#{executable} #{tmp_filepath};")
-    puts "tmp_filepath = '#{tmp_filepath}'".green
-    puts "tmp directory:".green
-    stdin, stdout, stderr = Open3.popen3("ls ./tmp;")
-    stdout.each_line { |line| print line.white.on_black }
-    stderr.each_line { |line| print line.red.on_black }
     persist_results(successful)
     remove_tmp_file
     puts '=========================================='.black
     puts '=========================================='.black
   end
+    # puts "tmp_filepath = '#{tmp_filepath}'".green
+    # puts "tmp directory:".green
+    # stdin, stdout, stderr = Open3.popen3("ls ./tmp;")
+    # stdout.each_line { |line| print line.white.on_black }
+    # stderr.each_line { |line| print line.red.on_black }
 
   def data_file_removed?
     data_file.nil? && !data_file_id.nil?
