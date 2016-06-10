@@ -47,9 +47,12 @@ class TagfinderExecution < ActiveRecord::Base
   end
 
   def print_contents_of_file
+    shell.run("cat #{@tmp_filepath};")
+    @build_result << "\n\n------ CONTENTS OF '#{@tmp_filepath}': -----------\n\n"
+    @build_result << shell.outputs
+    @build_result << shell.errors
     stdin, stdout, stderr = Open3.popen3("cat #{@tmp_filepath};")
 
-    @build_result << "\nCONTENTS OF '#{@tmp_filepath}':\n"
     stdout.each_line { |line| print line.green; @build_result << line }
     @build_result <<  "\n\n"
     stderr.each_line { |line| print line.red;   @build_result << line }

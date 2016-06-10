@@ -20,6 +20,8 @@ class Shell
   end
 
   def run(cmd, logger: false)
+    validate_format(cmd)
+
     stdin, stdout, stderr = Open3.popen3(cmd)
     output, error = '', ''
 
@@ -40,5 +42,13 @@ class Shell
     @errors   += [ error  ]
 
     successful
+  end
+
+  private
+
+  def validate_format(cmd)
+    if !cmd.ends_with?(';')
+      raise ArgumentError, 'Please end all commands with a semi-colon'
+    end
   end
 end

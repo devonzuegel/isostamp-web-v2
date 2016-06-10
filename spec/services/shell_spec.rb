@@ -51,4 +51,8 @@ RSpec.describe Shell do
       ''
     ]
   end
+
+  it 'should require commands to end with semicolons' do
+    expect { @shell.run('echo hi') }.to raise_error ArgumentError, 'Please end all commands with a semi-colon'
+  end
 end
