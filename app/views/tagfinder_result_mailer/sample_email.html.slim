@@ -14,7 +14,7 @@ html xmlns="http://www.w3.org/1999/xhtml"
         tr: td.content-block.aligncenter: pre= @tagfinder_execution.result
         tr: td.content-block.alignleft
           b= 'Created at: '
-          = @tagfinder_execution.created_at
+          = @tagfinder_execution.created_at.strftime("%h %d %H:%M:%S")
           br
           b= 'Data file: '
           = @tagfinder_execution.data_file.nil? ? 'filename' : @tagfinder_execution.data_file.upload_file_name

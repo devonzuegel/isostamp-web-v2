@@ -7,12 +7,13 @@ class TagfinderResultMailer < ApplicationMailer
     message_params = {
       from:       ENV['EMAIL_SENDER'],
       to:         @tagfinder_execution.user.email,
-      subject:    'Isostamp results',
+      subject:    "Isostamp results: #{@tagfinder_execution.data_file.upload_file_name} (#{Time.now.strftime("%h %d %H:%M:%S")})",
       html:        render_to_string(template: "../views/tagfinder_result_mailer/sample_email").to_str
     }
 
-    puts "Sending email to #{@tagfinder_execution.user.email}...".green
-    mail(message_params)
+    puts "> Sending email to #{@tagfinder_execution.user.email}...".blue
+    @tagfinder_execution.user.increment!(:num_emails_received)
+    # mail(message_params)
 
     mg_client = Mailgun::Client.new(ENV['MAILGUN_API_KEY'])
     mg_client.send_message ENV['MAILGUN_DOMAIN'], message_params
