@@ -8,7 +8,8 @@ class TagfinderExecution < ActiveRecord::Base
   def run
     puts '=========================================='.black
     puts '=========================================='.black
-    successful = shell.run("#{executable} #{tmp_filepath};")
+    # successful = shell.run("#{executable} #{tmp_filepath};")
+    successful = shell.run("echo hello;")
     persist_results(successful)
     remove_tmp_file
     puts '=========================================='.black

@@ -4,11 +4,7 @@ table.padded
     td= @tagfinder_execution.created_at
   tr
     td: b Data file
-    td
-      - if @tagfinder_execution.data_file_removed?
-        i.grey File has been removed
-      - else
-         a href="#{@tagfinder_execution.data_file_url}"= @tagfinder_execution.data_file_name
+    td= @tagfinder_execution.data_file
   tr
     td: b Parameters
     td= @tagfinder_execution.params_file
@@ -18,7 +14,14 @@ table.padded
   tr
     td: b Owner
     td= link_to @tagfinder_execution.user.name, user_path(@tagfinder_execution.user)
+
   - unless @tagfinder_execution.result.nil?
     tr
       td: b Result
       td: pre= @tagfinder_execution.result.html_safe
+    tr
+      td: b Results files
+      td
+        - @tagfinder_execution.results_files.each do |f|
+         = f
+         br
