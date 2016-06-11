@@ -25,7 +25,10 @@ html xmlns="http://www.w3.org/1999/xhtml"
           b= 'Owner: '
           = @tagfinder_execution.user.name
         tr: td.content-block.aligncenter
-          pre== truncate(@tagfinder_execution.result, length: 500, separator: /^\S*\s/, omission: "\n\n... (continued)")
+          b= 'Outputs: '
+          pre== truncate(@tagfinder_execution.stdouts, length: 500, separator: /^\S*\s/, omission: "\n\n... (continued)")
+          b= 'Errors: '
+          pre== truncate(@tagfinder_execution.stderrs, length: 500, separator: /^\S*\s/, omission: "\n\n... (continued)")
 
         tr: td.aligncenter.content-block
           = 'Questions? Email '

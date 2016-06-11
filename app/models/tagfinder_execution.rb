@@ -49,9 +49,11 @@ class TagfinderExecution < ActiveRecord::Base
   end
 
   def persist_results(successful)
-    result  = "OUTPUTS = #{JSON.pretty_generate(shell.outputs.as_json)}\n"
-    result += "ERRORS  = #{JSON.pretty_generate(shell.errors.as_json)}"
-    update_attributes(result: result, success: successful)
+    update_attributes(
+      stdouts:  JSON.pretty_generate(shell.stdouts.as_json),
+      stderrs:  JSON.pretty_generate(shell.stderrs.as_json),
+      success:  successful
+    )
   end
 
   def executable

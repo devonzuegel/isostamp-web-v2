@@ -15,7 +15,7 @@ table.padded.valign-top
     td: b Owner
     td= link_to @tagfinder_execution.user.name, user_path(@tagfinder_execution.user)
 
-  - unless @tagfinder_execution.result.nil?
+  - unless @tagfinder_execution.stdouts.nil?
     tr
       td: b Results files
       td
@@ -23,5 +23,12 @@ table.padded.valign-top
          = f
          br
     tr
-      td: b Result
-      td: pre= @tagfinder_execution.result.html_safe
+      td: b Outputs
+      td
+        - JSON.parse(@tagfinder_execution.stdouts).each do |out|
+          pre= out
+    tr
+      td: b Errors
+      td
+        - JSON.parse(@tagfinder_execution.stderrs).each do |err|
+          pre= err

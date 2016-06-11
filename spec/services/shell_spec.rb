@@ -5,27 +5,27 @@ RSpec.describe Shell do
 
   it 'should be initialized with empty results strings' do
     expect(@shell.commands).to eq []
-    expect(@shell.outputs).to  eq []
-    expect(@shell.errors).to   eq []
+    expect(@shell.stdouts).to  eq []
+    expect(@shell.stderrs).to   eq []
   end
 
   it 'should save the output of a command run' do
     str = 'hello there!'
     cmd = "echo #{str};"
     @shell.run(cmd)
-    expect(@shell.outputs).to  eq [ "#{str}\n" ]
+    expect(@shell.stdouts).to  eq [ "#{str}\n" ]
     expect(@shell.commands).to eq [ cmd        ]
   end
 
-  it 'should not add errors for a non-erroring command run' do
+  it 'should not add stderrs for a non-erroring command run' do
     str = 'hello there!'
     @shell.run("echo #{str};")
-    expect(@shell.errors).to eq ['']
+    expect(@shell.stderrs).to eq ['']
   end
 
-  it 'should save the errors of an erroring command run' do
+  it 'should save the stderrs of an erroring command run' do
     @shell.run("print hi;")
-    expect(@shell.errors).to eq ["sh: print: command not found\n"]
+    expect(@shell.stderrs).to eq ["sh: print: command not found\n"]
   end
 
   it 'should append the output of multiple runs' do
@@ -33,11 +33,11 @@ RSpec.describe Shell do
     cmds = strs.map { |s| "echo #{s};"}
     cmds.each { |cmd| @shell.run(cmd) }
     expect(@shell.commands).to eq cmds
-    expect(@shell.outputs).to  eq strs.map { |s| "#{s}\n" }
-    expect(@shell.errors).to   eq strs.map { |s| '' }
+    expect(@shell.stdouts).to  eq strs.map { |s| "#{s}\n" }
+    expect(@shell.stderrs).to   eq strs.map { |s| '' }
   end
 
-  it 'should append the errors of multiple runs' do
+  it 'should append the stderrs of multiple runs' do
     cmds = [
       'echo blah;',
       'print hello!;',
@@ -45,7 +45,7 @@ RSpec.describe Shell do
     ]
 
     cmds.each { |cmd| @shell.run(cmd) }
-    expect(@shell.errors).to eq [
+    expect(@shell.stderrs).to eq [
       '',
       "sh: print: command not found\n",
       ''

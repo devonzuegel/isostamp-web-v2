@@ -76,7 +76,8 @@ ActiveRecord::Schema.define(version: 20160609190017) do
     t.boolean  "success"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.string   "result"
+    t.string   "stdouts"
+    t.string   "stderrs"
   end
 
   add_index "tagfinder_executions", ["data_file_id"], name: "index_tagfinder_executions_on_data_file_id", using: :btree

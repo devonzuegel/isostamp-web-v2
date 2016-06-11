@@ -3,20 +3,20 @@ require 'open3'
 class Shell
   def initialize
     @commands = []
-    @outputs  = []
-    @errors   = []
+    @stdouts  = []
+    @stderrs  = []
   end
 
   def commands
     @commands
   end
 
-  def outputs
-    @outputs
+  def stdouts
+    @stdouts
   end
 
-  def errors
-    @errors
+  def stderrs
+    @stderrs
   end
 
   def run(cmd, logger: false)
@@ -38,8 +38,8 @@ class Shell
     end
 
     @commands += [ cmd    ]
-    @outputs  += [ output ]
-    @errors   += [ error  ]
+    @stdouts  += [ output ]
+    @stderrs  += [ error  ]
 
     successful
   end
