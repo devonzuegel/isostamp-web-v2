@@ -24,13 +24,15 @@ html xmlns="http://www.w3.org/1999/xhtml"
           br
           b= 'Owner: '
           = @tagfinder_execution.user.name
-        tr: td.content-block.aligncenter
+        tr: td.content-block.alignleft
           b= 'Outputs: '
-          pre== truncate(@tagfinder_execution.stdouts, length: 500, separator: /^\S*\s/, omission: "\n\n... (continued)")
-          b= 'Errors: '
-          pre== truncate(@tagfinder_execution.stderrs, length: 500, separator: /^\S*\s/, omission: "\n\n... (continued)")
+          pre== truncate(@tagfinder_execution.stdouts, length: 1_000, separator: /\S*\s/, omission: "\n\n... (continued)")
 
-        tr: td.aligncenter.content-block
+        tr: td.content-block.alignleft
+          b= 'Errors: '
+          pre.errors== truncate(@tagfinder_execution.stderrs, length: 1_000, separator: /\S*\s/, omission: "\n\n... (continued)")
+
+        tr: td.alignleft.content-block
           = 'Questions? Email '
           a href="mailto:#{ENV['EMAIL_SENDER']}" = ENV['EMAIL_SENDER']
       .footer: table: tr: td.content-block.aligncenter
@@ -46,6 +48,11 @@ html xmlns="http://www.w3.org/1999/xhtml"
       text-align:  left;
       padding:     10px 15px;
       white-space: pre-wrap;
+    }
+    pre.errors {
+      background: #f2dede;
+      border:     1px solid #ebccd1;
+      color:      #a94442;
     }
     * {
       margin: 0;
