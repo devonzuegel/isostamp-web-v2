@@ -9,14 +9,12 @@ after_fork do |server, worker|
   Que.mode          = (ENV['QUE_MODE']          || :async).to_sym
   Que.worker_count  = (ENV['QUE_WORKERS']       || 3).to_i
 
-  if Rails.env.development?
-    Que.error_handler = proc do |error, job|
-      puts '------------------------------------------'.black
-      puts 'ERROR:'.black
-      ap error
-      puts 'JOB:'.black
-      ap job
-      puts '------------------------------------------'.black
-    end
+  Que.error_handler = proc do |error, job|
+    puts '------------------------------------------'.black
+    puts 'ERROR:'.black
+    ap error
+    puts 'JOB:'.black
+    ap job
+    puts '------------------------------------------'.black
   end
 end

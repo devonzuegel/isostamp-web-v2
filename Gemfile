@@ -22,7 +22,6 @@ gem 'fog-aws',                    '0.9.2'
 gem 'pg',                         '0.18.4'
 gem 'chartkick',                  '1.4.2'
 gem 'groupdate',                  '2.5.2'
-gem 'colorize',                   '0.7.7'
 gem 'que',                        '0.11.4'
 gem 'carrierwave',                '0.11.0' # REMOVE ME
 gem 'delayed_job_active_record'            # REMOVE ME
@@ -34,6 +33,8 @@ gem 's3_direct_upload',           '0.1.7'   # Direct upload form helper and asse
 gem 'draper',                     '~> 1.3'  # github.com/drapergem/draper
 gem 'mailgun-ruby',               '~>1.0.2', require: 'mailgun'
 gem 'delayed_job_active_record'
+gem 'awesome_print'
+gem 'colorize',                   '0.7.7'
 
 group :development, :test do
   gem 'byebug'
@@ -44,7 +45,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'sqlite3'
 
-  gem 'awesome_print'
   gem 'fuubar'
 end
 
