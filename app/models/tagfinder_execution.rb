@@ -9,26 +9,12 @@ class TagfinderExecution < ActiveRecord::Base
 
   def run
     successful = shell.run("#{executable} #{tmp_filepath};")
-    persist_results(successful)
+    persist_outputs(successful)
     remove_tmp_file
 
-    puts "tmp_filepath = '#{tmp_filepath}'".green
-    puts "tmp directory:".green
-    stdin, stdout, stderr = Open3.popen3("ls ./tmp;")
-    stdout.each_line { |line| print line.white.on_black }
-    stderr.each_line { |line| print line.red.on_black }
-  end
-
-  def results_files
-    basefilename = data_file_name(with_extension: false)
-    [
-      "#{basefilename}_chart.txt",
-      "#{basefilename}_filter_log.txt",
-      "#{basefilename}_filter_log2.txt",
-      "#{basefilename}_filtered.mzxml",
-      "#{basefilename}_massspec.csv",
-      "#{basefilename}_summary.txt",
-    ]
+    if successful
+      UploadResultsFilesToS3.enqueue(hex_base, id)
+    end
   end
 
   private
@@ -39,22 +25,22 @@ class TagfinderExecution < ActiveRecord::Base
 
   def tmp_filepath
     if @tmp_filepath.nil?
-      @tmp_filepath = "./tmp/#{SecureRandom.hex}-#{File.basename(data_file_url)}"
-      download_tmp_file
+      @tmp_filepath = "./tmp/#{hex_base}#{File.basename(data_file_url)}"
+      shell.run("wget #{data_file_url} -O #{tmp_filepath};")  # Download file from s3
     end
     @tmp_filepath
   end
 
-  def download_tmp_file
-    shell.run("wget #{data_file_url} -O #{@tmp_filepath};")
+  def hex_base
+    @hex_base ||= "#{SecureRandom.hex}-"
   end
 
   def remove_tmp_file
-    puts "Removing tmp file '#{@tmp_filepath}'...".blue
-    stdin, stdout, stderr = Open3.popen3("rm #{@tmp_filepath};")
+    puts "Removing tmp file '#{tmp_filepath}'...".blue
+    stdin, stdout, stderr = Open3.popen3("rm #{tmp_filepath};")
   end
 
-  def persist_results(successful)
+  def persist_outputs(successful)
     update_attributes(
       stdouts:  JSON.pretty_generate(shell.stdouts.as_json),
       stderrs:  JSON.pretty_generate(shell.stderrs.as_json),

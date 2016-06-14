@@ -7,11 +7,8 @@ class TagfinderExecutionsController < ApplicationController
 
   def index
     @user           = current_user
-    @document       = Document.new
-
     @data_files     = current_user.documents
     @param_files    = current_user.documents
-
     @tagfinder_executions = TagfinderExecution.where(user: current_user).decorate.reverse
   end
 

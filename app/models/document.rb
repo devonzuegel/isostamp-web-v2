@@ -1,4 +1,3 @@
-
 class Document < ActiveRecord::Base
   # Environment-specific direct upload url verifier screens for malicious posted upload locations.
   DIRECT_UPLOAD_URL_FORMAT = %r{

@@ -3,11 +3,11 @@ class DocumentsController < ApplicationController
   before_action :check_ownership!, only: %i(destroy)
 
   def index
-    @document  = Document.new
     @documents = current_user.documents
   end
 
   def create
+    ap document_params
     @document = current_user.documents.new(document_params)
 
     if @document.save

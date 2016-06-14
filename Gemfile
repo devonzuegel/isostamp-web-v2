@@ -35,6 +35,7 @@ gem 'mailgun-ruby',               '~>1.0.2', require: 'mailgun'
 gem 'delayed_job_active_record'
 gem 'awesome_print'
 gem 'colorize',                   '0.7.7'
+gem 'aws-sdk',                    '2.2.37'
 
 group :development, :test do
   gem 'byebug'

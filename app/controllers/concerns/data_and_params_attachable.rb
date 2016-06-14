@@ -13,7 +13,7 @@ module DataAndParamsAttachable
     data_file.nil? && !data_file_id.nil?
   end
 
-  def data_file_name(with_extension: true)
+  def data_filename(with_extension: true)
     filename = data_file.upload_file_name
     with_extension ? filename : File.basename(filename,File.extname(filename))
   end
