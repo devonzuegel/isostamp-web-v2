@@ -1,12 +1,24 @@
 class TagfinderExecutionDecorator < Draper::Decorator
   delegate_all
 
-  def status
-    case success
-      when nil   then 'Still running...'
-      when true  then 'Success!'
-      when false then 'Failure'
-    end
+  def created_at
+    h.formatted_time_ago(object.created_at)
+  end
+
+  def metadata
+    [{
+      label:   'Created at',
+      value:   created_at
+    }, {
+      label:   'Owner',
+      value:   h.link_to(user.name, h.user_path(user))
+    }, {
+      label:   'Email sent',
+      value:   email_sent_info
+    }, {
+      label:   'Status',
+      value:   status
+    }]
   end
 
   def results_files
@@ -21,56 +33,50 @@ class TagfinderExecutionDecorator < Draper::Decorator
     ]
   end
 
-  def data_file_removed?
-    object.data_file.nil? && !data_file_id.nil?
-  end
-
   def data_file_name(with_extension: true)
-    filename = object.data_file.upload_file_name
-    if with_extension
-      filename
+    filename = data_file.upload_file_name
+    with_extension ? filename : File.basename(filename,File.extname(filename))
+  end
+
+  def data_file_info
+    if data_file.nil?
+      h.disabled 'File has been removed'
     else
-      File.basename(filename,File.extname(filename))
+      h.link_to data_file.upload_file_name, data_file.direct_upload_url
     end
   end
 
-  def used_default_params?
-    params_file_id.nil?
-  end
-
-  def params_file_removed?
-    !used_default_params? && params_file.nil?
-  end
-
-  def data_file
-    if object.data_file.nil?
-      h.content_tag :i, :class => 'grey' do
-        'File has been removed'
-      end
-    else
-      h.content_tag :a, href: object.data_file.direct_upload_url do
-        object.data_file.upload_file_name
-      end
-    end
-  end
-
-  def params_file
+  def params_file_info
     if used_default_params?
-      h.content_tag :i, :class => 'grey' do
-        'Used default configuration'
-      end
+      h.disabled 'Used default configuration'
     elsif params_file_removed?
-      h.content_tag :i, :class => 'grey' do
-        'File has been removed'
-      end
+      h.disabled 'File has been removed'
     else
-      h.content_tag :a, href: params_file.direct_upload_url do
-        params_file.upload_file_name
-      end
+      h.link_to params_file.upload_file_name, params_file.direct_upload_url
     end
   end
 
-  def created_at
-    "#{h.time_ago_in_words(object.created_at)} ago".capitalize
+  def email_sent_info
+    if email_sent.nil?
+      h.disabled 'Email not yet sent'
+    else
+      h.formatted_time_ago(email_sent)
+    end
+  end
+
+  def status
+    case success
+      when nil   then h.content_tag(:div, 'Still running...', :class => 'label label-info')
+      when true  then h.content_tag(:div, 'Success!',         :class => 'label label-success')
+      when false then h.content_tag(:div, 'Failure',          :class => 'label label-danger')
+    end
+  end
+
+  def stdouts_list
+    JSON.parse(stdouts).select(&:present?)
+  end
+
+  def stderrs_list
+    JSON.parse(stderrs).select(&:present?)
   end
 end

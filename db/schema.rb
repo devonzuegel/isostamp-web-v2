@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20160609190017) do
     t.integer  "user_id",        null: false
     t.integer  "data_file_id",   null: false
     t.integer  "params_file_id"
-    t.boolean  "email_sent"
+    t.datetime "email_sent"
     t.boolean  "success"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false

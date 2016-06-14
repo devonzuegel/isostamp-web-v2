@@ -18,7 +18,7 @@ h1 Run Isostamp
         = '2. '
         = link_to 'Upload', documents_path
         = ' mass spec data and custom parameters.'
-      p If you've already uploaded data and (optionally) parameters, simply select them below.
+      p If you've already uploaded data and parameters, simply select them below.
     .col-sm-6
       h3 3. Select mass spec data
       - if @data_files.empty?
@@ -36,8 +36,9 @@ h1 Run Isostamp
         = collection_radio_buttons(:tagfinder_execution, :params_file_id, @param_files, :id, :upload_file_name) do |b|
           = b.label(:class => 'btn btn-default') { b.radio_button + b.text }
 
-        = collection_radio_buttons(:tagfinder_execution, :params_file_id, @default_params, :first, :last) do |b|
-          = b.label(:class => 'btn btn-default active') { b.radio_button + b.text }
+        = collection_radio_buttons(:tagfinder_execution, :params_file_id,
+          [[ nil, 'Use Default Configuration' ]], :first, :last)  do |b|
+            = b.label(:class => 'btn btn-default active') { b.radio_button + b.text }
 
     .col-sm-12
       .spacer.large
@@ -67,8 +68,8 @@ h1 History
     tbody
       - @tagfinder_executions.each do |te|
         tr
-          td= te.data_file
-          td= te.params_file
+          td= te.data_file_info
+          td= te.params_file_info
           td= te.status
           td= te.created_at
           td= link_to 'Details', te

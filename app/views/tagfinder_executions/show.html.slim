@@ -1,21 +1,27 @@
+/ METADATA –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+table.padded.valign-top
+  - @tagfinder_execution.metadata.each do |m|
+    tr
+      td: b= m[:label]
+      td   = m[:value]
+hr
+
+/ INPUTS –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
 table.padded.valign-top
   tr
-    td: b Created
-    td= @tagfinder_execution.created_at
-  tr
     td: b Data file
-    td= @tagfinder_execution.data_file
+    td= @tagfinder_execution.data_file_info
   tr
     td: b Parameters
-    td= @tagfinder_execution.params_file
-  tr
-    td: b Status
-    td= @tagfinder_execution.status
-  tr
-    td: b Owner
-    td= link_to @tagfinder_execution.user.name, user_path(@tagfinder_execution.user)
+    td= @tagfinder_execution.params_file_info
 
-  - unless @tagfinder_execution.stdouts.nil?
+/ RESULTS ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+- unless @tagfinder_execution.stdouts.nil?
+  hr
+  table.padded.valign-top
     tr
       td: b Results files
       td
@@ -25,10 +31,10 @@ table.padded.valign-top
     tr
       td: b Outputs
       td
-        - JSON.parse(@tagfinder_execution.stdouts).each do |out|
+        - @tagfinder_execution.stdouts_list.each do |out|
           pre= out
     tr
       td: b Errors
       td
-        - JSON.parse(@tagfinder_execution.stderrs).each do |err|
-          pre= err
+        - @tagfinder_execution.stderrs_list.each do |err|
+          pre.errors= err

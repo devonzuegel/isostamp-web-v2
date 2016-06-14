@@ -7,25 +7,47 @@ class TagfinderResultMailer < ApplicationMailer
     if preview
       mail(message_params)
     else
-      puts "> Sending email to #{@tagfinder_execution.user.email}...".blue
-      @tagfinder_execution.user.increment!(:num_emails_received)
-
-      mg_client = Mailgun::Client.new(ENV['MAILGUN_API_KEY'])
       mg_client.send_message ENV['MAILGUN_DOMAIN'], message_params
+      log_sending
     end
   end
 
   private
 
   def message_params
-    data_file = @tagfinder_execution.data_file
-    time_str  = Time.now.strftime("%h %d %H:%M:%S")
-
     {
       from:       ENV['EMAIL_SENDER'],
-      to:         @tagfinder_execution.user.email,
-      subject:    "Isostamp results: #{data_file.upload_file_name} (#{time_str})",
-      html:        render_to_string(template: "../views/tagfinder_result_mailer/sample_email").to_str
+      to:         user.email,
+      subject:    subject,
+      html:       html_template
     }
+  end
+
+  def log_sending
+    puts "> Sending email to #{user.email}...".blue
+    user.increment!(:num_emails_received)
+    @tagfinder_execution.update_attributes(email_sent: Time.now)
+  end
+
+  def subject
+    time_str  = Time.now.strftime("%h %d %H:%M:%S")
+    base = "Isostamp results: #{data_file.upload_file_name} (#{time_str})"
+    ENV['ENV'] == 'production' ?  base : "[#{ENV['ENV'].upcase}] #{base}"
+  end
+
+  def mg_client
+    @mg_client ||= Mailgun::Client.new(ENV['MAILGUN_API_KEY'])
+  end
+
+  def data_file
+    @tagfinder_execution.data_file
+  end
+
+  def html_template
+    render_to_string(template: "../views/tagfinder_result_mailer/sample_email").to_str
+  end
+
+  def user
+    @tagfinder_execution.user
   end
 end

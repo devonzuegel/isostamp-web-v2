@@ -8,6 +8,7 @@ class CreateDocuments < ActiveRecord::Migration
 
       t.references :user, null: false
     end
+
     add_index :documents, :user_id
     add_index :documents, :processed
   end

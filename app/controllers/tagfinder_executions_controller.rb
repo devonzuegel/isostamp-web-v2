@@ -2,21 +2,19 @@ class TagfinderExecutionsController < ApplicationController
   before_action :set_tagfinder_execution, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
-  # GET /tagfinder_executions
-  # GET /tagfinder_executions.json
+  def show
+  end
+
   def index
     @user           = current_user
     @document       = Document.new
 
     @data_files     = current_user.documents
     @param_files    = current_user.documents
-    @default_params = [[ nil, 'Use Default Configuration' ]]
 
     @tagfinder_executions = TagfinderExecution.where(user: current_user).decorate.reverse
   end
 
-  # POST /tagfinder_executions
-  # POST /tagfinder_executions.json
   def create
     @execution = TagfinderExecution.new(tagfinder_execution_params.merge(user: current_user))
     if @execution.save
@@ -27,8 +25,6 @@ class TagfinderExecutionsController < ApplicationController
     end
   end
 
-  # DELETE /tagfinder_executions/1
-  # DELETE /tagfinder_executions/1.json
   def destroy
     @tagfinder_execution.destroy
     respond_to do |format|
