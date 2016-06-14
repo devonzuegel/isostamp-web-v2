@@ -9,12 +9,13 @@ class TagfinderExecution < ActiveRecord::Base
     successful = shell.run("#{executable} #{tmp_filepath};")
     persist_results(successful)
     remove_tmp_file
+
+    puts "tmp_filepath = '#{tmp_filepath}'".green
+    puts "tmp directory:".green
+    stdin, stdout, stderr = Open3.popen3("ls ./tmp;")
+    stdout.each_line { |line| print line.white.on_black }
+    stderr.each_line { |line| print line.red.on_black }
   end
-    # puts "tmp_filepath = '#{tmp_filepath}'".green
-    # puts "tmp directory:".green
-    # stdin, stdout, stderr = Open3.popen3("ls ./tmp;")
-    # stdout.each_line { |line| print line.white.on_black }
-    # stderr.each_line { |line| print line.red.on_black }
 
   def used_default_params?
     params_file_id.nil?
