@@ -37,7 +37,7 @@ class TagfinderExecution < ActiveRecord::Base
 
   def tmp_filepath
     if @tmp_filepath.nil?
-      @tmp_filepath = "./tmp/#{Time.now.utc.to_i}-#{File.basename(data_file_url)}"
+      @tmp_filepath = "./tmp/#{SecureRandom.hex}-#{File.basename(data_file_url)}"
       download_tmp_file
     end
 
