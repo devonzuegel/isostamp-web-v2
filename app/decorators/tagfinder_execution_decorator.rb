@@ -21,23 +21,6 @@ class TagfinderExecutionDecorator < Draper::Decorator
     }]
   end
 
-  def results_files
-    basefilename = data_file_name(with_extension: false)
-    [
-      "#{basefilename}_chart.txt",
-      "#{basefilename}_filter_log.txt",
-      "#{basefilename}_filter_log2.txt",
-      "#{basefilename}_filtered.mzxml",
-      "#{basefilename}_massspec.csv",
-      "#{basefilename}_summary.txt",
-    ]
-  end
-
-  def data_file_name(with_extension: true)
-    filename = data_file.upload_file_name
-    with_extension ? filename : File.basename(filename,File.extname(filename))
-  end
-
   def data_file_info
     if data_file.nil?
       h.disabled 'File has been removed'

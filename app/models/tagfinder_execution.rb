@@ -5,6 +5,8 @@ class TagfinderExecution < ActiveRecord::Base
 
   validates_presence_of %i(user data_file)
 
+  include DataAndParamsAttachable
+
   def run
     successful = shell.run("#{executable} #{tmp_filepath};")
     persist_results(successful)
@@ -17,16 +19,16 @@ class TagfinderExecution < ActiveRecord::Base
     stderr.each_line { |line| print line.red.on_black }
   end
 
-  def used_default_params?
-    params_file_id.nil?
-  end
-
-  def params_file_removed?
-    !used_default_params? && params_file.nil?
-  end
-
-  def data_file_removed?
-    data_file.nil? && !data_file_id.nil?
+  def results_files
+    basefilename = data_file_name(with_extension: false)
+    [
+      "#{basefilename}_chart.txt",
+      "#{basefilename}_filter_log.txt",
+      "#{basefilename}_filter_log2.txt",
+      "#{basefilename}_filtered.mzxml",
+      "#{basefilename}_massspec.csv",
+      "#{basefilename}_summary.txt",
+    ]
   end
 
   private
@@ -40,20 +42,11 @@ class TagfinderExecution < ActiveRecord::Base
       @tmp_filepath = "./tmp/#{SecureRandom.hex}-#{File.basename(data_file_url)}"
       download_tmp_file
     end
-
     @tmp_filepath
   end
 
   def download_tmp_file
     shell.run("wget #{data_file_url} -O #{@tmp_filepath};")
-  end
-
-  def data_file_url
-    data_file.direct_upload_url
-  end
-
-  def print_contents_of_file
-    shell.run("cat #{@tmp_filepath};")
   end
 
   def remove_tmp_file
