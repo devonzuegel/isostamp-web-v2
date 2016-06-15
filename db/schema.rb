@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160609190017) do
+ActiveRecord::Schema.define(version: 20160615002055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,16 @@ ActiveRecord::Schema.define(version: 20160609190017) do
     t.text     "queue",                 default: "",                                         null: false
   end
 
+  create_table "results_files", force: :cascade do |t|
+    t.integer  "tagfinder_execution_id", null: false
+    t.string   "direct_upload_url",      null: false
+    t.string   "upload_file_name",       null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "results_files", ["tagfinder_execution_id"], name: "index_results_files_on_tagfinder_execution_id", using: :btree
+
   create_table "sessions", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at", null: false
@@ -95,6 +105,7 @@ ActiveRecord::Schema.define(version: 20160609190017) do
     t.integer  "num_emails_received", default: 0
   end
 
+  add_foreign_key "results_files", "tagfinder_executions"
   add_foreign_key "sessions", "users"
   add_foreign_key "tagfinder_executions", "users"
 end
