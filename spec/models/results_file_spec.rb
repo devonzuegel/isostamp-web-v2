@@ -1,13 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe ResultsFile, type: :model do
-
   describe 'Initializing ResultsFile' do
     subject { @results_file = build(:results_file)         }
     it { should validate_presence_of(:tmp_filepath)        }
     it { should validate_presence_of(:filename)            }
     it { should validate_presence_of(:tagfinder_execution) }
-    it { should validate_presence_of(:hex_base)            }
   end
 
   it 'should require you to define a non-blank filename' do
@@ -28,6 +26,15 @@ RSpec.describe ResultsFile, type: :model do
       expect(build(:results_file, tmp_filepath: nil))            .to_not be_valid
       expect(build(:results_file, tmp_filepath: ''))             .to_not be_valid
       expect(build(:results_file, tmp_filepath: 'fasdfasdfasfd')).to_not be_valid
+    end
+  end
+
+  describe '#s3_key' do
+    it 'should return the expected s3 key' do
+      filename = 'blah.txt'
+      results_file = build(:results_file, filename: filename)
+      hex_base     = results_file.tagfinder_execution.hex_base
+      expect(results_file.s3_key).to eq "results/#{hex_base}/#{filename}"
     end
   end
 end

@@ -4,7 +4,6 @@ class CreateResultsFiles < ActiveRecord::Migration
       t.references :tagfinder_execution, null: false, index: true, foreign_key: true
       t.string     :filename,            blank: false
       t.string     :tmp_filepath,        blank: false
-      t.string     :hex_base,            blank: false
       t.string     :direct_upload_url
 
       t.timestamps null: false

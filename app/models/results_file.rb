@@ -1,7 +1,7 @@
 class ResultsFile < ActiveRecord::Base
   belongs_to :tagfinder_execution
 
-  validates_presence_of *%i(tagfinder_execution tmp_filepath filename hex_base)
+  validates_presence_of *%i(tagfinder_execution tmp_filepath filename)
   validate :tmp_file_exists
 
   def upload_complete?
@@ -9,7 +9,7 @@ class ResultsFile < ActiveRecord::Base
   end
 
   def s3_key
-    "results/#{hex_base}/#{filename}"
+    "results/#{tagfinder_execution.hex_base}/#{filename}"
   end
 
   private

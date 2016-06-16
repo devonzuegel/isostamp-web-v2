@@ -8,8 +8,7 @@ class UploadResultsFilesToS3 < Que::Job
         results_file = ResultsFile.create!({
           tmp_filepath:        tmp_filepath,
           filename:            filename,
-          tagfinder_execution: @execution,
-          hex_base:            @execution.hex_base
+          tagfinder_execution: @execution
         })
         puts "Enqueuing results_file ##{results_file.id} [#{filename}]...".blue
         UploadResultsFileToS3.enqueue(results_file.id)
