@@ -32,7 +32,6 @@ gem 'paperclip',                  '4.3.6'   # File attachment syntax and callbac
 gem 's3_direct_upload',           '0.1.7'   # Direct upload form helper and assets
 gem 'draper',                     '~> 1.3'  # github.com/drapergem/draper
 gem 'mailgun-ruby',               '~>1.0.2', require: 'mailgun'
-gem 'delayed_job_active_record'
 gem 'awesome_print'
 gem 'colorize',                   '0.7.7'
 gem 'aws-sdk',                    '2.2.37'
@@ -74,4 +73,5 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
   gem 'que-testing',           '0.1.1', :require => false
+  gem 'shoulda-matchers',      '~> 3.1'
 end

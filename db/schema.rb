@@ -62,8 +62,9 @@ ActiveRecord::Schema.define(version: 20160615002055) do
 
   create_table "results_files", force: :cascade do |t|
     t.integer  "tagfinder_execution_id", null: false
-    t.string   "direct_upload_url",      null: false
-    t.string   "upload_file_name",       null: false
+    t.string   "filename"
+    t.string   "tmp_filepath"
+    t.string   "direct_upload_url"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end

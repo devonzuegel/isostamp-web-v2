@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
     create! do |user|
       user.provider = auth.fetch('provider')
       user.uid      = auth.fetch('uid')
+
       if auth['info']
         user.name  = auth['info'].fetch('name')  || ''
         user.email = auth['info'].fetch('email') || ''
