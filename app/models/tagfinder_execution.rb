@@ -5,6 +5,8 @@ class TagfinderExecution < ActiveRecord::Base
 
   validates_presence_of %i(user data_file)
 
+  before_create :generate_hex_base
+
   include DataAndParamsAttachable
 
   def run
@@ -13,7 +15,7 @@ class TagfinderExecution < ActiveRecord::Base
     remove_tmp_file
 
     if successful
-      UploadResultsFilesToS3.enqueue(hex_base, id)
+      UploadResultsFilesToS3.enqueue(id)
     end
   end
 
@@ -25,14 +27,14 @@ class TagfinderExecution < ActiveRecord::Base
 
   def tmp_filepath
     if @tmp_filepath.nil?
-      @tmp_filepath = "./tmp/#{hex_base}#{File.basename(data_file_url)}"
+      @tmp_filepath = "./tmp/#{hex_base}-#{File.basename(data_file_url)}"
       shell.run("wget #{data_file_url} -O #{tmp_filepath};")  # Download file from s3
     end
     @tmp_filepath
   end
 
-  def hex_base
-    @hex_base ||= "#{SecureRandom.hex}-"
+  def generate_hex_base
+    self.hex_base = SecureRandom.hex
   end
 
   def remove_tmp_file

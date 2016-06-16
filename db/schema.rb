@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20160615002055) do
     t.boolean  "success"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.string   "hex_base"
     t.string   "stdouts"
     t.string   "stderrs"
   end
