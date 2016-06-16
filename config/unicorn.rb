@@ -10,11 +10,9 @@ after_fork do |server, worker|
   Que.worker_count  = (ENV['QUE_WORKERS']       || 3).to_i
 
   Que.error_handler = proc do |error, job|
-    puts '------------------------------------------'.black
-    puts 'ERROR:'.black
+    puts 'ERROR:'.red
     ap error
-    puts 'JOB:'.black
+    puts 'JOB:'.red
     ap job
-    puts '------------------------------------------'.black
   end
 end

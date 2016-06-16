@@ -3,23 +3,15 @@ class UploadResultsFilesToS3 < Que::Job
     @hex_base  = hex_base
     @execution = TagfinderExecution.find(te_id)
 
-    puts '============'.red
-    ap temp_results_filepaths
-    puts '------------'.red
-    shell = Shell.new
-    temp_results_filepaths.each { |filepath| shell.run("cat #{filepath};") }
-    ap JSON.pretty_generate(shell.stdouts.as_json)
-    ap JSON.pretty_generate(shell.stderrs.as_json)
-    puts '============'.red
+    ActiveRecord::Base.transaction do
+      paths_and_names.each do |tmp_filepath, filename|
+        create_results_file_and_enqueue!(tmp_filepath, filename)
+      end
+      destroy
+    end
   end
 
   private
-
-  def upload_to_s3(src_filepath, filename)
-    file = s3.bucket(ENV['AWS_S3_BUCKET']).object("results/#{@hex_base}/#{filename}")
-    file.upload_file(srcfilepath, acl: 'public-read')
-    file.public_url # => "https://isostamp-development.s3-us-west-2.amazonaws.com/key"
-  end
 
   def results_filenames
     [
@@ -32,18 +24,23 @@ class UploadResultsFilesToS3 < Que::Job
     ]
   end
 
-  def temp_results_filepaths
-    results_filenames.map { |filename| "#{@hex_base}#{filename}" }
-  end
-
-  def s3
-    @s3 ||= Aws::S3::Resource.new(
-      credentials:  Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY']),
-      region:       ENV['AWS_BUCKET_REGION']
-    )
+  def paths_and_names
+    temp_results_filepaths = results_filenames.map { |filename| "./tmp/#{@hex_base}#{filename}" }
+    temp_results_filepaths.zip(results_filenames)
   end
 
   def data_filename
     @execution.data_filename(with_extension: false)
+  end
+
+  def create_results_file_and_enqueue!(tmp_filepath, filename)
+    results_file = ResultsFile.create!({
+      tmp_filepath:        tmp_filepath,
+      filename:            filename,
+      tagfinder_execution: @execution,
+      hex_base:            @hex_base
+    })
+    puts "Enqueuing results_file ##{results_file.id} [#{filename}]...".blue
+    UploadResultsFileToS3.enqueue(results_file.id)
   end
 end

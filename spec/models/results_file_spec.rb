@@ -4,10 +4,10 @@ RSpec.describe ResultsFile, type: :model do
 
   describe 'Initializing ResultsFile' do
     subject { @results_file = build(:results_file)         }
-
     it { should validate_presence_of(:tmp_filepath)        }
     it { should validate_presence_of(:filename)            }
     it { should validate_presence_of(:tagfinder_execution) }
+    it { should validate_presence_of(:hex_base)            }
   end
 
   it 'should require you to define a non-blank filename' do
