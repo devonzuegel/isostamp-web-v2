@@ -9,6 +9,10 @@ after_fork do |server, worker|
   Que.mode          = (ENV['QUE_MODE']          || :async).to_sym
   Que.worker_count  = (ENV['QUE_WORKERS']       || 3).to_i
 
+  Que.log_formatter = proc do |data|
+    "Thread #{data[:thread]} experienced a #{data[:event]}".black
+  end
+
   Que.error_handler = proc do |error, job|
     puts 'ERROR:'.red
     ap error
