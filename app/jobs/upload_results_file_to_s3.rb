@@ -1,23 +1,25 @@
 class UploadResultsFileToS3 < Que::Job
   def run(results_file_id)
     @results_file = ResultsFile.find(results_file_id)
-    puts "Running results_file ##{results_file_id} [#{@results_file.filename}]...".green
-    puts "QueJob.count = #{QueJob.count}".green
+    puts "Running results_file ##{results_file_id} [#{@results_file.filename}]...  QueJob.count = #{QueJob.count}".green
 
     if @results_file.upload_complete?
       raise ArgumentError, "Upload is already complete for ResultsFile with id #{results_file_id}"
     end
 
+    direct_upload_url = upload_to_s3
+
     ActiveRecord::Base.transaction do
-      direct_upload_url = upload_to_s3
       @results_file.update_attributes(direct_upload_url: direct_upload_url)
       # TODO delete tmp_file from ./tmp directory
+      destroy
     end
   end
 
   private
 
   def upload_to_s3
+    puts "Uploading #{@results_file.s3_key} to s3...".blue
     file = s3_bucket.object(@results_file.s3_key)
     file.upload_file(@results_file.tmp_filepath, acl: 'public-read')
     file.public_url

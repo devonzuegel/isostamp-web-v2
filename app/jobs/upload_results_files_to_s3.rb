@@ -1,25 +1,24 @@
 class UploadResultsFilesToS3 < Que::Job
   def run(te_id)
-    @execution = TagfinderExecution.find(te_id)
+    @execution    = TagfinderExecution.find(te_id)
 
-    ActiveRecord::Base.transaction do
-      paths_and_names.each do |tmp_filepath, filename|
+    paths_and_names.reverse.each do |tmp_filepath, filename|
+      ActiveRecord::Base.transaction do
         create_and_upload_results_file!(tmp_filepath, filename)
       end
-      destroy
     end
+    destroy
   end
 
   private
 
   def create_and_upload_results_file!(tmp_filepath, filename)
-    results_file = ResultsFile.create!({
-      tmp_filepath:        tmp_filepath,
-      filename:            filename,
-      tagfinder_execution: @execution
-    })
-    puts "Enqueuing results_file ##{results_file.id} [#{filename}]...".yellow
-    puts "QueJob.count = #{QueJob.count}".yellow
+    results_file = ResultsFile.find_or_create_by(tmp_filepath: tmp_filepath) do |file|
+      file.filename            = filename
+      file.tagfinder_execution = @execution
+    end
+
+    puts "Enqueuing results_file ##{results_file.id} [#{filename}]...  QueJob.count = #{QueJob.count}".yellow
     UploadResultsFileToS3.enqueue(results_file.id)
   end
 
