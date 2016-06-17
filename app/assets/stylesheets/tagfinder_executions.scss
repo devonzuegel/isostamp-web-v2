@@ -1,12 +1,43 @@
-// Place all the styles related to the TagfinderExecutions controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'variables';
 
 table {
-  &.padded tr td {
-    padding: 5px;
+  &.padded td {
+    padding: 3px;
   }
+
   &.valign-top tr td {
     vertical-align: top;
   }
+
+  td.labeled {
+    font-weight: bolder;
+    text-align: right;
+    padding-right: 20px !important;
+  }
+
+  &.full-width {
+    width: 100%;
+  }
+
+  &.results {
+    > tbody > tr > td {
+      padding: 8px 3px;
+    }
+  }
+}
+
+.metadata {
+  background-color: $lightest-grey;
+  padding:          15px 0;
+  margin-left:      -15px !important;
+  margin-right:     -15px !important;
+}
+
+.label.label-large {
+  font-size: 0.9em;
+}
+
+h1.tagfinder-execution-info {
+  margin-top:     10px;
+  margin-bottom:  30px;
 }

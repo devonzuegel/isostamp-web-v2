@@ -8,4 +8,9 @@ module ApplicationHelper
       text
     end
   end
+
+  def split_into_halves(array)
+    col_length = (array.length / 2) + (array.length % 2)
+    array.in_groups_of(col_length, false)
+  end
 end

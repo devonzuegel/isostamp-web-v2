@@ -1,3 +1,5 @@
+@import 'variables';
+
 table.form-table {
   width:     100%;
   max-width: 550px;
@@ -21,7 +23,7 @@ input,
 label.btn.btn-default,
 .fileinput-exists,
 .fileinput-new {
-  font-family: 'Karla' !important;
+  font-family: $sans-serif-font;
 }
 
 .form-actions.input-group-addon {
