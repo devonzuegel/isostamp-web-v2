@@ -64,7 +64,6 @@ ActiveRecord::Schema.define(version: 20160615002055) do
     t.integer  "tagfinder_execution_id", null: false
     t.string   "filename"
     t.string   "tmp_filepath"
-    t.string   "hex_base"
     t.string   "direct_upload_url"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false

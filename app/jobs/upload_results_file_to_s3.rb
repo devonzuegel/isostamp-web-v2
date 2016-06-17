@@ -2,6 +2,7 @@ class UploadResultsFileToS3 < Que::Job
   def run(results_file_id)
     @results_file = ResultsFile.find(results_file_id)
     puts "Running results_file ##{results_file_id} [#{@results_file.filename}]...".green
+    puts "QueJob.count = #{QueJob.count}".green
 
     if @results_file.upload_complete?
       raise ArgumentError, "Upload is already complete for ResultsFile with id #{results_file_id}"

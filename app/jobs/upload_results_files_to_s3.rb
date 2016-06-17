@@ -4,21 +4,28 @@ class UploadResultsFilesToS3 < Que::Job
 
     ActiveRecord::Base.transaction do
       paths_and_names.each do |tmp_filepath, filename|
-
-        results_file = ResultsFile.create!({
-          tmp_filepath:        tmp_filepath,
-          filename:            filename,
-          tagfinder_execution: @execution
-        })
-        puts "Enqueuing results_file ##{results_file.id} [#{filename}]...".blue
-        UploadResultsFileToS3.enqueue(results_file.id)
-
+        create_and_upload_results_file!(tmp_filepath, filename)
       end
       destroy
     end
   end
 
   private
+
+  def create_and_upload_results_file!(tmp_filepath, filename)
+    results_file = ResultsFile.create!({
+      tmp_filepath:        tmp_filepath,
+      filename:            filename,
+      tagfinder_execution: @execution
+    })
+    puts "Enqueuing results_file ##{results_file.id} [#{filename}]...".yellow
+    puts "QueJob.count = #{QueJob.count}".yellow
+    UploadResultsFileToS3.enqueue(results_file.id)
+  end
+
+  def data_filename
+    @execution.data_filename(with_extension: false)
+  end
 
   def results_filenames
     [
@@ -29,10 +36,6 @@ class UploadResultsFilesToS3 < Que::Job
       "#{data_filename}_massspec.csv",
       "#{data_filename}_summary.txt",
     ]
-  end
-
-  def data_filename
-    @execution.data_filename(with_extension: false)
   end
 
   def paths_and_names
