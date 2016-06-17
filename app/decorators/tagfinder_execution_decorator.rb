@@ -55,6 +55,20 @@ class TagfinderExecutionDecorator < Draper::Decorator
     end
   end
 
+  def results_files
+    object.results_files.map do |file|
+      inner = [
+        h.disabled(file.filename),
+        h.content_tag(:div, 'Processing...', :class => 'label label-info margin-left')
+      ].join.html_safe
+      if file.direct_upload_url.nil?
+        h.content_tag :div, inner
+      else
+        h.link_to  file.filename, file.direct_upload_url
+      end
+    end
+  end
+
   def stdouts_list
     JSON.parse(stdouts).select(&:present?)
   end

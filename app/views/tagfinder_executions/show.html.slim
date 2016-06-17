@@ -24,10 +24,9 @@ table.padded.valign-top
   table.padded.valign-top
     tr
       td: b Results files
-      td: .label.label-danger TODO!!!!!!!!
-      / - @tagfinder_execution.results_filenames.each do |f|
-      /  = f
-      /  br
+      td: ul
+        - @tagfinder_execution.results_files.each do |file|
+          li= file
     tr
       td: b Outputs
       td
