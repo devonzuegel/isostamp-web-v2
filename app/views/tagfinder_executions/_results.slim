@@ -1,0 +1,19 @@
+h3 Results
+table.results.valign-top
+  tr
+    td.labeled Files
+    td
+      - split_into_halves(@tagfinder_execution.results_files).each do |col|
+        .col-sm-6: table.padded.valign-top
+          - col.each do |file|
+            tr: td= file
+  tr
+    td.labeled Outputs
+    td
+      - @tagfinder_execution.stdouts_list.each do |out|
+        = render 'read_more_toggle', text: out
+  tr
+    td.labeled Errors
+    td
+      - @tagfinder_execution.stderrs_list.each do |err|
+        = render 'read_more_toggle', text: err, classes: 'errors'

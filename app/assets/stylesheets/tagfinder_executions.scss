@@ -29,8 +29,6 @@ table {
 .metadata {
   background-color: $lightest-grey;
   padding:          15px 0;
-  margin-left:      -15px !important;
-  margin-right:     -15px !important;
 }
 
 .label.label-large {
@@ -40,4 +38,8 @@ table {
 h1.tagfinder-execution-info {
   margin-top:     10px;
   margin-bottom:  30px;
+}
+
+pre, pre * {
+  font-family: $monospace-font;
 }

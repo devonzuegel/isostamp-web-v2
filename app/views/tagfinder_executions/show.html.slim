@@ -1,49 +1,13 @@
 h1.tagfinder-execution-info= @tagfinder_execution.data_file.upload_file_name
 
-h3 Inputs
-
-.row.metadata
-  .col-sm-6: table.padded.valign-top
-    tr
-      td.labeled Data file
-      td= @tagfinder_execution.data_file_info
-
-  .col-sm-6: table.padded.valign-top
-    td.labeled Parameters
-    td= @tagfinder_execution.params_file_info
+== render 'metadata'
 
 br
 
-.row.metadata
-  - @tagfinder_execution.metadata.each_slice(2) do |metadata|
-    .col-sm-6: table.padded.valign-top
-      - metadata.each do |m|
-        tr
-          td.labeled= m[:label]
-          td        = m[:value]
-
-/ RESULTS ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
+== render 'inputs'
 
 - unless @tagfinder_execution.stdouts.nil?
+
   br
 
-  h3 Results
-  table.results.valign-top
-    tr
-      td.labeled Files
-      td
-        - split_into_halves(@tagfinder_execution.results_files).each do |col|
-          .col-sm-6: table.padded.valign-top
-            - col.each do |file|
-              tr: td= file
-    tr
-      td.labeled Outputs
-      td
-        - @tagfinder_execution.stdouts_list.each do |out|
-          pre= out
-    tr
-      td.labeled Errors
-      td
-        - @tagfinder_execution.stderrs_list.each do |err|
-          pre.errors= err
+  == render 'results'

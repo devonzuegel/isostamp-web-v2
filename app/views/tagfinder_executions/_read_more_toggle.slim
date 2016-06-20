@@ -1,0 +1,13 @@
+- classes         ||= nil
+- n_visible_lines ||= 5
+
+- visible_text = (text.split("\n")[0..n_visible_lines]).join("\n")
+- hidden_text  = (text.split("\n")[n_visible_lines..-1] || []).join("\n")
+- id           = SecureRandom.hex
+
+div
+  input.read-more-state id=id type='checkbox'
+  pre.read-more-wrap class=classes
+    div= visible_text
+    .read-more-target= hidden_text
+    label.read-more-trigger(for=id): a

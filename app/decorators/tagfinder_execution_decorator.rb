@@ -25,7 +25,10 @@ class TagfinderExecutionDecorator < Draper::Decorator
     if data_file.nil?
       h.disabled 'File has been removed'
     else
-      h.link_to data_file.upload_file_name, data_file.direct_upload_url
+      h.link_to data_file.direct_upload_url do
+        h.content_tag(:i, '', :class => 'fa fa-file-text right-spacer') +
+        data_file.upload_file_name
+      end
     end
   end
 
@@ -35,7 +38,10 @@ class TagfinderExecutionDecorator < Draper::Decorator
     elsif params_file_removed?
       h.disabled 'File has been removed'
     else
-      h.link_to params_file.upload_file_name, params_file.direct_upload_url
+      h.link_to params_file.direct_upload_url do
+        h.content_tag(:i, '', :class => 'fa fa-file-text right-spacer') +
+        params_file.upload_file_name
+      end
     end
   end
 
@@ -57,14 +63,14 @@ class TagfinderExecutionDecorator < Draper::Decorator
 
   def results_files
     object.results_files.map do |file|
-      inner = [
-        h.disabled(file.filename),
-        h.content_tag(:div, 'Processing...', :class => 'label label-info margin-left')
-      ].join.html_safe
       if file.direct_upload_url.nil?
-        h.content_tag :div, inner
+        h.content_tag :div, [
+          h.disabled(h.content_tag(:i, '', :class => 'fa fa-file-text right-spacer')),
+          h.disabled(file.filename),
+          h.content_tag(:div, 'Processing...', :class => 'label label-info margin-left')
+        ].join.html_safe
       else
-        h.link_to  file.filename, file.direct_upload_url
+        h.document_link(file.direct_upload_url, file.filename)
       end
     end
   end

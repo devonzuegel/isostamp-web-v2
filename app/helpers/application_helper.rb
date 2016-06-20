@@ -13,4 +13,11 @@ module ApplicationHelper
     col_length = (array.length / 2) + (array.length % 2)
     array.in_groups_of(col_length, false)
   end
+
+  def document_link(url, filename = url)
+    link_to url do
+      content_tag(:i, '', :class => 'fa fa-file-text right-spacer') +
+      filename
+    end
+  end
 end
