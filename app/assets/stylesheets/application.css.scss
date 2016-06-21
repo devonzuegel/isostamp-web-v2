@@ -7,17 +7,6 @@
 @import 'bootstrap';
 @import 'variables';
 
-* {
-  font-family: $sans-serif-font;
-}
-
-pre, code {
-  font-family: $monospace-font;
-}
-
-$green: #27d096;
-$dark-green: darken($green, 6%);
-
 .alert {
   position: relative;
   margin: 0px 10px 10px 10px;
@@ -30,10 +19,6 @@ $dark-green: darken($green, 6%);
 
 li a {
   text-decoration: none !important;
-}
-
-.larger-font {
-  font-size: 1.2em;
 }
 
 .container {
@@ -95,6 +80,7 @@ i.fa-done {
 p, li {
   line-height: 1.85em;
 }
+
 .spacer {
   height: 5px;
   width: 100%;
@@ -111,15 +97,19 @@ p, li {
 .text-pic-shadow {
   text-shadow: 1px 1px 6px rgba(0,0,0,0.75) !important;
 }
+
 .text-pic-shadow-small {
   text-shadow: 1px 1px 3px rgba(0,0,0,0.75) !important;
 }
+
 .intro-header .site-heading h1 {
   @extend .text-pic-shadow;
 }
+
 nav li a, .navbar-header {
   @extend .text-pic-shadow-small;
 }
+
 .tint {
   position: relative;
   &:before {
@@ -171,10 +161,6 @@ pre {
 
 .table th td {
   font-weight: bold !important;
-}
-
-h1, h2, h3, h4, h5 {
-  font-weight: bold;
 }
 
 .fill-width {

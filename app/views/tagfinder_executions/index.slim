@@ -2,7 +2,14 @@ h1 Run Isostamp
 
 .row
   .col-xs-12
-    h3 1. Make sure your email address is correct
+    h3 1. Upload data
+
+    == render 'documents/document_upload_form'
+
+    .spacer.large
+
+  .col-xs-12
+    h3 2. Make sure your email address is correct
     p We will email you the results when they are ready, so please make sure we have the right address on file.
   .col-sm-8
     = form_for @user do |f|
@@ -15,12 +22,12 @@ h1 Run Isostamp
 
     .col-sm-12
       h3
-        = '2. '
+        = '3. '
         = link_to 'Upload', documents_path
         = ' mass spec data and custom parameters.'
       p If you've already uploaded data and parameters, simply select them below.
     .col-sm-6
-      h3 3. Select mass spec data
+      h3 4. Select mass spec data
       - if @data_files.empty?
         p
           = 'Please '
@@ -31,7 +38,7 @@ h1 Run Isostamp
           = collection_radio_buttons(:tagfinder_execution, :data_file_id, @data_files, :id, :upload_file_name) do |b|
             = b.label(:class => 'btn btn-default') { b.radio_button + b.text }
     .col-sm-6
-      h3 4. Select parameters
+      h3 5. Select parameters
       .btn-group-vertical.fill-width role='group' data-toggle='buttons'
         = collection_radio_buttons(:tagfinder_execution, :params_file_id, @param_files, :id, :upload_file_name) do |b|
           = b.label(:class => 'btn btn-default') { b.radio_button + b.text }
