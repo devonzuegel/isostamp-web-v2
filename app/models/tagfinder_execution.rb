@@ -7,6 +7,7 @@ class TagfinderExecution < ActiveRecord::Base
   validates_presence_of %i(user data_file)
 
   before_create :generate_hex_base
+  attr_accessor :hex_base
 
   include DataAndParamsAttachable
 
