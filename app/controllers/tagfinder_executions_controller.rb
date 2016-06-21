@@ -16,7 +16,8 @@ class TagfinderExecutionsController < ApplicationController
     @execution = TagfinderExecution.new(tagfinder_execution_params.merge(user: current_user))
     if @execution.save
       RunExecution.enqueue(@execution.id)
-      redirect_to tagfinder_executions_path, notice: 'Tagfinder execution was successfully created.'
+      redirect_to tagfinder_executions_path,
+        notice: "Tagfinder execution was successfully created. We will email you at #{current_user.email} when the results are ready."
     else
       render :new
     end

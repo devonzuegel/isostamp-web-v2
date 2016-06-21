@@ -1,0 +1,22 @@
+h1 History
+
+- if @tagfinder_executions.empty?
+  p You haven't run Isostamp on any mass spec data yet.
+
+- else
+  table.table.table-striped
+    thead: tr
+      th Mass Spec Data
+      th Parameters
+      th Status
+      th Created At
+      th
+
+    tbody
+      - @tagfinder_executions.each do |te|
+        tr
+          td= te.data_file_info
+          td= te.params_file_info
+          td= te.status
+          td= te.created_at
+          td= link_to 'Details', te

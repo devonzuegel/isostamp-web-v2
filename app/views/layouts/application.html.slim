@@ -23,8 +23,8 @@ html
       header
         == render 'layouts/navigation'
       main role="main"
-        == render 'layouts/messages'
         .container: .row: col-md-9.col-md-offset-2
+          == render 'layouts/messages'
           == yield
         .push
     == render 'layouts/footer'
