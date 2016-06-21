@@ -9,14 +9,18 @@ nav.navbar.navbar-inverse.navbar-fixed-top
       .brand= link_to 'IsoStamp', root_path, class: 'navbar-brand'
     .collapse.navbar-collapse
       ul.nav.navbar-nav.pull-right
+
         - if user_signed_in?
+
+          li= link_to 'Analyze data', tagfinder_executions_path
           li= link_to 'My uploads',   documents_path
-          li= link_to 'Run',          tagfinder_executions_path
+
           - if current_user.admin
-            li= link_to 'Metrics', metrics_path
-            li= link_to 'Users',   users_path
-            li= link_to 'All uploads',   all_documents_path
+            li= link_to 'Admin',         admin_path
+
           li= link_to 'Sign out',  signout_path
+
         - else
           li= link_to 'Sign in',   signin_path
+
 .spacer.large

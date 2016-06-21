@@ -157,10 +157,6 @@ pre {
     margin-top: 0;
   }
 
-  .aligncenter {
-    text-align: center;
-  }
-
   .alignright {
     text-align: right;
   }
@@ -259,4 +255,8 @@ pre {
       width: 100% !important;
     }
   }
+}
+
+.aligncenter {
+  text-align: center;
 }

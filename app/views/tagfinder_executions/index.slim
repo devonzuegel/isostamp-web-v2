@@ -1,15 +1,11 @@
 h1 Run Isostamp
 
 .row
-  .col-xs-12
-    h3 1. Upload data
 
-    == render 'documents/document_upload_form'
-
-    .spacer.large
+  / ------------------------------------------------------------------------------
 
   .col-xs-12
-    h3 2. Make sure your email address is correct
+    h3 1. Make sure your email address is correct
     p We will email you the results when they are ready, so please make sure we have the right address on file.
   .col-sm-8
     = form_for @user do |f|
@@ -18,16 +14,22 @@ h1 Run Isostamp
         span.form-actions.input-group-addon
           = f.submit 'Update email', :class => 'btn btn-default'
 
+  / ------------------------------------------------------------------------------
+
+  .col-sm-12
+    h3
+      = '2. '
+      = link_to 'Upload', documents_path
+      = ' mass spec data and custom parameters.'
+    p If you've already uploaded data and parameters, simply select them below.
+    == render 'documents/document_upload_form'
+
+  / ------------------------------------------------------------------------------
+
   #execution-form= form_tag(controller: :tagfinder_executions, action: :create) do
 
-    .col-sm-12
-      h3
-        = '3. '
-        = link_to 'Upload', documents_path
-        = ' mass spec data and custom parameters.'
-      p If you've already uploaded data and parameters, simply select them below.
     .col-sm-6
-      h3 4. Select mass spec data
+      h3 3. Select mass spec data
       - if @data_files.empty?
         p
           = 'Please '
@@ -49,14 +51,15 @@ h1 Run Isostamp
 
     .col-sm-12
       .spacer.large
-      = submit_tag "Run Isostamp", :class => 'button btn btn-primary', disabled: true
+      .aligncenter
+        = submit_tag "Run Isostamp", :class => 'button btn btn-lg btn-primary', disabled: true
 
 javascript:
   $("#data_file").change(function(e){
     $("#execution-form input[type=submit]").prop('disabled', false);
   });
 
-hr
+.spacer.large
 
 h1 History
 

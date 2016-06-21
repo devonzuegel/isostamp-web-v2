@@ -8,6 +8,7 @@ class UploadResultsFileToS3 < Que::Job
     end
 
     direct_upload_url = upload_to_s3
+    remove_tmp_file(@results_file.tmp_filepath)
 
     ActiveRecord::Base.transaction do
       @results_file.update_attributes(direct_upload_url: direct_upload_url)
@@ -31,5 +32,10 @@ class UploadResultsFileToS3 < Que::Job
       region:       ENV['AWS_BUCKET_REGION']
     )
     @s3.bucket(ENV['AWS_S3_BUCKET'])
+  end
+
+  def remove_tmp_file(filepath)
+    puts "Removing tmp file '#{filepath}'...".blue
+    stdin, stdout, stderr = Open3.popen3("rm #{filepath};")
   end
 end

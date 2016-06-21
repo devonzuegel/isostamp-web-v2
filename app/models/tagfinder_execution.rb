@@ -14,7 +14,7 @@ class TagfinderExecution < ActiveRecord::Base
   def run
     successful = shell.run("#{executable} #{tmp_filepath};")
     persist_outputs(successful)
-    remove_tmp_file
+    remove_tmp_file(tmp_filepath)
 
     if successful
       UploadResultsFilesToS3.enqueue(id)
@@ -39,9 +39,9 @@ class TagfinderExecution < ActiveRecord::Base
     self.hex_base = SecureRandom.hex
   end
 
-  def remove_tmp_file
-    puts "Removing tmp file '#{tmp_filepath}'...".blue
-    stdin, stdout, stderr = Open3.popen3("rm #{tmp_filepath};")
+  def remove_tmp_file(filepath)
+    puts "Removing tmp file '#{filepath}'...".blue
+    stdin, stdout, stderr = Open3.popen3("rm #{filepath};")
   end
 
   def persist_outputs(successful)

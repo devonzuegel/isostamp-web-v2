@@ -7,15 +7,18 @@ markdown:
 
   This web app enables other people to analyze their own data with IsoStamp. The IsoStamp project was previously hosted at [mass-spec-169.herokuapp.com](http://mass-spec-169.herokuapp.com/).
 
-- if user_signed_in?
-  a(href=documents_path)
-    button.button.btn.btn-primary Upload data now
-  p.meta
+.spacer.large
+.aligncenter
+  - if user_signed_in?
+    a href=tagfinder_executions_path
+      button.button.btn.btn-lg.btn-primary Analyze data now
+    p.meta
 
-- else
-  a(href=signin_path)
-    button.button.btn.btn-primary Sign in
-  |  to upload data
+  - else
+    a(href=signin_path)
+      button.button.btn.btn-primary Sign in
+    |  to upload data
+.spacer
 
 h2 Interview with postdocs David Spiciarich and Christina Woo
 
