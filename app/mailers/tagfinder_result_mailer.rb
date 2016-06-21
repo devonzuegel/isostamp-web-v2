@@ -1,8 +1,13 @@
 class TagfinderResultMailer < ApplicationMailer
+  include Rails.application.routes.url_helpers
+  include ActionView::Helpers::UrlHelper
+  add_template_helper(ApplicationHelper)
+
   default from: ENV['EMAIL_SENDER']
 
   def sample_email(tagfinder_execution, preview: false)
-    @tagfinder_execution = tagfinder_execution
+    @tagfinder_execution = tagfinder_execution.decorate
+    @link = link_to('Details', @tagfinder_execution.url)
 
     if preview
       mail(message_params)

@@ -82,4 +82,8 @@ class TagfinderExecutionDecorator < Draper::Decorator
   def stderrs_list
     JSON.parse(stderrs).select(&:present?)
   end
+
+  def url
+    h.url_for(object)
+  end
 end

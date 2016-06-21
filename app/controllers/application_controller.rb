@@ -62,4 +62,3 @@ class ApplicationController < ActionController::Base
     current_user == User.find(params[:id])
   end
 end
-
