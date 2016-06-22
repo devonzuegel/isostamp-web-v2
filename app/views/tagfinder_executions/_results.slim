@@ -4,7 +4,10 @@ table.results.valign-top
     td.labeled Files
     td
       - if tagfinder_execution.results_files.empty?
-        = disabled('There are no results files for this execution')
+        - if tagfinder_execution.successful?
+          = disabled('Your files are being processed. Thanks for being patient!')
+        - else
+          = disabled('There are no results files for this execution.')
       - else
         - split_into_halves(tagfinder_execution.results_files).each do |col|
           .col-sm-6: table.padded.valign-top
