@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_subdomain
-    return if Rails.env.test?
+    return if Rails.env.test? || request.nil?
     stripped = strip_url(request.host)
     redirect_to "#{stripped}#{request.fullpath}" if stripped != request.host
   end
