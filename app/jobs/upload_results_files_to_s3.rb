@@ -1,6 +1,6 @@
 class UploadResultsFilesToS3 < Que::Job
   def run(te_id)
-    @execution    = TagfinderExecution.find(te_id)
+    @execution = TagfinderExecution.find(te_id)
 
     paths_and_names.reverse.each do |tmp_filepath, filename|
       ActiveRecord::Base.transaction do

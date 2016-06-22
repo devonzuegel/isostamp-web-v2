@@ -1,13 +1,13 @@
+require 'securerandom'
+
 class TagfinderExecution < ActiveRecord::Base
   belongs_to :user
   belongs_to :data_file,   class_name: 'Document'
   belongs_to :params_file, class_name: 'Document'
   has_many   :results_files
 
-  validates_presence_of %i(user data_file)
-
-  before_create :generate_hex_base
-  attr_accessor :hex_base
+  before_validation :generate_hex_base
+  validates_presence_of %i(user data_file hex_base)
 
   include DataAndParamsAttachable
 
@@ -18,7 +18,12 @@ class TagfinderExecution < ActiveRecord::Base
 
     if successful
       UploadResultsFilesToS3.enqueue(id)
+      SendResultsEmail.enqueue(te_id)
     end
+  end
+
+  def generate_hex_base
+    self.hex_base ||= SecureRandom.hex
   end
 
   private
@@ -33,10 +38,6 @@ class TagfinderExecution < ActiveRecord::Base
       shell.run("wget #{data_file_url} -O #{tmp_filepath};")  # Download file from s3
     end
     @tmp_filepath
-  end
-
-  def generate_hex_base
-    self.hex_base = SecureRandom.hex
   end
 
   def remove_tmp_file(filepath)

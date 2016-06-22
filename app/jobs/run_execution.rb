@@ -4,7 +4,6 @@ class RunExecution < Que::Job
 
     ActiveRecord::Base.transaction do
       execution.run
-      SendResultsEmail.enqueue(te_id)
       destroy
     end
   end

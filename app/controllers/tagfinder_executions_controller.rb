@@ -13,13 +13,13 @@ class TagfinderExecutionsController < ApplicationController
   end
 
   def create
-    @execution = TagfinderExecution.new(tagfinder_execution_params.merge(user: current_user))
-    if @execution.save
+    @execution = TagfinderExecution.create(tagfinder_execution_params.merge(user: current_user))
+    if @execution.valid?
       RunExecution.enqueue(@execution.id)
       redirect_to tagfinder_executions_path,
         notice: "Tagfinder execution was successfully created. We will email you at #{current_user.email} when the results are ready."
     else
-      render :new
+      render :new, errors: @execution.errors
     end
   end
 
@@ -51,4 +51,9 @@ class TagfinderExecutionsController < ApplicationController
 
       filtered
     end
+
+    # TODO
+    # def generate_attrs_from_params
+    #   tagfinder_execution_params.merge(user: current_user, hex_base: SecureRandom.hex).deep_symbolize_keys
+    # end
 end
