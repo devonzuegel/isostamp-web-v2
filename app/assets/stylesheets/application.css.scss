@@ -23,7 +23,7 @@ li a {
 
 .container {
   padding: 0 40px;
-  max-width: 900px;
+  max-width: 750px;
   &.small {
     max-width: 600px;
   }
@@ -181,4 +181,8 @@ pre {
 
 .margin-right {
   margin-right: 10px;
+}
+
+.no-margin {
+  margin: 0 !important;
 }

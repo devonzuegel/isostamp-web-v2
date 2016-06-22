@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   root to: 'visitors#index'
 
   get '/admin'                   => 'admin#index',      as: :admin
-  get '/admin/metrics'           => 'admin#metrics',    as: :metrics
   get '/admin/documents'         => 'admin#documents',  as: :all_documents
 
   get '/auth/:provider/callback' => 'sessions#create'

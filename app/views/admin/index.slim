@@ -1,4 +1,21 @@
-ul
-  li= link_to 'Metrics',       metrics_path
-  li= link_to 'Users',         users_path
-  li= link_to 'All uploads',   all_documents_path
+p= link_to 'Users', users_path
+p= link_to 'All uploads',   all_documents_path
+
+h2 User Signups Per Week
+= line_chart User.group_by_week(:created_at).count
+
+h2 Cumulative User Signups
+= line_chart @cumulative_users
+
+hr
+
+h2 Files Uploaded Per Week
+= line_chart Document.unscoped.group_by_week(:created_at).count
+
+h2 Cumulative Files Uploaded
+= line_chart @cumulative_documents
+
+hr
+
+h2 Logins Per Week
+= line_chart Session.group_by_week(:created_at).count
