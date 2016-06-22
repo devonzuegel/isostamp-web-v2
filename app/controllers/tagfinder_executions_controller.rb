@@ -9,7 +9,7 @@ class TagfinderExecutionsController < ApplicationController
     @user           = current_user
     @data_files     = current_user.documents
     @param_files    = current_user.documents
-    @tagfinder_executions = TagfinderExecution.where(user: current_user).decorate.reverse
+    @tagfinder_executions = TagfinderExecution.where(user: current_user).order(:created_at).decorate.reverse
   end
 
   def create
