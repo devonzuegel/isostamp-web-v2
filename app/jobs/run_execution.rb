@@ -16,7 +16,7 @@ class RunExecution < Que::Job
       end
 
       puts "Sending email for #{te_id}...".yellow
-      SendResultsEmail.enqueue(te_id)
+      SendResultsEmail.enqueue(te_id, run_at: 10.seconds.from_now)
       destroy
     end
   end

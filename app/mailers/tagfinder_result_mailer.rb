@@ -1,7 +1,6 @@
 require 'action_controller/test_case'
 
 class TagfinderResultMailer < ApplicationMailer
-  include Rails.application.routes.url_helpers
   include ActionView::Helpers::UrlHelper
   add_template_helper(ApplicationHelper)
 
@@ -9,7 +8,7 @@ class TagfinderResultMailer < ApplicationMailer
 
   def sample_email(tagfinder_execution, preview: false)
     @tagfinder_execution = tagfinder_execution.decorate
-    @link = link_to('Details', @tagfinder_execution.url)
+    @link = link_to('Details', with_host_prefix(@tagfinder_execution.url))
 
     if preview
       mail(message_params)
@@ -38,7 +37,8 @@ class TagfinderResultMailer < ApplicationMailer
 
   def subject
     time_str  = Time.now.strftime("%h %d %H:%M:%S")
-    base = "Isostamp results: #{data_file.upload_file_name} (#{time_str})"
+    result = @tagfinder_execution.successful? ? 'succeeded!' : 'failed'
+    base = "Isostamp results: #{data_file.upload_file_name} #{result} (#{time_str})"
     ENV['ENV'] == 'production' ?  base : "[#{ENV['ENV'].upcase}] #{base}"
   end
 
@@ -56,5 +56,9 @@ class TagfinderResultMailer < ApplicationMailer
 
   def user
     @tagfinder_execution.user
+  end
+
+  def with_host_prefix(url)
+    URI.join(root_url, url).to_s
   end
 end
