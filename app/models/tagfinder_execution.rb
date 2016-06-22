@@ -13,20 +13,19 @@ class TagfinderExecution < ActiveRecord::Base
 
   def run
     successful = shell.run("#{executable} #{tmp_filepath};")
-    persist_outputs(successful)
     remove_tmp_file(tmp_filepath)
-
-    if successful
-      UploadResultsFilesToS3.enqueue(id)
-      SendResultsEmail.enqueue(te_id)
-    end
+    persist_outputs(successful)
   end
+
+  def successful?
+    success == true
+  end
+
+  private
 
   def generate_hex_base
     self.hex_base ||= SecureRandom.hex
   end
-
-  private
 
   def shell
     @shell ||= Shell.new
