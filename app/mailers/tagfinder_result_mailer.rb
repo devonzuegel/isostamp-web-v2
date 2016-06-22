@@ -1,3 +1,5 @@
+require 'action_controller/test_case'
+
 class TagfinderResultMailer < ApplicationMailer
   include Rails.application.routes.url_helpers
   include ActionView::Helpers::UrlHelper
@@ -31,7 +33,7 @@ class TagfinderResultMailer < ApplicationMailer
   def log_sending
     puts "> Sending email to #{user.email}...".blue
     user.increment!(:num_emails_received)
-    @tagfinder_execution.update_attributes(email_sent: Time.now)
+    @tagfinder_execution.update_attributes!(email_sent: Time.now)
   end
 
   def subject
