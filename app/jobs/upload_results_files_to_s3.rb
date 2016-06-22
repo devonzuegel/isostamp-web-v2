@@ -1,4 +1,6 @@
 class UploadResultsFilesToS3 < Que::Job
+  @retry_interval = 5
+
   def run(te_id)
     @execution = TagfinderExecution.find(te_id)
 

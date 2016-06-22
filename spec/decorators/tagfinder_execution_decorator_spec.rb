@@ -11,17 +11,17 @@ describe TagfinderExecutionDecorator do
 
     it 'should be "Still running..." when success is not yet defined' do
       @te = build(:tagfinder_execution).decorate
-      expect(@te.status).to eq("Still running...")
+      expect(@te.status).to eq("<div class=\"label label-info\">Still running...</div>")
     end
 
     it 'should be "Success!" when success is true' do
       @te = create(:tagfinder_execution, success: true).decorate
-      expect(@te.status).to eq("Success!")
+      expect(@te.status).to eq("<div class=\"label label-success\">Success!</div>")
     end
 
     it 'should be "Failure" when success is false' do
       @te = create(:tagfinder_execution, success: false).decorate
-      expect(@te.status).to eq("Failure")
+      expect(@te.status).to eq("<div class=\"label label-danger\">Failure</div>")
     end
   end
 end

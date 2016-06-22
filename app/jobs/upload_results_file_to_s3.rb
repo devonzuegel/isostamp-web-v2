@@ -1,4 +1,6 @@
 class UploadResultsFileToS3 < Que::Job
+  @retry_interval = 5
+
   def run(results_file_id)
     @results_file = ResultsFile.find(results_file_id)
     puts "Beginning to upload results_file ##{results_file_id} [#{@results_file.filename}]...  QueJob.count = #{QueJob.count}".green
