@@ -7,7 +7,8 @@ $(function() {
   });
 
   $('#s3_uploader').bind('s3_upload_failed', function (e, content) {
-    alert(content.filename + ' failed to upload');
+    alert(content.filename + ' failed to upload.');
+    setTimeout(function (){ location.reload(); }, 1000);
   });
 
   $('#s3_uploader').bind('s3_uploads_start', function (e) {
@@ -15,7 +16,7 @@ $(function() {
   });
 
   $('#s3_uploader').bind('s3_uploads_complete', function (e) {
-    setTimeout(function (){ location.reload(); }, 1000);
+    setTimeout(function (){ location.reload(); }, 1500);
   });
 
   $('#uploads-progress-bar').bind('DOMSubtreeModified', function (e) {

@@ -6,7 +6,7 @@ class TagfinderExecutionDecorator < Draper::Decorator
   end
 
   def metadata
-    [{
+    m = [{
       label:   'Created at',
       value:   created_at
     }, {
@@ -15,10 +15,16 @@ class TagfinderExecutionDecorator < Draper::Decorator
     }, {
       label:   'Owner',
       value:   h.link_to(user.name, h.user_path(user))
-    }, {
-      label:   'Email sent',
-      value:   email_sent_info
     }]
+
+    if email_sent.nil?
+      return m
+    else
+      return m + [{
+        label:   'Email sent',
+        value:   email_sent_info
+      }]
+    end
   end
 
   def data_file_info
