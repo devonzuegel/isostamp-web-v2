@@ -23,7 +23,7 @@ class TagfinderResultMailer < ApplicationMailer
   def message_params
     {
       from:       ENV['EMAIL_SENDER'],
-      to:         user.email,
+      to:         'devonzuegel@gmail.com', # user.email, # TODO change me
       subject:    subject,
       html:       html_template
     }

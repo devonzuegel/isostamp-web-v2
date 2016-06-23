@@ -21,20 +21,15 @@ class TagfinderExecution < ActiveRecord::Base
     success == true
   end
 
-  end
-
   def shell
     @shell ||= Shell.new
-  end
-
-  def executable
-    Rails.env.production? ? 'bin/tagfinder' : 'bin/tagfinder-mac'
   end
 
   private
 
   def generate_hex_base
     self.hex_base ||= SecureRandom.hex
+  end
 
   def tmp_filepath
     if @tmp_filepath.nil?
@@ -55,5 +50,9 @@ class TagfinderExecution < ActiveRecord::Base
       stderrs:  JSON.pretty_generate(shell.stderrs.as_json),
       success:  successful
     )
+  end
+
+  def executable
+    Rails.env.production? ? 'bin/tagfinder' : 'bin/tagfinder-mac'
   end
 end
