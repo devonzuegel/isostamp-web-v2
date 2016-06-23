@@ -21,15 +21,16 @@ class TagfinderExecution < ActiveRecord::Base
     success == true
   end
 
-  private
-
-  def generate_hex_base
-    self.hex_base ||= SecureRandom.hex
   end
 
   def shell
     @shell ||= Shell.new
   end
+
+  private
+
+  def generate_hex_base
+    self.hex_base ||= SecureRandom.hex
 
   def tmp_filepath
     if @tmp_filepath.nil?

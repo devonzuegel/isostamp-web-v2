@@ -13,7 +13,7 @@ class UploadResultsFileToS3 < Que::Job
 
       @results_file.update_attributes(direct_upload_url: direct_upload_url)
 
-      # RemoveFile.enqueue(@results_file.tmp_filepath, run_at: 10.seconds.from_now)
+      RemoveFile.enqueue(@results_file.tmp_filepath, run_at: 5.minutes.from_now)
       destroy
     end
   end
@@ -33,10 +33,5 @@ class UploadResultsFileToS3 < Que::Job
       region:       ENV['AWS_BUCKET_REGION']
     )
     @s3.bucket(ENV['AWS_S3_BUCKET'])
-  end
-
-  def remove_tmp_file(filepath)
-    puts "Removing tmp file '#{filepath}'...".blue
-    stdin, stdout, stderr = Open3.popen3("rm #{filepath};")
   end
 end
