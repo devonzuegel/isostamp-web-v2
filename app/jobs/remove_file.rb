@@ -3,6 +3,22 @@ class RemoveFile < Que::Job
 
   def run(filepath)
     puts "Removing file '#{filepath}'...".blue
-    stdin, stdout, stderr = Open3.popen3("rm #{filepath};")
+
+    puts "Running 'rm #{filepath};'".blue
+    shell.run("rm #{filepath};")
+
+    puts "Running 'ls ./tmp;'".blue
+    shell.run("ls ./tmp;")
+
+    puts "STDOUT:".blue
+    ap shell.stdouts.as_json
+    puts "STDERR:".blue
+    ap shell.stderrs.as_json
+  end
+
+  private
+
+  def shell
+   @shell ||= Shell.new
   end
 end

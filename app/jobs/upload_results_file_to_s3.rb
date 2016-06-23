@@ -13,7 +13,7 @@ class UploadResultsFileToS3 < Que::Job
 
       @results_file.update_attributes(direct_upload_url: direct_upload_url)
 
-      RemoveFile.enqueue(@results_file.tmp_filepath, run_at: 5.minutes.from_now)
+      RemoveFile.enqueue(@results_file.tmp_filepath, run_at: 2.minutes.from_now)
       destroy
     end
   end
