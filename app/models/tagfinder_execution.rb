@@ -55,8 +55,8 @@ class TagfinderExecution < ActiveRecord::Base
 
   def executable
     case Rails.env
-      when *%w(development test)   then 'bin/tagfinder-mac'
-      when *%w(staging production) then 'bin/tagfinder'
+      when *%w(development test) then 'bin/tagfinder-mac'
+      else                            'bin/tagfinder'
     end
   end
 end
