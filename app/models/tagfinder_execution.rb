@@ -34,9 +34,9 @@ class TagfinderExecution < ActiveRecord::Base
   def tmp_filepath
     if @tmp_filepath.nil?
       @tmp_filepath = "./tmp/#{hex_base}-#{File.basename(data_file_url)}"
-      shell.run("wget #{data_file_url} -O #{tmp_filepath};", logger: true)  # Download file from s3
+      shell.run("wget #{data_file_url} -O #{@tmp_filepath};", logger: true)  # Download file from s3
     else
-      puts "@tmp_filepath is not nil!!!! => '#{@tmp_filepath}'".red
+      puts "@tmp_filepath is not nil!!!! => '#{@@tmp_filepath}'".red
     end
     @tmp_filepath
   end
