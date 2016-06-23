@@ -8,7 +8,7 @@ p
 .alert.alert-info.inline
   | Sometimes there's a small issue where you can't click the "Begin Upload" button. We're working on fixing this problem, but for now just refresh the page and try again –– it usually fixes itself.
 
-.row: .col-sm-8: .file-input-field
+.row: .col-sm-12: .file-input-field
   = s3_uploader_form callback_url: documents_url, id: "s3_uploader", callback_param: "document[direct_upload_url]" do
 
     .fileinput.fileinput-new.input-group data-provides='fileinput'

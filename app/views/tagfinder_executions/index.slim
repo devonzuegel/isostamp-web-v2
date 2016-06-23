@@ -5,7 +5,7 @@
   .col-xs-12
     h3 1. Verify your email address
     p We will email you the results when they are ready, so please make sure we have the right address on file.
-  .col-sm-8
+  .col-sm-12
     = form_for @user do |f|
       .fileinput.fileinput-new.input-group
         = f.text_field :email, :class => 'form-control'

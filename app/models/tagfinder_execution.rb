@@ -12,7 +12,7 @@ class TagfinderExecution < ActiveRecord::Base
   include DataAndParamsAttachable
 
   def run
-    successful = shell.run("#{executable} #{tmp_filepath};")
+    successful = shell.run("#{executable} #{tmp_filepath};", logger: true)
     remove_tmp_file(tmp_filepath)
     persist_outputs(successful)
   end
