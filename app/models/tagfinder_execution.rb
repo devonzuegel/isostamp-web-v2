@@ -12,6 +12,8 @@ class TagfinderExecution < ActiveRecord::Base
   include DataAndParamsAttachable
 
   def run
+    puts "executable1: #{executable1}".red
+    puts "executable:  #{executable}".red
     successful = shell.run("#{executable} #{tmp_filepath};")
     remove_tmp_file(tmp_filepath)
     persist_outputs(successful)
@@ -25,6 +27,10 @@ class TagfinderExecution < ActiveRecord::Base
 
   def shell
     @shell ||= Shell.new
+  end
+
+  def executable1
+    Rails.env.production? ? 'bin/tagfinder' : 'bin/tagfinder-mac'
   end
 
   private
