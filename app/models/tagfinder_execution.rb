@@ -14,7 +14,7 @@ class TagfinderExecution < ActiveRecord::Base
   def run
     Timeout.timeout(2000) { download_tmp_file }
     successful = shell.run("#{executable} #{tmp_filepath};", logger: true)
-    # remove_tmp_file(tmp_filepath) # TODO
+    RemoveFile.enqueue(tmp_filepath, run_at: 5.minutes.from_now)
     persist_outputs(successful)
   end
 
