@@ -9,6 +9,7 @@ class RunExecution < Que::Job
       execution.run
 
       if execution.successful?
+        puts 'SUCCESS!!!!!!!!!!'.green
         puts "Uploading results files for #{te_id}...".yellow
         UploadResultsFilesToS3.enqueue(te_id)
       else

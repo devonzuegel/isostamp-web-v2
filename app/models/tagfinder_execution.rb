@@ -12,33 +12,41 @@ class TagfinderExecution < ActiveRecord::Base
   include DataAndParamsAttachable
 
   def run
+    Timeout.timeout(2000) { download_tmp_file }
     successful = shell.run("#{executable} #{tmp_filepath};", logger: true)
     # remove_tmp_file(tmp_filepath) # TODO
     persist_outputs(successful)
-  end
-
-  def successful?
-    success == true
   end
 
   def shell
     @shell ||= Shell.new
   end
 
+  def successful?
+    success == true
+  end
+
+
   private
+
 
   def generate_hex_base
     self.hex_base ||= SecureRandom.hex
   end
 
   def tmp_filepath
-    if @tmp_filepath.nil?
-      @tmp_filepath = "./tmp/#{hex_base}-#{File.basename(data_file_url)}"
-      shell.run("wget #{data_file_url} -O #{@tmp_filepath};", logger: true)  # Download file from s3
+    "./tmp/#{hex_base}-#{File.basename(data_file_url)}"
+  end
+
+  def download_tmp_file
+    if !File.file?(tmp_filepath)
+      puts "Downloading #{tmp_filepath} from s3...".yellow
+      shell.run("wget #{data_file_url} -O #{tmp_filepath};", logger: true)  # Download file from s3
+      puts "Done downloading #{tmp_filepath} from s3".yellow
     else
-      puts "@tmp_filepath is not nil!!!! => '#{@tmp_filepath}'".red
+      puts "NOT downloading #{tmp_filepath} from s3 because its already there...".yellow
     end
-    @tmp_filepath
+
   end
 
   def persist_outputs(successful)
