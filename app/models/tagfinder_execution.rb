@@ -13,7 +13,7 @@ class TagfinderExecution < ActiveRecord::Base
 
   def run
     successful = shell.run("#{executable} #{tmp_filepath};", logger: true)
-    remove_tmp_file(tmp_filepath)
+    # remove_tmp_file(tmp_filepath) # TODO
     persist_outputs(successful)
   end
 
@@ -34,14 +34,11 @@ class TagfinderExecution < ActiveRecord::Base
   def tmp_filepath
     if @tmp_filepath.nil?
       @tmp_filepath = "./tmp/#{hex_base}-#{File.basename(data_file_url)}"
-      shell.run("wget #{data_file_url} -O #{tmp_filepath};")  # Download file from s3
+      shell.run("wget #{data_file_url} -O #{tmp_filepath};", logger: true)  # Download file from s3
+    else
+      puts "@tmp_filepath is not nil!!!! => '#{@tmp_filepath}'".red
     end
     @tmp_filepath
-  end
-
-  def remove_tmp_file(filepath)
-    puts "Removing tmp file '#{filepath}'...".blue
-    stdin, stdout, stderr = Open3.popen3("rm #{filepath};")
   end
 
   def persist_outputs(successful)

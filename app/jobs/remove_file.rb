@@ -5,15 +5,10 @@ class RemoveFile < Que::Job
     puts "Removing file '#{filepath}'...".blue
 
     puts "Running 'rm #{filepath};'".blue
-    shell.run("rm #{filepath};")
+    shell.run("rm #{filepath};", logger: true)
 
     puts "Running 'ls ./tmp;'".blue
-    shell.run("ls ./tmp;")
-
-    puts "STDOUT:".blue
-    ap shell.stdouts.as_json
-    puts "STDERR:".blue
-    ap shell.stderrs.as_json
+    shell.run("ls ./tmp;", logger: true)
   end
 
   private
