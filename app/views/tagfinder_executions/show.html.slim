@@ -4,6 +4,13 @@ h1.tagfinder-execution-info= @tagfinder_execution.data_file.upload_file_name
 
 br
 
+h3 Logged events
+
+- @tagfinder_execution.logged_events.each do |event|
+  pre= event.log
+
+br
+
 == render 'inputs', tagfinder_execution: @tagfinder_execution
 
 - unless @tagfinder_execution.stdouts.nil?

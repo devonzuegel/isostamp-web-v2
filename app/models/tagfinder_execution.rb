@@ -5,6 +5,7 @@ class TagfinderExecution < ActiveRecord::Base
   belongs_to :data_file,   class_name: 'Document'
   belongs_to :params_file, class_name: 'Document'
   has_many   :results_files
+  has_many   :logged_events
 
   before_validation :generate_hex_base
   validates_presence_of %i(user data_file hex_base)
