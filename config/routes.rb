@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :tagfinder_executions, path: 'run', except: %i(new edit update destroy)
+  resources :tagfinder_executions, path: 'run', except: %i(new edit destroy)
   resources :documents, only: %i(index create destroy)
   resources :users
 
