@@ -3,18 +3,21 @@ class RunExecution < Que::Job
 
   def run(te_id)
     execution = TagfinderExecution.find(te_id)
-
     execution.log("Running execution #{te_id}...")
+
+    execution.log("Clearing 'success' attribute on execution ##{execution.id}...")
+    execution.update_attributes(success: nil)
+
 
     # ActiveRecord::Base.transaction do
     execution.run
 
     if execution.successful?
-      execution.log('SUCCESS!!!!!!!!!!')
+      execution.log('SUCCESS')
       execution.log("Uploading results files for #{te_id}...")
       UploadResultsFilesToS3.enqueue(te_id)
     else
-      execution.log("FAILED results files for #{te_id}...")
+      execution.log("FAILURE")
     end
 
     execution.log("Sending email for #{te_id}...")
