@@ -6,8 +6,14 @@ br
 
 h3 Logged events
 
-- @tagfinder_execution.logged_events.each do |event|
-  pre= event.log
+- if @tagfinder_execution.logged_events.empty?
+  .grey No events have been logged for this execution yet
+
+- else
+  - @tagfinder_execution.logged_events.each do |event|
+    pre
+      .grey= event.created_at
+      = event.log
 
 br
 
