@@ -13,7 +13,7 @@ class TagfinderExecution < ActiveRecord::Base
   include DataAndParamsAttachable
 
   def run
-    Timeout.timeout(2000) { download_tmp_file }
+    Timeout.timeout(4000) { download_tmp_file }
     successful = shell.run("#{executable} #{tmp_filepath};", logger: true)
     RemoveFile.enqueue(tmp_filepath, run_at: 5.minutes.from_now)
     persist_outputs(successful)
