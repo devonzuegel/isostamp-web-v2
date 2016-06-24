@@ -7,7 +7,7 @@ br
 h3 Logged events
 
 - if @tagfinder_execution.logged_events.empty?
-  .grey No events have been logged for this execution yet
+  = disabled('No events have been logged for this execution yet')
 
 - else
   - @tagfinder_execution.logged_events.each do |event|
