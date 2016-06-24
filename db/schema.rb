@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615002055) do
+ActiveRecord::Schema.define(version: 20160624000034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,15 +49,24 @@ ActiveRecord::Schema.define(version: 20160615002055) do
   add_index "documents", ["processed"], name: "index_documents_on_processed", using: :btree
   add_index "documents", ["user_id"], name: "index_documents_on_user_id", using: :btree
 
+  create_table "logged_events", force: :cascade do |t|
+    t.integer  "tagfinder_execution_id"
+    t.text     "log"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "logged_events", ["tagfinder_execution_id"], name: "index_logged_events_on_tagfinder_execution_id", using: :btree
+
   create_table "que_jobs", id: false, force: :cascade do |t|
-    t.integer  "priority",    limit: 2, default: 100,                                        null: false
-    t.datetime "run_at",                default: "now()",                                    null: false
-    t.integer  "job_id",      limit: 8, default: "nextval('que_jobs_job_id_seq'::regclass)", null: false
-    t.text     "job_class",                                                                  null: false
-    t.json     "args",                  default: [],                                         null: false
-    t.integer  "error_count",           default: 0,                                          null: false
+    t.integer  "priority",    limit: 2, default: 100,                   null: false
+    t.datetime "run_at",                default: '2016-06-23 23:20:15', null: false
+    t.integer  "job_id",      limit: 8, default: 0,                     null: false
+    t.text     "job_class",                                             null: false
+    t.json     "args",                  default: [],                    null: false
+    t.integer  "error_count",           default: 0,                     null: false
     t.text     "last_error"
-    t.text     "queue",                 default: "",                                         null: false
+    t.text     "queue",                 default: "",                    null: false
   end
 
   create_table "results_files", force: :cascade do |t|
@@ -107,6 +116,7 @@ ActiveRecord::Schema.define(version: 20160615002055) do
     t.integer  "num_emails_received", default: 0
   end
 
+  add_foreign_key "logged_events", "tagfinder_executions"
   add_foreign_key "results_files", "tagfinder_executions"
   add_foreign_key "sessions", "users"
   add_foreign_key "tagfinder_executions", "users"

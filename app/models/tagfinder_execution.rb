@@ -26,6 +26,14 @@ class TagfinderExecution < ActiveRecord::Base
     success == true
   end
 
+  def log(str)
+    puts "execution #{id} > #{str}".yellow
+    LoggedEvent.create!(
+      tagfinder_execution:  self,
+      log:                  str
+    )
+  end
+
 
   private
 
@@ -40,11 +48,11 @@ class TagfinderExecution < ActiveRecord::Base
 
   def download_tmp_file
     if !File.file?(tmp_filepath)
-      puts "Downloading #{tmp_filepath} from s3...".yellow
+      log("Downloading #{tmp_filepath} from s3...")
       shell.run("wget #{data_file_url} -O #{tmp_filepath};", logger: true)  # Download file from s3
-      puts "Done downloading #{tmp_filepath} from s3".yellow
+      log("Done downloading #{tmp_filepath} from s3")
     else
-      puts "NOT downloading #{tmp_filepath} from s3 because its already there...".yellow
+      log("NOT downloading #{tmp_filepath} from s3 because its already there...")
     end
 
   end
