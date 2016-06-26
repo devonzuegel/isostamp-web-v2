@@ -13,6 +13,14 @@ For more information: [**Interview with postdocs David Spiciarich and Christina 
 This repo contains the code for [isostamp.herokuapp.com](http://isostamp.herokuapp.com/), version 2 of the website. The [original and current official site](http://mass-spec-169.herokuapp.com/) will eventually be deprecated in favor of this new site, and you can find its code at [github.com/cmwoo/mass-spectrometry](https://github.com/cmwoo/mass-spectrometry).
 
 
+## Ownership ##
+
+As of July 2016:
+
+- [Devon Zuegel](mailto:devonzuegel@gmail.com) has ownership over the Heroku apps (isostamp-staging.herokuapp.com and isostamp.herokuapp.com), Namecheap-hosted domain (isostamp.org), and Mailgun credentials.
+- Emails to hello@isostamp.org are forwarded to [Christina Woo](mailto:drcmwoo@gmail.com).
+- Emails to admin@isostamp.org are forwarded to [Devon Zuegel](mailto:devonzuegel@gmail.com).
+
 ## Deployment Pipeline ##
 
 isostamp relies upon Heroku's deployment pipeline. The structure is as follows:
@@ -32,6 +40,6 @@ isostamp relies upon Heroku's deployment pipeline. The structure is as follows:
 
 ## Contact ##
 
-If you come across any problems with the site, please [create a Github issue](https://github.com/devonzuegel/isoStamp-web/issues) with specific details and screenshots of the problem.
+If you come across any problems with the site, please [create a Github issue](https://github.com/devonzuegel/isostamp-web-v2/issues) with specific details and screenshots of the problem.
 
 *Developed by the [Bertozzi Group](http://bertozzigroup.stanford.edu/), 2016.*
