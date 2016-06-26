@@ -8,7 +8,6 @@ class RunExecution < Que::Job
     execution.log("Clearing 'success' attribute on execution ##{execution.id}...")
     execution.update_attributes(success: nil)
 
-
     # ActiveRecord::Base.transaction do
     execution.run
 
