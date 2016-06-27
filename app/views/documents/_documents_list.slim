@@ -1,0 +1,23 @@
+- with_user ||= false
+
+table.table.table-bordered.table-striped: tbody
+  - if documents.empty?
+    p You haven't uploaded any documents yet.
+
+  - documents.each do |doc|
+    tr
+      td: a href="#{doc.direct_upload_url}"
+        - if doc.upload_file_name.downcase.ends_with?('mzxml')
+          i.fa.fa-file-code-o.right-spacer
+        - else
+         i.fa.fa-file-text.right-spacer
+        = doc.upload_file_name
+
+      td= number_to_human_size(doc.upload_file_size)
+      - if with_user
+
+        td= link_to doc.user.name, "mailto:#{doc.user.email}"
+
+      td= "#{time_ago_in_words(doc.created_at)} ago"
+
+      td= link_to '×', document_path(doc.id), method: :delete

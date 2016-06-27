@@ -6,18 +6,4 @@ h2 Upload data
 
 h2 Completed Uploads
 
-table.table.table-bordered.table-striped: tbody
-  - if @documents.empty?
-    p You haven't uploaded any documents yet.
-  - @documents.each do |doc|
-    tr
-      td
-        a href="#{doc.direct_upload_url}"
-          / - if doc.kind == 'Parameters'
-          i.fa.fa-file-text.right-spacer
-          / - else
-          /   i.fa.fa-file-code-o.right-spacer
-          = doc.upload_file_name
-      td
-        = "#{time_ago_in_words(doc.created_at)} ago"
-      td= link_to '×', document_path(doc.id), method: :delete
+== render 'documents_list', documents: @documents
