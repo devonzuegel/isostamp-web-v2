@@ -17,7 +17,7 @@ This repo contains the code for [isostamp.herokuapp.com](http://isostamp.herokua
 
 As of July 2016:
 
-- [Devon Zuegel](mailto:devonzuegel@gmail.com) has ownership over the Heroku apps (isostamp-staging.herokuapp.com and isostamp.herokuapp.com), Namecheap-hosted domain (isostamp.org), and Mailgun credentials.
+- [Devon Zuegel](mailto:devonzuegel@gmail.com) has ownership over the Heroku apps (isostamp-staging.herokuapp.com and isostamp.herokuapp.com), Namecheap-hosted domain (isostamp.org), Mailgun credentials, and S3 login.
 - Emails to hello@isostamp.org are forwarded to [Christina Woo](mailto:drcmwoo@gmail.com).
 - Emails to admin@isostamp.org are forwarded to [Devon Zuegel](mailto:devonzuegel@gmail.com).
 
