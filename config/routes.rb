@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :tagfinder_executions, path: 'run', except: %i(new edit destroy)
   resources :documents,                         only:   %i(index create destroy)
-  resources :users,                             only:   %i(index destroy update_attributes)
+  resources :users,                             only:   %i(index destroy update)
 
   root to: 'visitors#index'
 

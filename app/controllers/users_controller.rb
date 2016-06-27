@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_admin!,         except: %i(show update)
-  before_action :authenticate_user_or_admin!, only: %i(update)
+  before_action :authenticate_user_or_admin!, only:   %i(update)
 
   def index
     @users = User.all
