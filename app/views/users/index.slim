@@ -1,19 +1,20 @@
-p
-  b= 'Total number of users: '
-  = User.count
-
+h1 Users
 table.table.table-bordered.table-striped
   tr
     th
     th Name
-    th Document Count
-    th Sessions Count
+    th Email
+    th Signed up
+    th Documents
+    th Sessions
     th: .pull-right Delete
     th
   - @users.each do |user|
     tr
       td
-      td= link_to user.name, user
+      td= user.name
+      td= link_to user.email, "mailto:#{user.email}"
+      td= "#{time_ago_in_words(user.created_at)} ago"
       td= user.documents.count
       td= user.sessions.count
       - if user.admin?
@@ -21,3 +22,6 @@ table.table.table-bordered.table-striped
       - else
         td: .pull-right= link_to '×', user_path(user.id), method: :delete, data: { confirm: "Are you sure you want to delete #{user.name} and all of his/her associated data?" }
       td
+table.table: p.pull-right
+  b= 'Total = '
+  = User.count

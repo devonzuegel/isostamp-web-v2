@@ -1,5 +1,6 @@
-p= link_to 'Users', users_path
-p= link_to 'All uploads',   all_documents_path
+p= link_to 'Users',          users_path
+p= link_to 'All uploads',    all_documents_path
+p= link_to 'All executions', all_executions_path
 
 h2 User Signups Per Week
 = line_chart User.group_by_week(:created_at).count

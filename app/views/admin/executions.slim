@@ -1,11 +1,12 @@
-h1 History
+h1 All Executions
 
-- if tagfinder_executions.empty?
-  p You haven't run Isostamp on any mass spec data yet.
+- if @tagfinder_executions.empty?
+  p Isostamp hasn't been run on any mass spec data yet.
 
 - else
   table.table.table-striped
     thead: tr
+      th Owner
       th Mass Spec Data
       th Parameters
       th Status
@@ -13,8 +14,9 @@ h1 History
       th
 
     tbody
-      - tagfinder_executions.each do |te|
+      - @tagfinder_executions.each do |te|
         tr
+          td= link_to te.user.name, "mailto:#{te.user.email}"
           td= te.data_file_info
           td= te.params_file_info
           td= te.status

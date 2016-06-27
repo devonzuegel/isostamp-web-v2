@@ -10,6 +10,10 @@ class AdminController < ApplicationController
     @documents = Document.all
   end
 
+  def executions
+    @tagfinder_executions = TagfinderExecution.all.decorate
+  end
+
   private
 
   def cumulative_data(data, order = 'week asc')
