@@ -14,10 +14,13 @@ class TagfinderExecutionDecorator < Draper::Decorator
       value:   status
     }, {
       label:   'Owner',
-      value:   h.link_to(user.name, h.user_path(user))
+      value:   h.link_to(user.name, "mailto:#{user.email}")
     }, {
       label:   'Email sent',
       value:   email_sent_info
+    }, {
+      label:   'Attempts',
+      value:   num_attempts
     }]
   end
 

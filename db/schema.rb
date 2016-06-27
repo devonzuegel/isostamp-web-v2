@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160624000034) do
+ActiveRecord::Schema.define(version: 20160627215614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,14 +59,14 @@ ActiveRecord::Schema.define(version: 20160624000034) do
   add_index "logged_events", ["tagfinder_execution_id"], name: "index_logged_events_on_tagfinder_execution_id", using: :btree
 
   create_table "que_jobs", id: false, force: :cascade do |t|
-    t.integer  "priority",    limit: 2, default: 100,                                        null: false
-    t.datetime "run_at",                default: "now()",                                    null: false
-    t.integer  "job_id",      limit: 8, default: "nextval('que_jobs_job_id_seq'::regclass)", null: false
-    t.text     "job_class",                                                                  null: false
-    t.json     "args",                  default: [],                                         null: false
-    t.integer  "error_count",           default: 0,                                          null: false
+    t.integer  "priority",    limit: 2, default: 100,                   null: false
+    t.datetime "run_at",                default: '2016-06-27 20:56:25', null: false
+    t.integer  "job_id",      limit: 8, default: 0,                     null: false
+    t.text     "job_class",                                             null: false
+    t.json     "args",                  default: [],                    null: false
+    t.integer  "error_count",           default: 0,                     null: false
     t.text     "last_error"
-    t.text     "queue",                 default: "",                                         null: false
+    t.text     "queue",                 default: "",                    null: false
   end
 
   create_table "results_files", force: :cascade do |t|
@@ -89,16 +89,17 @@ ActiveRecord::Schema.define(version: 20160624000034) do
   add_index "sessions", ["user_id"], name: "index_sessions_on_user_id", using: :btree
 
   create_table "tagfinder_executions", force: :cascade do |t|
-    t.integer  "user_id",        null: false
-    t.integer  "data_file_id",   null: false
+    t.integer  "user_id",                    null: false
+    t.integer  "data_file_id",               null: false
     t.integer  "params_file_id"
     t.datetime "email_sent"
     t.boolean  "success"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.string   "hex_base"
     t.string   "stdouts"
     t.string   "stderrs"
+    t.integer  "num_attempts",   default: 0
   end
 
   add_index "tagfinder_executions", ["data_file_id"], name: "index_tagfinder_executions_on_data_file_id", using: :btree

@@ -4,9 +4,11 @@ h3 Inputs
   .col-sm-6: table.padded.valign-top
     tr
       td.labeled Data file
-      td
-        = tagfinder_execution.data_file_info
+      td =  tagfinder_execution.data_file_info
+      td =  disabled(number_to_human_size(tagfinder_execution.data_file.upload_file_size))
 
   .col-sm-6: table.padded.valign-top
     td.labeled Parameters
     td= tagfinder_execution.params_file_info
+    - if tagfinder_execution.params_file
+      td =  disabled(number_to_human_size(tagfinder_execution.params_file.upload_file_size))

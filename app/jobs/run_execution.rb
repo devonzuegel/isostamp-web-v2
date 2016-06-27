@@ -3,6 +3,7 @@ class RunExecution < Que::Job
 
   def run(te_id)
     execution = TagfinderExecution.find(te_id)
+    execution.increment(:num_attempts)
     execution.log("Running execution #{te_id}...")
 
     execution.log("Clearing 'success' attribute on execution ##{execution.id}...")
