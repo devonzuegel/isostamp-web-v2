@@ -6,19 +6,19 @@ h1 All Executions
 - else
   table.table.table-striped
     thead: tr
-      th Owner
-      th Mass Spec Data
-      th Parameters
       th Status
       th Created At
+      th Mass Spec Data
+      th Parameters
+      th Owner
       th
 
     tbody
       - @tagfinder_executions.each do |te|
         tr
-          td= link_to te.user.name, "mailto:#{te.user.email}"
-          td= te.data_file_info
-          td= te.params_file_info
           td= te.status
           td= te.created_at
-          td= link_to 'Details', te
+          td= te.data_file_info
+          td= te.params_file_info
+          td= link_to te.user.name, "mailto:#{te.user.email}"
+          td= te.details_link

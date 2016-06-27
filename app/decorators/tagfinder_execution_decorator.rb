@@ -32,9 +32,16 @@ class TagfinderExecutionDecorator < Draper::Decorator
     end
   end
 
+  def details_link
+    h.link_to 'Details', object
+    # do
+    #   h.content_tag(:i, '', :class => 'fa fa-question-circle right-spacer')
+    # end
+  end
+
   def params_file_info
     if used_default_params?
-      h.disabled 'Used default configuration'
+      h.disabled 'Default configuration'
     elsif params_file_removed?
       h.disabled 'File has been removed'
     else
