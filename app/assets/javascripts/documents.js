@@ -1,4 +1,5 @@
 $(function() {
+
   $('#s3_uploader').S3Uploader({
     allow_multiple_files:           false,
     progress_bar_target:            $('#uploads-progress-bar'),
@@ -19,16 +20,4 @@ $(function() {
     setTimeout(function (){ location.reload(); }, 1500);
   });
 
-  $('#uploads-progress-bar').bind('DOMSubtreeModified', function (e) {
-    var num_progress_bars = $('#uploads-progress-bar').children().length;
-    if (num_progress_bars > 1) {
-      $('#uploads-progress-bar').find('.upload:first').remove();
-    };
-  });
-
-  $('#filename').bind('DOMSubtreeModified', function (e) {
-    if ($('#filename').text() != '')
-      $('#submit-upload').prop('disabled', false);
-  });
 });
-

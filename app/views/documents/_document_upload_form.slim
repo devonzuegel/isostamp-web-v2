@@ -5,9 +5,6 @@ p
   a(href='https://en.wikipedia.org/wiki/Text_file') txt
   = ' file for your parameters.'
 
-.alert.alert-info.inline
-  | Sometimes there's a small issue where you can't click the "Begin Upload" button. We're working on fixing this problem, but for now just refresh the page and try again –– it usually fixes itself.
-
 .row: .col-sm-12: .file-input-field
   = s3_uploader_form callback_url: documents_url, id: "s3_uploader", callback_param: "document[direct_upload_url]" do
 
@@ -21,7 +18,7 @@ p
         = file_field_tag :file, multiple: false, id: 'file-input'
       span.input-group-addon.fileinput-exists.btn.btn-file
         span.fileinput-exists Begin upload
-        = submit_tag 'Begin upload', id: 'submit-upload', disabled: true
+        = submit_tag 'Begin upload', id: 'submit-upload'
 
 .overlay#uploads-progress: #uploads-progress-bar
 
