@@ -1,7 +1,6 @@
 describe DocumentsController, :omniauth do
   let(:user) { create(:user) }
 
-
   describe '/documents => :index' do
 
     it 'should redirect to root if user not signed in' do
@@ -16,8 +15,23 @@ describe DocumentsController, :omniauth do
 
       get :index
 
-      expect(assigns(:document)).to_not be_nil
       expect(assigns(:documents).length).to eq 2
+    end
+  end
+
+  describe 'routes' do
+    let(:doc) { create(:document, user: user) }
+
+    it 'routes to #index' do
+      expect(get: '/documents').to route_to('documents#index')
+    end
+
+    it 'routes to #create' do
+      expect(post: '/documents').to route_to('documents#create')
+    end
+
+    it 'routes to #destroy' do
+      expect(delete: "/documents/#{doc.id}").to route_to('documents#destroy', id: "#{doc.id}")
     end
   end
 end

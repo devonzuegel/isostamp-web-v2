@@ -4,6 +4,25 @@ describe SessionsController, :omniauth do
     request.env['omniauth.auth'] = auth_mock
   end
 
+  describe 'routes' do
+    it 'routes to #create' do
+      expect(get: '/auth/facebook/callback').to route_to('sessions#create', provider: 'facebook')
+      expect(get: '/auth/twitter/callback').to  route_to('sessions#create', provider: 'twitter')
+    end
+
+    it 'routes to #new' do
+      expect(get: '/signin').to route_to('sessions#new')
+    end
+
+    it 'routes to #destroy' do
+      expect(get: '/signout').to route_to('sessions#destroy')
+    end
+
+    it 'routes to #failure' do
+      expect(get: '/auth/failure').to route_to('sessions#failure')
+    end
+  end
+
   describe "#create" do
 
     it "creates a user" do
@@ -22,7 +41,6 @@ describe SessionsController, :omniauth do
       post :create, provider: :facebook
       expect(response).to redirect_to root_url
     end
-
   end
 
   describe "#destroy" do
@@ -41,7 +59,6 @@ describe SessionsController, :omniauth do
       delete :destroy
       expect(response).to redirect_to root_url
     end
-
   end
 
 end

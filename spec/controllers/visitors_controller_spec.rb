@@ -1,0 +1,7 @@
+describe VisitorsController, :omniauth do
+  describe 'routes' do
+    it 'routes to #index' do
+      expect(get: '/').to route_to('visitors#index')
+    end
+  end
+end
