@@ -19,5 +19,4 @@ $(function() {
   $('#s3_uploader').bind('s3_uploads_complete', function (e) {
     setTimeout(function (){ location.reload(); }, 1500);
   });
-
 });

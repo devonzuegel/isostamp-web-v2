@@ -11,12 +11,12 @@ p
     .fileinput.fileinput-new.input-group data-provides='fileinput'
       .form-control data-trigger='fileinput'
         span.fileinput-exists.right-spacer: i.fa.fa-file-text-o
-        span.fileinput-filename#filename
+        span.fileinput-filename#filename-text
       span.input-group-addon.btn.btn-default.btn-file
-        span.fileinput-new Select file
+        span.fileinput-new    Select file
         span.fileinput-exists Change
         = file_field_tag :file, multiple: false, id: 'file-input'
-      span.input-group-addon.fileinput-exists.btn.btn-file
+      span.input-group-addon.fileinput-exists.btn.btn-file.btn.btn-default.btn-file.with-left-border
         span.fileinput-exists Begin upload
         = submit_tag 'Begin upload', id: 'submit-upload'
 

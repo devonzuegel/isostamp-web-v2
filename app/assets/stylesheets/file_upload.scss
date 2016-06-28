@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'bootstrap';
 
 table.form-table {
   width:     100%;
@@ -33,4 +34,11 @@ label.btn.btn-default,
     background: none;
     border:     none;
   }
+}
+
+.input-group-addon.active, span.active {
+  background-color: rgba($component-active-bg, 0.15)           !important;
+  border:           1px solid rgba($component-active-bg, 0.35) !important;
+  border-left:      1px solid rgba($component-active-bg, 0.35) !important;
+  box-shadow:       none                                       !important;
 }

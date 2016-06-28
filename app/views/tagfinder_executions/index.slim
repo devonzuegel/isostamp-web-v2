@@ -9,7 +9,7 @@
     = form_for @user do |f|
       .fileinput.fileinput-new.input-group
         = f.text_field :email, :class => 'form-control'
-        span.form-actions.input-group-addon
+        span.form-actions.input-group-addon.btn.btn-default#email-address-field
           = f.submit 'Update email', :class => 'btn btn-default'
 
   / ------------------------------------------------------------------------------
