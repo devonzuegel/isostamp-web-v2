@@ -1,23 +1,14 @@
 require 'open3'
 
 class Shell
+  attr_reader :commands, :stdouts, :stderrs
+
   def initialize
     @commands = []
     @stdouts  = []
     @stderrs  = []
   end
 
-  def commands
-    @commands
-  end
-
-  def stdouts
-    @stdouts
-  end
-
-  def stderrs
-    @stderrs
-  end
 
   def run(cmd, logger: false)
     validate_format(cmd)

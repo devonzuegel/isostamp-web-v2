@@ -35,6 +35,7 @@ gem 'mailgun-ruby',               '~>1.0.2', require: 'mailgun'
 gem 'awesome_print'
 gem 'colorize',                   '0.7.7'
 gem 'aws-sdk',                    '2.2.37'
+gem 'concord',                    '0.1.5'
 
 group :development, :test do
   gem 'byebug'
