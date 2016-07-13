@@ -1,7 +1,7 @@
 #execution-form= form_tag(controller: :tagfinder_executions, action: :create) do
 
   .col-sm-6
-    h3 3. Select mass spec data
+    h3 3. Select mass spectrometry data
     - if @data_files.empty?
       p
         = 'Please '
@@ -12,7 +12,7 @@
         = collection_radio_buttons(:tagfinder_execution, :data_file_id, @data_files, :id, :upload_file_name) do |b|
           = b.label(:class => 'btn btn-default') { b.radio_button + b.text }
   .col-sm-6
-    h3 5. Select parameters
+    h3 4. Select parameters
     .btn-group-vertical.fill-width role='group' data-toggle='buttons'
       = collection_radio_buttons(:tagfinder_execution, :params_file_id, @param_files, :id, :upload_file_name) do |b|
         = b.label(:class => 'btn btn-default') { b.radio_button + b.text }
