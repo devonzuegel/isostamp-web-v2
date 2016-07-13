@@ -2,7 +2,7 @@
   h3 Results Files
   .row
     - if tagfinder_execution.results_files.empty?
-      = disabled('Your files are being processed. Thanks for being patient!')
+      .col-sm-12= disabled('Your files are being processed. Thanks for being patient!')
     - else
       - split_into_halves(tagfinder_execution.results_files).each do |col|
         .col-sm-6: table.padded.valign-top

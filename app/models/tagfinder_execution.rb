@@ -8,16 +8,18 @@ class TagfinderExecution < ActiveRecord::Base
   has_many   :logged_events
 
   before_validation :generate_hex_base
-  validates_presence_of %i(user data_file hex_base)
+  validates_presence_of %i[user data_file hex_base]
 
   include DataAndParamsAttachable
 
   def run
+    return if files_have_been_removed?
     ActiveRecord::Base.transaction do
-      Timeout.timeout(4000) { download_tmp_file }
-      successful = shell.run("#{executable} #{tmp_filepath};", logger: true)
-      RemoveFile.enqueue(tmp_filepath, run_at: 5.minutes.from_now)
-      persist_outputs(successful)
+      download_tmp_files
+      log("Running command: `#{command}`")
+      result = shell.run(command, logger: true)
+      remove_tmp_files
+      persist_outputs(result)
     end
   end
 
@@ -31,41 +33,51 @@ class TagfinderExecution < ActiveRecord::Base
 
   def log(str)
     puts "execution #{id} > #{str}".yellow
-    LoggedEvent.create!(
-      tagfinder_execution:  self,
-      log:                  str
-    )
+    LoggedEvent.create!(tagfinder_execution: self, log: str)
   end
 
-
   private
-
 
   def generate_hex_base
     self.hex_base ||= SecureRandom.hex
   end
 
-  def tmp_filepath
-    "./tmp/#{hex_base}-#{File.basename(data_file_url)}"
+  def persist_outputs(successful)
+    update_attributes(
+      stdouts: JSON.pretty_generate(shell.stdouts.as_json),
+      stderrs: JSON.pretty_generate(shell.stderrs.as_json),
+      success: successful
+    )
   end
 
-  def download_tmp_file
+  def download_tmp_files
+    Timeout.timeout(4000) { download_tmp_file(tmp_data_filepath, data_file_url) }
+    return if used_default_params?
+    Timeout.timeout(4000) { download_tmp_file(tmp_params_filepath, params_file_url) }
+  end
+
+  def download_tmp_file(tmp_filepath, file_url)
     if !File.file?(tmp_filepath)
       log("Downloading #{tmp_filepath} from s3...")
-      shell.run("wget #{data_file_url} -O #{tmp_filepath};", logger: true)  # Download file from s3
+      shell.run("wget #{file_url} -O #{tmp_filepath};", logger: true)
       log("Done downloading #{tmp_filepath} from s3")
     else
       log("NOT downloading #{tmp_filepath} from s3 because its already there...")
     end
-
   end
 
-  def persist_outputs(successful)
-    update_attributes(
-      stdouts:  JSON.pretty_generate(shell.stdouts.as_json),
-      stderrs:  JSON.pretty_generate(shell.stderrs.as_json),
-      success:  successful
-    )
+  def remove_tmp_files
+    RemoveFile.enqueue(tmp_data_filepath, run_at: 5.minutes.from_now)
+    return if used_default_params?
+    RemoveFile.enqueue(tmp_params_filepath, run_at: 5.minutes.from_now)
+  end
+
+  def command
+    if used_default_params?
+      "#{executable} #{tmp_data_filepath};"
+    else
+      "#{executable} #{tmp_data_filepath} #{tmp_params_filepath};"
+    end
   end
 
   def executable

@@ -12,8 +12,9 @@ class Shell
   def run(cmd, logger: false)
     validate_format(cmd)
 
-    stdin, stdout, stderr = Open3.popen3(cmd)
-    output, error = '', ''
+    _, stdout, stderr = Open3.popen3(cmd)
+    output = ''
+    error  = ''
 
     stdout.each_line do |line|
       output << line
@@ -27,9 +28,9 @@ class Shell
       successful = false if !line.blank?
     end
 
-    @commands += [ cmd    ]
-    @stdouts  += [ output ]
-    @stderrs  += [ error  ]
+    @commands += [cmd]
+    @stdouts  += [output]
+    @stderrs  += [error]
 
     successful
   end
@@ -37,8 +38,7 @@ class Shell
   private
 
   def validate_format(cmd)
-    if !cmd.ends_with?(';')
-      raise ArgumentError, 'Please end all commands with a semi-colon'
-    end
+    return if cmd.ends_with?(';')
+    fail ArgumentError, 'Please end all commands with a semi-colon'
   end
 end

@@ -17,7 +17,7 @@ class RunExecution < Que::Job
       execution.log("Uploading results files for #{te_id}...")
       UploadResultsFilesToS3.enqueue(te_id)
     else
-      execution.log("FAILURE")
+      execution.log('FAILURE')
     end
 
     execution.log("Sending email for #{te_id}...")
