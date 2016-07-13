@@ -9,7 +9,6 @@ class Shell
     @stderrs  = []
   end
 
-
   def run(cmd, logger: false)
     validate_format(cmd)
 
