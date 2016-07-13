@@ -18,6 +18,7 @@ html, body {
 
 footer, .footer, .push {
   height: $footer-height; /* .push must be the same height as .footer */
+  font-size: 0.9em;
 
   p {
     color: $grey !important;
