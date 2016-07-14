@@ -30,7 +30,7 @@ def deploy
 
   if permission_granted?('Push to remote staging branch?')
     puts 'Pushing...'
-    puts `git push --no-verify`
+    puts `git push --no-verify -f`
   else
     puts 'Cancelling deployment...'
     return
