@@ -1,0 +1,9 @@
+- filenames = YAML.load(File.read(File.expand_path('../pdfs.yml', __FILE__)))
+
+h2 PDFs
+.row
+  - split_into_halves(filenames).each do |col1|
+    - split_into_halves(col1).each do |col2|
+      .col-xs-3: ul
+        - col2.each do |filename|
+          li= link_to File.basename(filename), filename

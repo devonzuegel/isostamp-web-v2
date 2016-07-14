@@ -1,0 +1,17 @@
+[
+  'https://s3-us-west-2.amazonaws.com/isostamp-production/pdfs/A375.pdf',
+  'https://s3-us-west-2.amazonaws.com/isostamp-production/pdfs/BxPC3.pdf',
+  'https://s3-us-west-2.amazonaws.com/isostamp-production/pdfs/HEK293.pdf',
+  'https://s3-us-west-2.amazonaws.com/isostamp-production/pdfs/HeLa.pdf',
+  'https://s3-us-west-2.amazonaws.com/isostamp-production/pdfs/HepG2.pdf',
+  'https://s3-us-west-2.amazonaws.com/isostamp-production/pdfs/HT29.pdf',
+  'https://s3-us-west-2.amazonaws.com/isostamp-production/pdfs/K562.pdf',
+  'https://s3-us-west-2.amazonaws.com/isostamp-production/pdfs/LnCAP.pdf',
+  'https://s3-us-west-2.amazonaws.com/isostamp-production/pdfs/LS174T.pdf',
+  'https://s3-us-west-2.amazonaws.com/isostamp-production/pdfs/MCF7.pdf',
+  'https://s3-us-west-2.amazonaws.com/isostamp-production/pdfs/MCF10a.pdf',
+  'https://s3-us-west-2.amazonaws.com/isostamp-production/pdfs/NCIN87.pdf',
+  'https://s3-us-west-2.amazonaws.com/isostamp-production/pdfs/PC3.pdf',
+  'https://s3-us-west-2.amazonaws.com/isostamp-production/pdfs/SKNSH.pdf',
+  'https://s3-us-west-2.amazonaws.com/isostamp-production/pdfs/U87MG.pdf'
+]

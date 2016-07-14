@@ -1,49 +1,7 @@
-.row
-  .col-md-6
-    markdown:
-      ## Isostamp
+== render 'background'
 
-      [Isotopic signature transfer and mass pattern prediction (Isostamp)](http://pubs.acs.org/doi/abs/10.1021/cb100338x) is an enabling technique for chemically-directed proteomics. It is an algorithm for the targeted detection and identification of modified species by mass spectrometry (MS).
+== render 'action_btn'
 
+== render 'pdfs'
 
-  .col-md-6
-    markdown:
-      ## Isostamp Web V2
-
-      This web app enables other people to analyze their own data with Isostamp. The Isostamp project was previously hosted at [mass-spec-169.herokuapp.com](http://mass-spec-169.herokuapp.com/).
-
-.row: .col-md-12
-  .spacer.large
-  .aligncenter
-    - if user_signed_in?
-      a href=tagfinder_executions_path
-        button.button.btn.btn-lg.btn-primary Analyze data now
-      p.meta
-    - else
-      a href=signin_path
-        button.button.btn.btn-lg.btn-primary Sign in
-
-.row
-  .col-md-12
-    h2 Applications
-    markdown:
-      #### Do you have an application and would you like it highlighted here? [Email us](mailto:hello@isostamp.org)!
-
-  .col-md-6: .well
-    markdown:
-      #### Isotope Targeted Glycoproteomics (IsoTaG)
-
-      ![](http://i.imgur.com/cnrqPdh.png)
-
-      *Abstract:* Protein glycosylation is a heterogeneous post-translational modification (PTM) that plays an essential role in biological regulation. However, the diversity found in glycoproteins has undermined efforts to describe the intact glycoproteome via mass spectrometry (MS). We present IsoTaG, a mass-independent chemical glycoproteomics platform for characterization of intact, metabolically labeled glycopeptides at the whole-proteome scale. In IsoTaG, metabolic labeling of the glycoproteome is combined with (i) chemical enrichment and isotopic recoding of glycopeptides to select peptides for targeted glycoproteomics using directed MS and (ii) mass-independent assignment of intact glycopeptides. We structurally assigned 32 N-glycopeptides and over 500 intact and fully elaborated O-glycopeptides from 250 proteins across three human cancer cell lines and also discovered unexpected peptide sequence polymorphisms (pSPs). The IsoTaG platform is broadly applicable to the discovery of PTMs that are amenable to chemical labeling, as well as novel protein isoforms including pSPs.
-
-      *Reference: Woo, C. M.; Iavarone, A. T.; Spiciarich, D. R.; Palaniappan, K. K.; Bertozzi, C. R. “Isotope-targeted glycoproteomics (IsoTaG): a mass-independent platform for intact N- and O-glycopeptide discovery and analysis” Nat. Methods, 12, 561 (2015).*
-
-  .col-md-6: .well
-    markdown:
-
-      #### Mapping Yeast N-Glycosites with Isotopically Recoded Glycans
-
-      *Abstract:* Asparagine-linked glycosylation is a common post-translational modification of proteins; in addition to participating in key macromolecular interactions, N-glycans contribute to protein folding, trafficking, and stability. Despite their importance, few N-glycosites have been experimentally mapped in the Saccharomyces cerevisiae proteome. Factors including glycan heterogeneity, low abundance, and low occupancy can complicate site mapping. Here, we report a novel mass spectrometry-based strategy for detection of N-glycosites in the yeast proteome. Our method imparts N-glycopeptide mass envelopes with a pattern that is computationally distinguishable from background ions. Isotopic recoding is achieved via metabolic incorporation of a defined mixture of N-acetylglucosamine isotopologs into N-glycans. Peptides bearing the recoded envelopes are specifically targeted for fragmentation, facilitating high confidence site mapping. This strategy requires no chemical modification of the N-glycans or stringent sample enrichment. Further, enzymatically simplified N-glycans are preserved on peptides. Using this approach, we identify 133 N-glycosites spanning 58 proteins, nearly doubling the number of experimentally observed N-glycosites in the yeast proteome.
-
-      *Reference: Breidenbach, M. A., Palaniappan, K. K., Pitcher, A. A. & Bertozzi, C. R. Mapping yeast N-glycosites with isotopically recorded glycans. Mol. Cell Proteomics 11, M111.015339 (2012).*
+== render 'applications'

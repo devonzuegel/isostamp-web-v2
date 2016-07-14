@@ -1,0 +1,10 @@
+.row: .col-md-12
+  .spacer.large
+  .aligncenter
+    - if user_signed_in?
+      a href=tagfinder_executions_path
+        button.button.btn.btn-lg.btn-primary Analyze data now
+      p.meta
+    - else
+      a href=signin_path
+        button.button.btn.btn-lg.btn-primary Sign in

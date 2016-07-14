@@ -89,6 +89,7 @@ pickle-email-*.html
 public/uploads/
 public/data_uploads/
 public/documents/
+public/pdfjs/
 uploads/
 
 bin/tagfinder-mac
