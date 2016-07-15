@@ -13,7 +13,6 @@
           = b.label(:class => 'btn btn-default') { b.radio_button + b.text }
   .col-sm-6
     h3 4. Select parameters
-    p= link_to 'View default parameters', TagfinderExecution::DEFAULT_PARAMS_FILE
     .btn-group-vertical.fill-width role='group' data-toggle='buttons'
       = collection_radio_buttons(:tagfinder_execution, :params_file_id, @param_files, :id, :upload_file_name) do |b|
         = b.label(:class => 'btn btn-default') { b.radio_button + b.text }
@@ -21,6 +20,8 @@
       = collection_radio_buttons(:tagfinder_execution, :params_file_id,
         [[ nil, 'Use Default Configuration' ]], :first, :last)  do |b|
           = b.label(:class => 'btn btn-default active') { b.radio_button + b.text }
+    .spacer
+    p= link_to 'View default parameters', TagfinderExecution::DEFAULT_PARAMS_FILE
 
   .col-sm-12
     .spacer.large
