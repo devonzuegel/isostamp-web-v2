@@ -29,7 +29,7 @@ class TagfinderExecutionDecorator < Draper::Decorator
       h.disabled 'File has been removed'
     else
       h.link_to data_file.direct_upload_url do
-        h.content_tag(:i, '', :class => 'fa fa-file-text right-spacer') +
+        h.content_tag(:i, '', :class => 'fa fa-file-code-o right-spacer') +
         data_file.upload_file_name
       end
     end
