@@ -13,6 +13,7 @@
           = b.label(:class => 'btn btn-default') { b.radio_button + b.text }
   .col-sm-6
     h3 4. Select parameters
+    p= link_to 'View default parameters', TagfinderExecution::DEFAULT_PARAMS_FILE
     .btn-group-vertical.fill-width role='group' data-toggle='buttons'
       = collection_radio_buttons(:tagfinder_execution, :params_file_id, @param_files, :id, :upload_file_name) do |b|
         = b.label(:class => 'btn btn-default') { b.radio_button + b.text }
@@ -24,7 +25,7 @@
   .col-sm-12
     .spacer.large
     .aligncenter
-      = submit_tag "Run Isostamp", :class => 'button btn btn-lg btn-primary', disabled: true
+      = submit_tag 'Run Isostamp', :class => 'button btn btn-lg btn-primary', disabled: true
 
 javascript:
   $("#data_file").change(function(e){
