@@ -1,5 +1,5 @@
 class TagfinderExecutionsController < ApplicationController
-  before_action :set_tagfinder_execution, only: [:show, :edit, :update, :destroy]
+  before_action :set_tagfinder_execution, only: %i[show edit update destroy]
   before_action :authenticate_user!
 
   def show
@@ -18,9 +18,9 @@ class TagfinderExecutionsController < ApplicationController
   end
 
   def index
-    @user           = current_user
-    @data_files     = current_user.documents
-    @param_files    = current_user.documents
+    @user        = current_user
+    @data_files  = current_user.documents.select { |doc| doc.upload_file_name.downcase.ends_with? '.mzxml' }
+    @param_files = current_user.documents.select { |doc| !doc.upload_file_name.downcase.ends_with? '.mzxml' }
     @tagfinder_executions = TagfinderExecution.where(user: current_user).order(:created_at).decorate.reverse
   end
 
