@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   root to: 'visitors#index'
 
+  get '/pdfs'                    => 'visitors#pdfs',     as: :pdfs
+
   get '/admin'                   => 'admin#index',       as: :admin
   get '/admin/documents'         => 'admin#documents',   as: :all_documents
   get '/admin/executions'        => 'admin#executions',  as: :all_executions
