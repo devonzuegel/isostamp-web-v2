@@ -51,16 +51,16 @@ class TagfinderExecution < ActiveRecord::Base
   end
 
   def download_tmp_files
-    Timeout.timeout(4000) { download_tmp_file(tmp_data_filepath, data_file_url) }
+    download_tmp_file(tmp_data_filepath, data_file_url)
     return if used_default_params?
-    Timeout.timeout(4000) { download_tmp_file(tmp_params_filepath, params_file_url) }
+    download_tmp_file(tmp_params_filepath, params_file_url)
   end
 
   def download_tmp_file(tmp_filepath, file_url)
     if !File.file?(tmp_filepath)
-      log("Downloading #{tmp_filepath} from s3...")
+      log("Downloading #{tmp_filepath} from s3...\n\n")
       shell.run("wget #{file_url} -O #{tmp_filepath};", logger: true)
-      log("Done downloading #{tmp_filepath} from s3")
+      log("Done downloading #{tmp_filepath} from s3\n\n")
     else
       log("NOT downloading #{tmp_filepath} from s3 because its already there...")
     end
