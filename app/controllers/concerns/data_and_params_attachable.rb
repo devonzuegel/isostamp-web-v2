@@ -21,10 +21,6 @@ module DataAndParamsAttachable
     params_file.direct_upload_url
   end
 
-  def tmp_params_filepath
-    "./tmp/#{hex_base}-#{File.basename(params_file_url)}"
-  end
-
   # DATA
 
   def data_file_removed?
@@ -37,10 +33,6 @@ module DataAndParamsAttachable
 
   def data_file_url
     data_file.direct_upload_url
-  end
-
-  def tmp_data_filepath
-    "./tmp/#{hex_base}-#{File.basename(data_file_url)}"
   end
 
   def files_have_been_removed?

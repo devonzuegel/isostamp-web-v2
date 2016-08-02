@@ -28,13 +28,4 @@ RSpec.describe ResultsFile, type: :model do
       expect(build(:results_file, tmp_filepath: 'fasdfasdfasfd')).to_not be_valid
     end
   end
-
-  describe '#s3_key' do
-    it 'should return the expected s3 key' do
-      filename = 'blah.txt'
-      results_file = build(:results_file, filename: filename)
-      hex_base     = results_file.tagfinder_execution.hex_base
-      expect(results_file.s3_key).to eq "results/#{hex_base}/#{filename}"
-    end
-  end
 end

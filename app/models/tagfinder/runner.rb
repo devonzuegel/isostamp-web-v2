@@ -8,7 +8,9 @@ module Tagfinder
     private_class_method :new
 
     def call
+      puts 'Beginning Tagfinder::Runner...'.black
       response = JSON.parse(connection.call(Request.new(URL, execution_params)))
+      ap response
       log_output(response)
       log_results(response)
       execution

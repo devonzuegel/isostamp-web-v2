@@ -19,11 +19,6 @@ RSpec.describe TagfinderExecution, type: :model do
       expect(build(:tagfinder_execution, params_file: create(:document, user: user), user: user)).to be_valid
     end
 
-    it 'should auto-populate a hex_base upon creation' do
-      expect(build(:tagfinder_execution).hex_base).to eq nil
-      expect(create(:tagfinder_execution).hex_base.length).to eq 32
-    end
-
     it 'should require the data_file to be of kind "Mass Spec Data"'
     it 'should require the params_file to be of kind "Params"'
   end
