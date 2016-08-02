@@ -6,10 +6,11 @@ class RunExecution < Que::Job
     execution.increment(:num_attempts)
     execution.log("Running execution #{te_id}...")
 
-    execution.log("Clearing 'success' attribute on execution ##{execution.id}...")
-    execution.update_attributes(success: nil)
+    if execution.successful?
+      execution.log("Clearing 'success' attribute on execution ##{execution.id}...")
+      execution.update_attributes(success: nil)
+    end
 
-    # ActiveRecord::Base.transaction do
     execution.run
 
     if execution.successful?
@@ -23,6 +24,5 @@ class RunExecution < Que::Job
     execution.log("Sending email for #{te_id}...")
     SendResultsEmail.enqueue(te_id, run_at: 10.seconds.from_now)
     destroy
-    # end
   end
 end
