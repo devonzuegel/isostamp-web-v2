@@ -1,0 +1,18 @@
+{
+  "history": [
+    {
+      "command": "bin/tagfinder /home/ubuntu/tagfinder-api/tmp/data/01566797-1362-457c-96e5-bdc8722ab518-7MIX_STD_110802_1.mzXML",
+      "status": 0,
+      "stderr": "",
+      "stdout": "IsoStamp version 2.0.1\nCopyright 2016, Stanford University, Bertozzi group.\nContact: Christina Woo (cmwoo@stanford.edu)\n\nloading mzxml file [/home/ubuntu/tagfinder-api/tmp/data/01566797-1362-457c-96e5-bdc8722ab518-7MIX_STD_110802_1.mzXML] ...done\nloaded 2.2 million peaks in 7161 scans\n... examining scan 1000\n... examining scan 2000\n... examining scan 3000\n... examining scan 4000\n... examining scan 5000\n... examining scan 6000\n... examining scan 7000\ngrouped 0 matches in to 0 groups\nIsoStamp version 2.0.1\nCopyright 2016, Stanford University, Bertozzi group.\nContact: Christina Woo (cmwoo@stanford.edu)\n\n  (scores)   (# of groups)\n    > 100:     0 groups\n   80-100:     0 groups\n    60-80:     0 groups\n    40-60:     0 groups\n    20-40:     0 groups\n     0-20:     0 groups\n      < 0:     0 groups\n\nMS2 scans found, generating filtered mzxml file...\n1000\n2000\n3000\n4000\n5000\n6000\n7000\ndone\n"
+    }
+  ],
+  "results_urls": [
+    "https://isostamp-development.s3-us-west-2.amazonaws.com/results/f0903324-82fd-4ed1-b8b3-3783db4fa0ef/01566797-1362-457c-96e5-bdc8722ab518-7MIX_STD_110802_1_chart.txt",
+    "https://isostamp-development.s3-us-west-2.amazonaws.com/results/c8a57be7-16e1-48db-b889-b02b2d0b1a62/01566797-1362-457c-96e5-bdc8722ab518-7MIX_STD_110802_1_filter_log.txt",
+    "https://isostamp-development.s3-us-west-2.amazonaws.com/results/984c5d0c-d9f0-436f-a95f-9cde7984e73d/01566797-1362-457c-96e5-bdc8722ab518-7MIX_STD_110802_1_filter_log2.txt",
+    "https://isostamp-development.s3-us-west-2.amazonaws.com/results/4e26e51c-2192-479b-8c13-36e544bf61ab/01566797-1362-457c-96e5-bdc8722ab518-7MIX_STD_110802_1_filtered.mzxml",
+    "https://isostamp-development.s3-us-west-2.amazonaws.com/results/069c0c53-a595-4b60-8f29-ad164928de6a/01566797-1362-457c-96e5-bdc8722ab518-7MIX_STD_110802_1_massspec.csv",
+    "https://isostamp-development.s3-us-west-2.amazonaws.com/results/f8394411-2121-4d00-8cb6-e04ce9eae334/01566797-1362-457c-96e5-bdc8722ab518-7MIX_STD_110802_1_summary.txt"
+  ]
+}

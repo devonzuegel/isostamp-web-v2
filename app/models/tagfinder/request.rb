@@ -1,12 +1,13 @@
 module Tagfinder
   class Request
     extend Forwardable
-    include Concord.new(:url)
+    include Concord.new(:url, :params)
 
+    attr_reader :params
     def_delegator :url, :to_s
 
-    def initialize(raw_url)
-      super(validated_url(raw_url))
+    def initialize(raw_url, params = nil)
+      super(validated_url(raw_url), params || {})
     end
 
     private

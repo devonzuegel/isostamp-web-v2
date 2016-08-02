@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :document do
     association :user, factory: :user
-    direct_upload_url  'https://isostamp-development.s3-us-west-2.amazonaws.com/uploads/123-123-123/test.mzXML'
+    direct_upload_url 'https://isostamp-development.s3-us-west-2.amazonaws.com/uploads/123-123-123/test.mzXML'
 
     after(:build) { |doc| doc.class.skip_callback(:create, :before, :set_upload_attributes) }
 

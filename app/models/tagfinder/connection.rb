@@ -5,7 +5,7 @@ module Tagfinder
     private_class_method :new
 
     def call
-      HTTP.get(request.to_s).body.to_s
+      HTTP.get(request.to_s, params: request.params).body.to_s
     end
   end
 end
