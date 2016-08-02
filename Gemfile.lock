@@ -108,6 +108,8 @@ GEM
       activerecord (>= 3.0, < 5)
       delayed_job (>= 3.0, < 5)
     diff-lcs (1.2.5)
+    domain_name (0.5.20160615)
+      unf (>= 0.0.5, < 1.0.0)
     draper (1.4.0)
       actionpack (>= 3.0)
       activemodel (>= 3.0)
@@ -288,6 +290,15 @@ GEM
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
     hashie (3.4.3)
+    http (2.0.2)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 1.0.1)
+      http_parser.rb (~> 0.6.0)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
+    http-form_data (1.0.1)
+    http_parser.rb (0.6.0)
     hub (1.12.4)
     i18n (0.7.0)
     ice_nine (0.11.2)
@@ -362,6 +373,7 @@ GEM
       mime-types
       mimemagic (= 0.3.0)
     pg (0.18.4)
+    procto (0.0.3)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -495,6 +507,9 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.0)
       execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.2)
     unicorn (5.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
@@ -542,6 +557,7 @@ DEPENDENCIES
   guard-bundler
   guard-rails
   guard-rspec
+  http
   hub
   jbuilder (~> 2.0)
   jquery-rails (= 4.1.1)
@@ -551,6 +567,7 @@ DEPENDENCIES
   omniauth-facebook (= 3.0.0)
   paperclip (= 4.3.6)
   pg (= 0.18.4)
+  procto
   pry-rails (= 0.3.4)
   que (= 0.11.4)
   que-testing (= 0.1.1)
