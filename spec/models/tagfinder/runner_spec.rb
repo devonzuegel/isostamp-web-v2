@@ -1,13 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Tagfinder::Runner, type: :model do
+  let(:connection) { double(Tagfinder::Connection) }
+  let(:response) { File.read(Pathname.new('spec').join('fixtures', 'tagfinder-api-response.json')) }
+  before { allow(connection).to receive(:call).and_return(response) }
+
   context 'data file only' do
-    let(:execution)  { build(:tagfinder_execution) }
-    let(:connection) { double(Tagfinder::Connection) }
-    let(:response) do
-      File.read(Pathname.new('spec').join('fixtures', 'tagfinder-api-response.json'))
-    end
-    before { allow(connection).to receive(:call).and_return(response) }
+    let(:execution) { build(:tagfinder_execution) }
 
     it 'makes request to tagfinder API' do
       described_class.call(execution, connection)
@@ -20,11 +19,22 @@ RSpec.describe Tagfinder::Runner, type: :model do
         .to eql JSON.parse(response).fetch('results_urls')
     end
 
-    it 'logs the output'
-    # Create (or change existing) class that holds content of history hash from response
+    it 'logs the output' do
+      history = described_class.call(execution, connection).history_outputs.map(&:attributes)
+      filtered_keys_history =
+        history.map do |o|
+          o.slice(*%w[command stderr stdout status]).deep_stringify_keys
+        end
+      expect(filtered_keys_history).to eql JSON.parse(response).fetch('history')
+    end
   end
 
   context 'data & params files' do
-    it '...'
+    let(:execution_w_params) { build(:tagfinder_execution, :with_params) }
+
+    it 'makes request to tagfinder API' do
+      described_class.call(execution_w_params, connection)
+      expect(connection).to have_received(:call)
+    end
   end
 end

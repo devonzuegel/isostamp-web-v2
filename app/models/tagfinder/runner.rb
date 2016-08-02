@@ -27,7 +27,9 @@ module Tagfinder
     end
 
     def log_output(response)
-      ap response.fetch('history')
+      response.fetch('history').each do |output|
+        HistoryOutput.create!(output.merge(tagfinder_execution: execution).deep_symbolize_keys!)
+      end
     end
 
     def execution_params
