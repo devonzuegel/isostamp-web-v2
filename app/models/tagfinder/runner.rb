@@ -9,7 +9,6 @@ module Tagfinder
 
     def call
       response = JSON.parse(connection.call(Request.new(URL, execution_params)))
-      ap response
       log_output(response)
       log_results(response)
       execution
@@ -31,11 +30,9 @@ module Tagfinder
     def log_output(response)
       logged = { tagfinder_execution: execution }
       execution.update_attributes(success: successful?(response))
-      puts 'execution: ----------------------------------------'.gray
-      ap execution
 
       if successful?(response)
-        response.fetch('history').each { |h| ap h; HistoryOutput.create!(logged.merge(h)) }
+        response.fetch('history').each { |h| HistoryOutput.create!(logged.merge(h)) }
       else
         execution.log(response['error'])
       end
@@ -59,9 +56,3 @@ module Tagfinder
     end
   end
 end
-
-# http://ec2-54-249-88-210.ap-northeast-1.compute.amazonaws.com/tagfinder
-#     ?
-#     key=newpassword&
-#     data_url=https://regis-web.systemsbiology.net/rawfiles/lcq/7MIX_STD_110802_1.mzXML
-#     params_url=https://regis-web.systemsbiology.net/rawfiles/lcq/7MIX_STD_110802_1.mzXML
