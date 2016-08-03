@@ -71,14 +71,14 @@ ActiveRecord::Schema.define(version: 20160802174422) do
   add_index "logged_events", ["tagfinder_execution_id"], name: "index_logged_events_on_tagfinder_execution_id", using: :btree
 
   create_table "que_jobs", id: false, force: :cascade do |t|
-    t.integer  "priority",    limit: 2, default: 100,                   null: false
-    t.datetime "run_at",                default: '2016-07-20 23:48:29', null: false
-    t.integer  "job_id",      limit: 8, default: 0,                     null: false
-    t.text     "job_class",                                             null: false
-    t.json     "args",                  default: [],                    null: false
-    t.integer  "error_count",           default: 0,                     null: false
+    t.integer  "priority",    limit: 2, default: 100,                                        null: false
+    t.datetime "run_at",                default: "now()",                                    null: false
+    t.integer  "job_id",      limit: 8, default: "nextval('que_jobs_job_id_seq'::regclass)", null: false
+    t.text     "job_class",                                                                  null: false
+    t.json     "args",                  default: [],                                         null: false
+    t.integer  "error_count",           default: 0,                                          null: false
     t.text     "last_error"
-    t.text     "queue",                 default: "",                    null: false
+    t.text     "queue",                 default: "",                                         null: false
   end
 
   create_table "results_files", force: :cascade do |t|
@@ -108,7 +108,6 @@ ActiveRecord::Schema.define(version: 20160802174422) do
     t.boolean  "success"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.string   "hex_base"
     t.string   "stdouts"
     t.string   "stderrs"
     t.integer  "num_attempts",   default: 0

@@ -14,7 +14,7 @@ class TagfinderExecution < ActiveRecord::Base
 
   def run
     return if files_have_been_removed?
-    Tagfinder::Runner.call(execution, connection)
+    Tagfinder::Runner.call(self, Tagfinder::Connection)
   end
 
   def shell

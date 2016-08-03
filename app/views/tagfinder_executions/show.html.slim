@@ -28,3 +28,15 @@ h3 Logged events
     pre
       .grey= event.created_at
       = event.log
+
+h3 Execution history
+
+- @tagfinder_execution.history_outputs.each do |output|
+  pre
+    .grey= output.command
+    br
+    .grey= "status: #{output.status}"
+    br
+    .red= output.stderr
+    br
+    = output.stdout

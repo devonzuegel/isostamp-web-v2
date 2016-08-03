@@ -26,7 +26,6 @@ class TagfinderExecutionsController < ApplicationController
 
   def create
     @execution = TagfinderExecution.create(tagfinder_execution_params.merge(user: current_user))
-    ap @execution.errors
     if @execution.valid?
       RunExecution.enqueue(@execution.id)
       redirect_to tagfinder_executions_path,

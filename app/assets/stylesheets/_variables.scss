@@ -1,9 +1,9 @@
-$lightest-grey:    #f5f5f5;
-$light-grey:       #ccc;
-$grey:             #aaa;
+$lightest-grey: #f5f5f5;
+$light-grey:    #ccc;
+$grey:          #aaa;
+$red:           #FF4136;
+$green:         #27d096;
+$dark-green:    darken($green, 6%);
 
-$green: #27d096;
-$dark-green: darken($green, 6%);
-
-$sans-serif-font:  'Karla', 'San Francisco Display', 'Helvetica', sans-serif;
-$monospace-font:   'Roboto Mono', monospace;
+$sans-serif-font: 'Karla', 'San Francisco Display', 'Helvetica', sans-serif;
+$monospace-font:  'Roboto Mono', monospace;

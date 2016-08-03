@@ -8,7 +8,6 @@ module Tagfinder
     private_class_method :new
 
     def call
-      puts 'Beginning Tagfinder::Runner...'.black
       response = JSON.parse(connection.call(Request.new(URL, execution_params)))
       ap response
       log_output(response)
@@ -19,6 +18,7 @@ module Tagfinder
     private
 
     def log_results(response)
+      return unless successful?(response)
       response.fetch('results_urls').each do |url|
         ResultsFile.create!(
           filename:            File.basename(url),
@@ -29,9 +29,21 @@ module Tagfinder
     end
 
     def log_output(response)
-      response.fetch('history').each do |output|
-        HistoryOutput.create!(output.merge(tagfinder_execution: execution).deep_symbolize_keys!)
+      logged = { tagfinder_execution: execution }
+      execution.update_attributes(success: successful?(response))
+      puts 'execution: ----------------------------------------'.gray
+      ap execution
+
+      if successful?(response)
+        response.fetch('history').each { |h| ap h; HistoryOutput.create!(logged.merge(h)) }
+      else
+        execution.log(response['error'])
       end
+    end
+
+    def successful?(response)
+      return false if response['history'].nil?
+      response['history'].map { |output| output['status'] }.reduce(&:|) == 0
     end
 
     def execution_params
