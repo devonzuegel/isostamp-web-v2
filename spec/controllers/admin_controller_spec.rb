@@ -1,6 +1,5 @@
 describe AdminController, :omniauth do
   describe 'routes' do
-
     it 'routes to #index' do
       expect(get: '/admin').to route_to('admin#index')
     end
@@ -12,6 +11,5 @@ describe AdminController, :omniauth do
     it 'routes to #executions' do
       expect(get: '/admin/executions').to route_to('admin#executions')
     end
-
   end
 end

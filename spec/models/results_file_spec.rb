@@ -6,7 +6,7 @@ RSpec.describe ResultsFile, type: :model do
     it { should validate_presence_of(:filename) }
     it { should validate_presence_of(:tagfinder_execution) }
 
-    it 'should be a valid file' do
+    it 'is a valid file' do
       expect(build(:results_file)).to be_valid
     end
   end

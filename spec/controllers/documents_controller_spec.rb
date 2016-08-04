@@ -2,14 +2,13 @@ describe DocumentsController, :omniauth do
   let(:user) { create(:user) }
 
   describe '/documents => :index' do
-
-    it 'should redirect to root if user not signed in' do
+    it 'redirects to root if user not signed in' do
       get :index
       assert_response :redirect
       assert_redirected_to root_url
     end
 
-    it 'should retrieve the user\'s documents' do
+    it 'retrieves the user\'s documents' do
       2.times { create(:document, user: user) }
       session[:user_id] = user
 
@@ -31,7 +30,7 @@ describe DocumentsController, :omniauth do
     end
 
     it 'routes to #destroy' do
-      expect(delete: "/documents/#{doc.id}").to route_to('documents#destroy', id: "#{doc.id}")
+      expect(delete: "/documents/#{doc.id}").to route_to('documents#destroy', id: doc.id.to_s)
     end
   end
 end

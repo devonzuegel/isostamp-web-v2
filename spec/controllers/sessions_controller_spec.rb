@@ -1,5 +1,4 @@
 describe SessionsController, :omniauth do
-
   before do
     request.env['omniauth.auth'] = auth_mock
   end
@@ -23,13 +22,12 @@ describe SessionsController, :omniauth do
     end
   end
 
-  describe "#create" do
-
-    it "creates a user" do
-      expect { post :create, provider: :facebook }.to change{ User.count }.by(1)
+  describe '#create' do
+    it 'creates a user' do
+      expect { post :create, provider: :facebook }.to change { User.count }.by(1)
     end
 
-    it "creates a session" do
+    it 'creates a session' do
       original_session_count = Session.count
       expect(session[:user_id]).to be_nil
       post :create, provider: :facebook
@@ -37,28 +35,26 @@ describe SessionsController, :omniauth do
       expect(Session.count).to eq(original_session_count + 1)
     end
 
-    it "redirects to the home page" do
+    it 'redirects to the home page' do
       post :create, provider: :facebook
       expect(response).to redirect_to root_url
     end
   end
 
-  describe "#destroy" do
-
+  describe '#destroy' do
     before do
       post :create, provider: :facebook
     end
 
-    it "resets the session" do
+    it 'resets the session' do
       expect(session[:user_id]).not_to be_nil
       delete :destroy
       expect(session[:user_id]).to be_nil
     end
 
-    it "redirects to the home page" do
+    it 'redirects to the home page' do
       delete :destroy
       expect(response).to redirect_to root_url
     end
   end
-
 end
