@@ -1,7 +1,7 @@
 module DataAndParamsAttachable
   extend ActiveSupport::Concern
 
-  DEFAULT_PARAMS_FILE = 'https://s3-us-west-2.amazonaws.com/isostamp-production/default_config.txt?X-Amz-Date=20160715T002440Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=c0a3cf4bc620503b318525e0bfd9c719bb37db7b73adcea58a15cf0be3ffd48d&X-Amz-Credential=ASIAI6LCNMN5CLX56TVA/20160715/us-west-2/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEID//////////wEaDFqvAJVuRdE0FSL6FiLHAeUbUa0Lz5Dz0LTZdM8Xq6rZUyWHtSeaZYjmVRanRim6VX08G1LATIr4%2BhSk/xsUrd8FWU/fHGqlfwmhDawCVLZoFnlCBRTpCQe5bvLVFPanHhhu1D3f8sIQFA0XRiD6OiEmcXv0p3M7eGxFa3qoXJx%2BIXDuBRucskyIVfBU%2BVDYPs5ItE3HG3RRM9O0MkDUoh8aHxYaR5grKeu1z9O77%2B/WNjTqgscCc7gTjTDYkK/eVyd%2BB%2Bv2X/61MrNkF/W55M5hVNcOdL8okaWgvAU%3D'
+  DEFAULT_PARAMS_FILE = 'https://s3-us-west-2.amazonaws.com/isostamp-production/default_config.txt?X-Amz-Date=20160715T002440Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=c0a3cf4bc620503b318525e0bfd9c719bb37db7b73adcea58a15cf0be3ffd48d&X-Amz-Credential=ASIAI6LCNMN5CLX56TVA/20160715/us-west-2/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEID//////////wEaDFqvAJVuRdE0FSL6FiLHAeUbUa0Lz5Dz0LTZdM8Xq6rZUyWHtSeaZYjmVRanRim6VX08G1LATIr4%2BhSk/xsUrd8FWU/fHGqlfwmhDawCVLZoFnlCBRTpCQe5bvLVFPanHhhu1D3f8sIQFA0XRiD6OiEmcXv0p3M7eGxFa3qoXJx%2BIXDuBRucskyIVfBU%2BVDYPs5ItE3HG3RRM9O0MkDUoh8aHxYaR5grKeu1z9O77%2B/WNjTqgscCc7gTjTDYkK/eVyd%2BB%2Bv2X/61MrNkF/W55M5hVNcOdL8okaWgvAU%3D'.freeze
 
   # PARAMS
 

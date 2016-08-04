@@ -3,7 +3,7 @@ class Document < ActiveRecord::Base
   DIRECT_UPLOAD_URL_FORMAT = %r{
     \Ahttps\:\/\/#{ENV['AWS_S3_BUCKET']}\.s3-#{ENV['AWS_BUCKET_REGION']}\.amazonaws\.com\/
     (?<path>uploads\/.+\/(?<filename>.+))\z
-  }x.freeze
+  }x
 
   belongs_to :user
   has_attached_file :upload
@@ -34,7 +34,7 @@ class Document < ActiveRecord::Base
     self.upload_updated_at    = direct_upload_head.last_modified
   rescue AWS::S3::Errors::NoSuchKey => e
     tries -= 1
-    if tries > 0
+    if tries.positive?
       sleep(3)
       retry
     else

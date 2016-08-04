@@ -1,6 +1,6 @@
 class DocumentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_ownership!, only: %i(destroy)
+  before_action :check_ownership!, only: %i[destroy]
 
   def index
     @documents = current_user.documents

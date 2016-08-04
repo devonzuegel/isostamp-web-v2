@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def disabled(text)
-    content_tag :i, :class => 'grey' do
+    content_tag :i, class: 'grey' do
       text
     end
   end
@@ -16,8 +16,8 @@ module ApplicationHelper
 
   def document_link(url, filename = url)
     link_to url do
-      content_tag(:i, '', :class => 'fa fa-file-text right-spacer') +
-      filename
+      content_tag(:i, '', class: 'fa fa-file-text right-spacer') +
+        filename
     end
   end
 end

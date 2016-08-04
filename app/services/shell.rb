@@ -18,14 +18,16 @@ class Shell
 
     stdout.each_line do |line|
       output << line
-      print line.light_green if logger
+      next unless logger
+      print line.light_green
     end
 
     successful = true
     stderr.each_line do |line|
       error << line
       print line.light_magenta if logger
-      successful = false if !line.blank?
+      next if line.blank?
+      successful = false
     end
 
     @commands += [cmd]

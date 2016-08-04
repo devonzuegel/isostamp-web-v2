@@ -46,7 +46,7 @@ module Tagfinder
 
     def successful?(response)
       return false if response['history'].nil?
-      response['history'].map { |output| output['status'] }.reduce(&:|) == 0
+      response['history'].map { |output| output['status'] }.reduce(&:|).zero?
     end
 
     def execution_params

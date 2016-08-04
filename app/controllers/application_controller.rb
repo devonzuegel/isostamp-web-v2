@@ -8,11 +8,9 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    begin
-      @current_user ||= User.find(session[:user_id]) if session[:user_id]
-    rescue Exception => e
-      nil
-    end
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  rescue Exception => e
+    nil
   end
 
   def user_signed_in?
@@ -27,7 +25,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
-    if !current_user
+    unless current_user
       redirect_to root_url, alert: 'You need to sign in for access to this page.'
     end
   end

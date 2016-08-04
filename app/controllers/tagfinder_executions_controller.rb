@@ -7,16 +7,16 @@ class TagfinderExecutionsController < ApplicationController
 
   def update
     case @tagfinder_execution.success
-      when false
-        @tagfinder_execution.log("Rerunning execution ##{@tagfinder_execution.id}")
-        @tagfinder_execution.log("Resetting # of attempts (was #{@tagfinder_execution.num_attempts})")
-        @tagfinder_execution.update_attributes(num_attempts: 0)
-        RunExecution.enqueue(@tagfinder_execution.id)
-        redirect_to @tagfinder_execution, notice: "Execution ##{@tagfinder_execution.id} is being rerun."
-      when true
-        redirect_to @tagfinder_execution, alert: "Execution ##{@tagfinder_execution.id} has already succeeded."
-      else
-        redirect_to @tagfinder_execution, alert: "Execution ##{@tagfinder_execution.id} is already running. We will email you when its results are ready."
+    when false
+      @tagfinder_execution.log("Rerunning execution ##{@tagfinder_execution.id}")
+      @tagfinder_execution.log("Resetting # of attempts (was #{@tagfinder_execution.num_attempts})")
+      @tagfinder_execution.update_attributes(num_attempts: 0)
+      RunExecution.enqueue(@tagfinder_execution.id)
+      redirect_to @tagfinder_execution, notice: "Execution ##{@tagfinder_execution.id} is being rerun."
+    when true
+      redirect_to @tagfinder_execution, alert: "Execution ##{@tagfinder_execution.id} has already succeeded."
+    else
+      redirect_to @tagfinder_execution, alert: "Execution ##{@tagfinder_execution.id} is already running. We will email you when its results are ready."
     end
   end
 
@@ -32,7 +32,7 @@ class TagfinderExecutionsController < ApplicationController
     if @execution.valid?
       RunExecution.enqueue(@execution.id)
       redirect_to tagfinder_executions_path,
-        notice: "Tagfinder execution was successfully created. We will email you at #{current_user.email} when the results are ready."
+                  notice: "Tagfinder execution was successfully created. We will email you at #{current_user.email} when the results are ready."
     else
       redirect_to :back, errors: @execution.errors
     end
@@ -47,26 +47,27 @@ class TagfinderExecutionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tagfinder_execution
-      @tagfinder_execution = TagfinderExecution.find(params[:id]).decorate
-      unless current_user == @tagfinder_execution.user || current_user.admin?
-        redirect_to root_url, alert: 'You need to sign in for access to this page.'
-      end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_tagfinder_execution
+    @tagfinder_execution = TagfinderExecution.find(params[:id]).decorate
+    unless current_user == @tagfinder_execution.user || current_user.admin?
+      redirect_to root_url, alert: 'You need to sign in for access to this page.'
+    end
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def tagfinder_execution_params
+    filtered = params.require(:tagfinder_execution).permit(:user_id, :data_file_id, :params_file_id, :email_sent, :success)
+
+    filtered['data_file_id'] = filtered['data_file_id'].to_i
+
+    if filtered['params_file_id'] == 'on'
+      filtered.delete('params_file_id')
+    else
+      filtered['params_file_id'] = filtered['params_file_id'].to_i
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def tagfinder_execution_params
-      filtered = params.require(:tagfinder_execution).permit(:user_id, :data_file_id, :params_file_id, :email_sent, :success)
-
-      filtered['data_file_id'] = filtered['data_file_id'].to_i
-
-      if filtered['params_file_id'] == 'on'
-        filtered.delete('params_file_id')
-      else
-        filtered['params_file_id'] = filtered['params_file_id'].to_i
-      end
-
-      filtered
-    end
+    filtered
+  end
 end

@@ -22,10 +22,10 @@ class TagfinderResultMailer < ApplicationMailer
 
   def message_params
     {
-      from:       ENV['EMAIL_SENDER'],
-      to:         user.email,
-      subject:    subject,
-      html:       html_template
+      from:    ENV['EMAIL_SENDER'],
+      to:      user.email,
+      subject: subject,
+      html:    html_template
     }
   end
 
@@ -36,10 +36,10 @@ class TagfinderResultMailer < ApplicationMailer
   end
 
   def subject
-    time_str  = Time.now.strftime("%h %d %H:%M:%S")
+    time_str = Time.now.strftime('%h %d %H:%M:%S')
     result = @tagfinder_execution.successful? ? 'succeeded!' : 'failed'
     base = "Isostamp results: #{data_file.upload_file_name} #{result} (#{time_str})"
-    ENV['ENV'] == 'production' ?  base : "[#{ENV['ENV'].upcase}] #{base}"
+    ENV['ENV'] == 'production' ? base : "[#{ENV['ENV'].upcase}] #{base}"
   end
 
   def mg_client
@@ -51,7 +51,7 @@ class TagfinderResultMailer < ApplicationMailer
   end
 
   def html_template
-    render_to_string(template: "../views/tagfinder_result_mailer/sample_email").to_str
+    render_to_string(template: '../views/tagfinder_result_mailer/sample_email').to_str
   end
 
   def user

@@ -19,7 +19,7 @@ class AdminController < ApplicationController
   def cumulative_data(data, order = 'week asc')
     sum = 0
     data.order(order)
-        .count.map { |x,y| { x => (sum += y)} }
-        .reduce({}, :merge)
+      .count.map { |x, y| { x => (sum += y) } }
+      .reduce({}, :merge)
   end
 end

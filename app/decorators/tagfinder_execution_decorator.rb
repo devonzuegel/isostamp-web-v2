@@ -6,22 +6,24 @@ class TagfinderExecutionDecorator < Draper::Decorator
   end
 
   def metadata
-    [{
-      label:   'Created at',
-      value:   created_at
-    }, {
-      label:   'Status',
-      value:   status
-    }, {
-      label:   'Owner',
-      value:   h.link_to(user.name, "mailto:#{user.email}")
-    }, {
-      label:   'Email sent',
-      value:   email_sent_info
-    }, {
-      label:   'Attempts',
-      value:   num_attempts
-    }]
+    [
+      {
+        label: 'Created at',
+        value: created_at
+      }, {
+        label: 'Status',
+        value: status
+      }, {
+        label: 'Owner',
+        value: h.link_to(user.name, "mailto:#{user.email}")
+      }, {
+        label: 'Email sent',
+        value: email_sent_info
+      }, {
+        label: 'Attempts',
+        value: num_attempts
+      }
+    ]
   end
 
   def data_file_info
@@ -29,8 +31,8 @@ class TagfinderExecutionDecorator < Draper::Decorator
       h.disabled 'File has been removed'
     else
       h.link_to data_file.direct_upload_url do
-        h.content_tag(:i, '', :class => 'fa fa-file-code-o right-spacer') +
-        data_file.upload_file_name
+        h.content_tag(:i, '', class: 'fa fa-file-code-o right-spacer') +
+          data_file.upload_file_name
       end
     end
   end
@@ -49,8 +51,8 @@ class TagfinderExecutionDecorator < Draper::Decorator
       h.disabled 'File has been removed'
     else
       h.link_to params_file.direct_upload_url do
-        h.content_tag(:i, '', :class => 'fa fa-file-text right-spacer') +
-        params_file.upload_file_name
+        h.content_tag(:i, '', class: 'fa fa-file-text right-spacer') +
+          params_file.upload_file_name
       end
     end
   end
@@ -65,9 +67,9 @@ class TagfinderExecutionDecorator < Draper::Decorator
 
   def status
     case success
-      when nil   then h.content_tag(:div, 'Still running...', :class => 'label label-info')
-      when true  then h.content_tag(:div, 'Success!',         :class => 'label label-success')
-      when false then h.content_tag(:div, 'Failure',          :class => 'label label-danger')
+    when nil   then h.content_tag(:div, 'Still running...', class: 'label label-info')
+    when true  then h.content_tag(:div, 'Success!',         class: 'label label-success')
+    when false then h.content_tag(:div, 'Failure',          class: 'label label-danger')
     end
   end
 
@@ -75,9 +77,9 @@ class TagfinderExecutionDecorator < Draper::Decorator
     object.results_files.map do |file|
       if file.direct_upload_url.nil?
         h.content_tag :div, [
-          h.disabled(h.content_tag(:i, '', :class => 'fa fa-file-text right-spacer')),
+          h.disabled(h.content_tag(:i, '', class: 'fa fa-file-text right-spacer')),
           h.disabled(file.filename),
-          h.content_tag(:div, 'Processing...', :class => 'label label-info margin-left')
+          h.content_tag(:div, 'Processing...', class: 'label label-info margin-left')
         ].join.html_safe
       else
         h.document_link(file.direct_upload_url, file.filename)

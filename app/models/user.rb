@@ -15,9 +15,8 @@ class User < ActiveRecord::Base
       end
 
       if user.name =~ /Christina/ || user.name =~ /Byrd/ || user.name =~ /Devon/
-        user.admin    = true
+        user.admin = true
       end
     end
   end
-
 end
