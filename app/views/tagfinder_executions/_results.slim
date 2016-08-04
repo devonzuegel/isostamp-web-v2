@@ -9,16 +9,16 @@
           - col.each do |file|
             tr: td= file
 
-.spacer
-h3 Outputs
-.spacer
+/ .spacer
+/ h3 Outputs
+/ .spacer
 
-- tagfinder_execution.stdouts_list.each do |out|
-  = render 'tagfinder_executions/read_more_toggle', text: out
+/ - tagfinder_execution.stdouts_list.each do |out|
+/   = render 'tagfinder_executions/read_more_toggle', text: out
 
-.spacer
-h3 Errors
-.spacer
+/ .spacer
+/ h3 Errors
+/ .spacer
 
-- tagfinder_execution.stderrs_list.each do |err|
-  = render 'tagfinder_executions/read_more_toggle', text: err, classes: 'errors'
+/ - tagfinder_execution.stderrs_list.each do |err|
+/   = render 'tagfinder_executions/read_more_toggle', text: err, classes: 'errors'

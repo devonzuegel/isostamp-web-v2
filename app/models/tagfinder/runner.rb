@@ -20,7 +20,7 @@ module Tagfinder
       return unless successful?(response)
       response.fetch('results_urls').each do |url|
         ResultsFile.create!(
-          filename:            File.basename(url),
+          filename:            File.basename(url)[37, -1],
           direct_upload_url:   url,
           tagfinder_execution: execution
         )

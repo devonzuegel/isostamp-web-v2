@@ -1,6 +1,6 @@
 h1.tagfinder-execution-info= @tagfinder_execution.data_file.upload_file_name
 
-- if @tagfinder_execution.success == false
+- unless @tagfinder_execution.successful?
   = link_to tagfinder_execution_path(@tagfinder_execution), method: :put
     button.btn.btn-primary.btn-lg Rerun execution
 
@@ -10,11 +10,9 @@ br
 
 == render 'inputs', tagfinder_execution: @tagfinder_execution
 
-- unless @tagfinder_execution.stdouts.nil?
+br
 
-  br
-
-  == render 'results', tagfinder_execution: @tagfinder_execution
+== render 'results', tagfinder_execution: @tagfinder_execution
 
 br
 
