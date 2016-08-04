@@ -8,6 +8,9 @@ class TagfinderExecutionsController < ApplicationController
   def update
     case @tagfinder_execution.success
       when false
+        @tagfinder_execution.log("Rerunning execution ##{@tagfinder_execution.id}")
+        @tagfinder_execution.log("Resetting # of attempts (was #{@tagfinder_execution.num_attempts})")
+        @tagfinder_execution.update_attributes(num_attempts: 0)
         RunExecution.enqueue(@tagfinder_execution.id)
         redirect_to @tagfinder_execution, notice: "Execution ##{@tagfinder_execution.id} is being rerun."
       when true
