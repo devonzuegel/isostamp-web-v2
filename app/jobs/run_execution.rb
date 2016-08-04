@@ -16,9 +16,10 @@ class RunExecution < Que::Job
       end
 
       execution.run
-      execution.log("Sending email for #{te_id}...")
-      SendResultsEmail.enqueue(te_id, run_at: 10.seconds.from_now)
     end
+
+    execution.log("Sending email for #{te_id}...")
+    SendResultsEmail.enqueue(te_id, run_at: 10.seconds.from_now)
     destroy
   end
 end

@@ -1,6 +1,6 @@
 h1.tagfinder-execution-info= @tagfinder_execution.data_file.upload_file_name
 
-- unless @tagfinder_execution.successful?
+- if @tagfinder_execution.success == false
   = link_to tagfinder_execution_path(@tagfinder_execution), method: :put
     button.btn.btn-primary.btn-lg Rerun execution
 
