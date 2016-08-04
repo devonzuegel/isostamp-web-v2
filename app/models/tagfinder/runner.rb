@@ -20,7 +20,7 @@ module Tagfinder
       return unless successful?(response)
       response.fetch('results_urls').each do |url|
         ResultsFile.create!(
-          filename:            File.basename(url)[37, -1],
+          filename:            File.basename(url)[37..-1],
           direct_upload_url:   url,
           tagfinder_execution: execution
         )
@@ -31,9 +31,15 @@ module Tagfinder
       logged = { tagfinder_execution: execution }
       execution.update_attributes(success: successful?(response))
 
+      puts 'history:'.black
+      ap response['history']
+      puts 'successful?:'.black
+      puts successful?(response)
+
       if successful?(response)
         response.fetch('history').each { |h| HistoryOutput.create!(logged.merge(h)) }
       else
+        response.fetch('history').each { |h| HistoryOutput.create!(logged.merge(h)) }
         execution.log(response['error'])
       end
     end
