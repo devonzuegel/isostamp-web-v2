@@ -1,5 +1,5 @@
 class RunExecution < Que::Job
-  MAX_NUM_ATTEMPTS = 5
+  MAX_NUM_ATTEMPTS = 2
   @retry_interval  = 5
 
   def run(te_id)
