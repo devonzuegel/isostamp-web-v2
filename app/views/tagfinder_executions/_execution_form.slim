@@ -25,8 +25,14 @@
 
   .col-sm-12
     .spacer.large
+    #flash-messages: .alert class="alert-info"
+      = 'Please note that it can take quite some time for Isostamp to finish. '
+      b We will email you when the results are ready.
+
+    .spacer.large
     .aligncenter
       = submit_tag 'Run Isostamp', :class => 'button btn btn-lg btn-primary', disabled: true
+
 
 javascript:
   $("#data_file").change(function(e){
