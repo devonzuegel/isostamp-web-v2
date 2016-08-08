@@ -1,5 +1,4 @@
 $(function() {
-
   $('#s3_uploader').S3Uploader({
     allow_multiple_files:           false,
     progress_bar_target:            $('#uploads-progress-bar'),

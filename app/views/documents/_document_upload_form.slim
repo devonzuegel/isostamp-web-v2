@@ -1,3 +1,14 @@
+== javascript_include_tag 'documents'
+
+<script id='template-upload' type='text/x-tmpl'>
+  <div id="upload_{%=o.unique_id%}" class='upload'>
+    <h3>Uploading {%=o.name%}...</h3>
+    <div class='progress active'>
+      <div class='bar' role='progressbar' style='width: 0%'></div>
+    </div>
+  </div>
+</script>
+
 p
   = 'Please use the '
   a(href='http://tools.proteomecenter.org/wiki/index.php?title=Formats:mzXML') mzXML
@@ -21,12 +32,3 @@ p
         = submit_tag 'Begin upload', id: 'submit-upload'
 
 .overlay#uploads-progress: #uploads-progress-bar
-
-<script id='template-upload' type='text/x-tmpl'>
-  <div id="upload_{%=o.unique_id%}" class='upload'>
-    <h3>Uploading {%=o.name%}...</h3>
-    <div class='progress active'>
-      <div class='bar' role='progressbar' style='width: 0%'></div>
-    </div>
-  </div>
-</script>
