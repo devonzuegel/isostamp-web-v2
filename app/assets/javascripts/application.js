@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require s3_direct_upload
-//= require_tree .
+//= require email_address_verification
+//= require google_analytics
