@@ -35,8 +35,9 @@ isostamp relies upon Heroku's deployment pipeline. The structure is as follows:
 
 1. [Setup Ruby on Rails on your computer.](https://gorails.com/setup/osx/10.10-yosemite)
 2. In your terminal, navigate to the directory in which you'd like to store this repository: `$ cd ~/path/to/parent/dir`. Then, run `$ git clone https://github.com/devonzuegel/isostamp-web-v2.git`.
-3. In `~/path/to/parent/dir/isostamp-web-v2`, run `$ bundle install` to install the required Ruby gems.
-4. Run `$ guard` to start the server and continuous testing.
+3. Run `$ bundle install`
+4. In `~/path/to/parent/dir/isostamp-web-v2`, run `$ bundle install` to install the required Ruby gems.
+5. Run `$ guard` to start the server and continuous testing.
 
 ## Contact ##
 
